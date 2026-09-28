@@ -182,9 +182,14 @@ def fetch_fundamentals(item):
     fcf_yield = (fcf / market_cap) if fcf is not None and market_cap else None
 
     growth_df = None
+    earnings_df = None
     revenue_df = None
     try:
         growth_df = t.growth_estimates
+    except Exception:
+        pass
+    try:
+        earnings_df = t.earnings_estimate
     except Exception:
         pass
     try:
@@ -192,7 +197,10 @@ def fetch_fundamentals(item):
     except Exception:
         pass
 
-    eps_growth_1y = dataframe_value(growth_df, "+1y", "stock")
+    # Prefer the explicit analyst +1y EPS growth field when available.
+    eps_growth_1y = dataframe_value(earnings_df, "+1y", "growth")
+    if eps_growth_1y is None:
+        eps_growth_1y = dataframe_value(growth_df, "+1y", "stock")
     if eps_growth_1y is None:
         eps_growth_1y = n(info.get("earningsGrowth"))
 
@@ -246,9 +254,20 @@ def fetch_fundamentals(item):
 
     funding_rate, funding_annualized = get_funding(item["inst_id"])
 
+    # WATCH still requires a clear valuation-vs-growth mismatch.
+    # This deliberately excludes expensive companies whose earnings are
+    # expected to grow fast enough to keep PEG low.
+    watch = (
+        forward_pe is not None
+        and forward_pe > 40
+        and eps_growth_1y is not None
+        and eps_growth_1y < 0.25
+        and (peg_1y is None or peg_1y > 2.0)
+    )
+
     if core:
         signal = "CORE"
-    elif score >= 60:
+    elif watch:
         signal = "WATCH"
     else:
         signal = "NO SIGNAL"
@@ -369,7 +388,7 @@ def write_report(rows, universe_count, timestamp):
         "## Interpretation",
         "",
         "- **CORE** = satisfies the three central valuation-vs-growth conditions.",
-        "- **WATCH** = strong supporting overvaluation signals but misses at least one central condition.",
+        "- **WATCH** = forward P/E > 40, expected EPS growth < 25%, plus PEG > 2 when calculable; it narrowly misses CORE.",
         "- This is a research screen, not a prediction that the stock will fall.",
         "- The scanner does not place trades or choose leverage.",
         "",
