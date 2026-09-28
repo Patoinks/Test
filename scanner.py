@@ -24,7 +24,26 @@ YAHOO_MAP = {
     "HANMI": "042700.KS",
     "SOFTBANK": "9984.T",
     "ZHONGJI": "300308.SZ",
+    "KIOXIA": "285A.T",
+    "POPMART": "9992.HK",
+    "XIAOMI": "1810.HK",
 }
+
+# Current OKX Europe TradFi universe fallback.
+# Core list comes from OKX's Delta-Neutral FAQ (updated 2026-09-01),
+# with later September equity-perp listings added from official OKX announcements.
+# ETFs/private/non-equity assets are harmless here: fetch_fundamentals() keeps
+# only Yahoo quoteType == EQUITY with a valid market cap.
+FALLBACK_OKX_SYMBOLS = sorted(set("""
+AAPL AMD AMZN AVGO CRCL EWY GOOGL INTC IWM LITE META MRVL MSFT MSTR MU NVDA
+QQQ SKHY SNDK SPCX SPY TSLA TSM ASTS BMNR COIN DELL HOOD IBM IREN LLY NFLX
+ORCL PLTR USAR ADBE AMAT ASML CRWD CSCO GEV GME HIMS ONDS TER VRT XLE AAOI
+ALAB APP ARM BE BSP CBRS COHR CRWV NBIS ON RKLB SHAZ SMCI TWLO CIEN CRM DKNG
+HPE KO LRCX NOW POPMART RDDT SMH SNOW TTWO XIAOMI APLD BOT BX ISRG OKTA RIVN
+UNH WDC ZM GLW JNJ KLAC QCOM ROK STRC
+INTC PANW BB RDW LUNR CRDO FLNC CGNX WEN TSEM KIOXIA XOM AMC GPRO
+LGELECTRONICS NAVER HANMI ZHONGJI SOFTBANK
+""".split()))
 
 REPORT_DIR = Path("reports")
 DATA_DIR = Path("data")
@@ -89,9 +108,20 @@ def discover_okx_stock_perps():
                 "max_leverage": n(item.get("lever")),
             }
         )
-    if not out:
-        raise RuntimeError("No OKX stock/RWA perpetuals discovered. API grouping may have changed.")
-    return out
+    if out:
+        return out
+
+    # Some public OKX endpoints omit the RWA fee-group catalogue depending on
+    # region/IP. Fall back to the current official OKX Europe TradFi universe.
+    print("WARN: OKX public catalogue did not expose RWA groups; using official fallback universe.")
+    return [
+        {
+            "okx_symbol": symbol,
+            "inst_id": f"{symbol}-USDT-SWAP",
+            "max_leverage": 5.0,
+        }
+        for symbol in FALLBACK_OKX_SYMBOLS
+    ]
 
 
 def get_funding(inst_id):
