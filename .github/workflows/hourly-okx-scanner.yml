@@ -34,7 +34,7 @@ jobs:
 
       - name: Run scanner
         env:
-          OKX_BASE_URL: https://eea.okx.com
+          OKX_BASE_URL: https://www.okx.com
           MAX_WORKERS: "6"
         run: python scanner.py
 
