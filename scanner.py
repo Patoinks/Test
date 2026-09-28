@@ -27,6 +27,7 @@ YAHOO_MAP = {
     "KIOXIA": "285A.T",
     "POPMART": "9992.HK",
     "XIAOMI": "1810.HK",
+    "SKHY": "000660.KS",
 }
 
 # Current OKX Europe TradFi universe fallback.
@@ -180,6 +181,9 @@ def fetch_fundamentals(item):
     forward_pe = n(info.get("forwardPE"))
     fcf = n(info.get("freeCashflow"))
     fcf_yield = (fcf / market_cap) if fcf is not None and market_cap else None
+    # Guard against currency/unit mismatches in synthetic/foreign quote feeds.
+    if fcf_yield is not None and abs(fcf_yield) > 1.0:
+        fcf_yield = None
 
     growth_df = None
     earnings_df = None
