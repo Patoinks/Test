@@ -214,36 +214,45 @@ def fetch_fundamentals(item):
         and revenue_growth_1y is not None
         and revenue_growth_1y < revenue_growth_0y
     )
+    revenue_accelerating = (
+        revenue_growth_0y is not None
+        and revenue_growth_1y is not None
+        and revenue_growth_1y > revenue_growth_0y
+    )
 
-    # Our PEG: forward P/E divided by expected EPS growth percentage.
+    # Our core ratio: forward P/E divided by expected EPS growth percentage.
     peg_1y = None
     if forward_pe is not None and eps_growth_1y is not None and eps_growth_1y > 0:
         peg_1y = forward_pe / (eps_growth_1y * 100.0)
 
-    # Transparent 0-100 score based on the rules from the discussion.
-    score = 0
-    reasons = []
+    # SHORT score: expensive valuation relative to expected growth.
+    short_score = 0
+    short_reasons = []
 
     if forward_pe is not None and forward_pe > 40:
-        score += 25
-        reasons.append("Forward P/E > 40")
+        short_score += 25
+        short_reasons.append("Forward P/E > 40")
     if trailing_pe is not None and trailing_pe > 40:
-        score += 15
-        reasons.append("Trailing P/E > 40")
+        short_score += 15
+        short_reasons.append("Trailing P/E > 40")
     if peg_1y is not None and peg_1y > 2.5:
-        score += 20
-        reasons.append("PEG(1y) > 2.5")
+        short_score += 20
+        short_reasons.append("Ratio/PEG > 2.5")
     if eps_growth_1y is not None and eps_growth_1y < 0.20:
-        score += 20
-        reasons.append("EPS growth < 20%")
+        short_score += 20
+        short_reasons.append("EPS growth < 20%")
     if fcf_yield is not None and fcf_yield < 0.025:
-        score += 10
-        reasons.append("FCF yield < 2.5%")
+        short_score += 10
+        short_reasons.append("FCF yield < 2.5%")
     if revenue_decelerating:
-        score += 10
-        reasons.append("Revenue growth decelerating")
+        short_score += 10
+        short_reasons.append("Revenue growth decelerating")
+    if revenue_accelerating:
+        short_score -= 10
+        short_reasons.append("Penalty: revenue growth accelerating")
+    short_score = max(0, min(100, short_score))
 
-    core = (
+    short_core = (
         forward_pe is not None
         and forward_pe > 40
         and peg_1y is not None
@@ -251,13 +260,7 @@ def fetch_fundamentals(item):
         and eps_growth_1y is not None
         and eps_growth_1y < 0.20
     )
-
-    funding_rate, funding_annualized = get_funding(item["inst_id"])
-
-    # WATCH still requires a clear valuation-vs-growth mismatch.
-    # This deliberately excludes expensive companies whose earnings are
-    # expected to grow fast enough to keep PEG low.
-    watch = (
+    short_watch = (
         forward_pe is not None
         and forward_pe > 40
         and eps_growth_1y is not None
@@ -265,12 +268,112 @@ def fetch_fundamentals(item):
         and (peg_1y is None or peg_1y > 2.0)
     )
 
-    if core:
-        signal = "CORE"
-    elif watch:
-        signal = "WATCH"
+    if short_core:
+        short_signal = "CORE"
+    elif short_watch:
+        short_signal = "WATCH"
     else:
-        signal = "NO SIGNAL"
+        short_signal = "—"
+
+    # LONG score: reasonable valuation + strong expected growth + cash generation.
+    # It is deliberately the mirror image of the short thesis, not a buy order.
+    long_score = 0
+    long_reasons = []
+
+    if forward_pe is not None and forward_pe > 0:
+        if forward_pe <= 20:
+            long_score += 20
+            long_reasons.append("Forward P/E <= 20")
+        elif forward_pe <= 30:
+            long_score += 12
+            long_reasons.append("Forward P/E <= 30")
+        elif forward_pe <= 40:
+            long_score += 5
+            long_reasons.append("Forward P/E <= 40")
+
+    if peg_1y is not None and peg_1y > 0:
+        if peg_1y <= 1.0:
+            long_score += 30
+            long_reasons.append("Ratio/PEG <= 1.0")
+        elif peg_1y <= 1.5:
+            long_score += 20
+            long_reasons.append("Ratio/PEG <= 1.5")
+        elif peg_1y <= 2.0:
+            long_score += 8
+            long_reasons.append("Ratio/PEG <= 2.0")
+
+    if eps_growth_1y is not None:
+        if eps_growth_1y >= 0.25:
+            long_score += 20
+            long_reasons.append("EPS growth >= 25%")
+        elif eps_growth_1y >= 0.15:
+            long_score += 12
+            long_reasons.append("EPS growth >= 15%")
+        elif eps_growth_1y < 0:
+            long_score -= 15
+            long_reasons.append("Penalty: EPS shrinking")
+
+    if fcf_yield is not None:
+        if fcf_yield >= 0.04:
+            long_score += 15
+            long_reasons.append("FCF yield >= 4%")
+        elif fcf_yield >= 0.025:
+            long_score += 8
+            long_reasons.append("FCF yield >= 2.5%")
+        elif fcf_yield < 0:
+            long_score -= 15
+            long_reasons.append("Penalty: negative FCF")
+
+    if revenue_growth_1y is not None:
+        if revenue_growth_1y >= 0.15:
+            long_score += 10
+            long_reasons.append("Revenue growth >= 15%")
+        elif revenue_growth_1y >= 0.08:
+            long_score += 5
+            long_reasons.append("Revenue growth >= 8%")
+        elif revenue_growth_1y < 0:
+            long_score -= 10
+            long_reasons.append("Penalty: revenue shrinking")
+
+    if revenue_accelerating:
+        long_score += 5
+        long_reasons.append("Revenue growth accelerating")
+    elif revenue_decelerating:
+        long_score -= 5
+        long_reasons.append("Penalty: revenue growth decelerating")
+
+    long_score = max(0, min(100, long_score))
+
+    long_core = (
+        forward_pe is not None
+        and 0 < forward_pe <= 35
+        and peg_1y is not None
+        and 0 < peg_1y <= 1.5
+        and eps_growth_1y is not None
+        and eps_growth_1y >= 0.15
+        and revenue_growth_1y is not None
+        and revenue_growth_1y >= 0.08
+        and fcf_yield is not None
+        and fcf_yield >= 0.025
+    )
+    long_watch = (
+        long_score >= 55
+        and forward_pe is not None
+        and forward_pe > 0
+        and peg_1y is not None
+        and 0 < peg_1y <= 2.0
+        and eps_growth_1y is not None
+        and eps_growth_1y >= 0.10
+    )
+
+    if long_core:
+        long_signal = "CORE"
+    elif long_watch:
+        long_signal = "WATCH"
+    else:
+        long_signal = "—"
+
+    funding_rate, funding_annualized = get_funding(item["inst_id"])
 
     return {
         "okx_symbol": okx_symbol,
@@ -288,11 +391,19 @@ def fetch_fundamentals(item):
         "revenue_growth_0y": revenue_growth_0y,
         "revenue_growth_1y": revenue_growth_1y,
         "revenue_decelerating": revenue_decelerating,
+        "revenue_accelerating": revenue_accelerating,
         "funding_rate": funding_rate,
         "funding_annualized": funding_annualized,
-        "score": score,
-        "signal": signal,
-        "reasons": "; ".join(reasons),
+        "short_score": short_score,
+        "short_signal": short_signal,
+        "short_reasons": "; ".join(short_reasons),
+        "long_score": long_score,
+        "long_signal": long_signal,
+        "long_reasons": "; ".join(long_reasons),
+        # Backward-compatible aliases for existing consumers.
+        "score": short_score,
+        "signal": short_signal,
+        "reasons": "; ".join(short_reasons),
     }
 
 
@@ -304,9 +415,8 @@ def write_latest_csv(rows):
     pd.DataFrame(rows).to_csv(path, index=False)
 
 
-def append_core_history(rows, timestamp):
-    core_rows = [r for r in rows if r["signal"] == "CORE"]
-    if not core_rows:
+def append_history(rows, timestamp):
+    if not rows:
         return
 
     path = DATA_DIR / "history.csv"
@@ -315,21 +425,27 @@ def append_core_history(rows, timestamp):
         "okx_symbol",
         "company",
         "inst_id",
-        "score",
+        "price",
+        "market_cap",
         "trailing_pe",
         "forward_pe",
         "eps_growth_1y",
         "peg_1y",
         "fcf_yield",
+        "revenue_growth_0y",
         "revenue_growth_1y",
         "funding_annualized",
+        "short_score",
+        "short_signal",
+        "long_score",
+        "long_signal",
     ]
     exists = path.exists()
     with path.open("a", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         if not exists:
             w.writeheader()
-        for row in core_rows:
+        for row in rows:
             w.writerow(
                 {
                     "timestamp_utc": timestamp,
@@ -338,64 +454,132 @@ def append_core_history(rows, timestamp):
             )
 
 
-def write_report(rows, universe_count, timestamp):
-    ranked = sorted(
+def full_table_lines(rows):
+    ordered = sorted(
         rows,
-        key=lambda r: (r["score"], r["forward_pe"] or -1),
+        key=lambda r: (max(r["long_score"], r["short_score"]), r["long_score"]),
         reverse=True,
     )
-    candidates = [r for r in ranked if r["signal"] != "NO SIGNAL"][:25]
+    lines = [
+        "| Company | OKX | Our ratio | Fwd P/E | Trail P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT | Funding ann. |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for r in ordered:
+        long_label = f"{r['long_score']} {r['long_signal']}" if r["long_signal"] != "—" else str(r["long_score"])
+        short_label = f"{r['short_score']} {r['short_signal']}" if r["short_signal"] != "—" else str(r["short_score"])
+        lines.append(
+            f"| {r['company']} | `{r['okx_symbol']}` | {fmt_num(r['peg_1y'], 2)} | "
+            f"{fmt_num(r['forward_pe'])} | {fmt_num(r['trailing_pe'])} | "
+            f"{fmt_pct(r['eps_growth_1y'])} | {fmt_pct(r['revenue_growth_1y'])} | "
+            f"{fmt_pct(r['fcf_yield'])} | **{long_label}** | **{short_label}** | "
+            f"{fmt_pct(r['funding_annualized'])} |"
+        )
+    return lines
+
+
+def candidate_table(rows, side, limit=15):
+    score_key = f"{side}_score"
+    signal_key = f"{side}_signal"
+    ranked = sorted(rows, key=lambda r: (r[score_key], r["peg_1y"] or 9999), reverse=True)
+    candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
 
     lines = [
-        "# OKX Overvaluation Scanner",
+        f"| Rank | Company | OKX perp | {side.upper()} score | Signal | Our ratio | Fwd P/E | EPS +1y | Rev +1y | FCF yield | Funding ann. |",
+        "|---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for i, r in enumerate(candidates, 1):
+        lines.append(
+            f"| {i} | {r['company']} | `{r['inst_id']}` | **{r[score_key]}** | "
+            f"**{r[signal_key]}** | {fmt_num(r['peg_1y'], 2)} | {fmt_num(r['forward_pe'])} | "
+            f"{fmt_pct(r['eps_growth_1y'])} | {fmt_pct(r['revenue_growth_1y'])} | "
+            f"{fmt_pct(r['fcf_yield'])} | {fmt_pct(r['funding_annualized'])} |"
+        )
+    if not candidates:
+        lines.append("| — | No candidates | — | — | — | — | — | — | — | — | — |")
+    return lines
+
+
+def write_report(rows, universe_count, timestamp):
+    lines = [
+        "# OKX Long / Short Fundamental Scanner",
         "",
         f"**Updated:** {timestamp}",
         f"**OKX stock/RWA perps discovered:** {universe_count}",
         f"**Public companies with usable fundamentals:** {len(rows)}",
-        f"**CORE candidates:** {sum(r['signal'] == 'CORE' for r in rows)}",
         "",
-        "CORE rule: **Forward P/E > 40 + PEG(1y) > 2.5 + expected EPS growth next year < 20%**.",
+        "## Top SHORT candidates",
         "",
-        "> Positive funding is generally favorable carry for a short; negative funding means the short generally pays. Funding is annualized mechanically from the current interval and can change quickly.",
+        *candidate_table(rows, "short"),
         "",
+        "## Top LONG candidates",
+        "",
+        *candidate_table(rows, "long"),
+        "",
+        "## All companies",
+        "",
+        *full_table_lines(rows),
+        "",
+        "The scanner is a research ranking, not a trade instruction. Funding is a live carry input and can change rapidly.",
     ]
-
-    if not candidates:
-        lines += ["No CORE/WATCH candidates in the current scan.", ""]
-    else:
-        lines += [
-            "| Rank | Signal | Company | OKX perp | Score | Trail P/E | Fwd P/E | EPS +1y | PEG 1y | FCF yield | Rev +1y | Funding ann. |",
-            "|---:|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
-        ]
-        for i, r in enumerate(candidates, 1):
-            lines.append(
-                f"| {i} | **{r['signal']}** | {r['company']} | `{r['inst_id']}` | "
-                f"**{r['score']}** | {fmt_num(r['trailing_pe'])} | {fmt_num(r['forward_pe'])} | "
-                f"{fmt_pct(r['eps_growth_1y'])} | {fmt_num(r['peg_1y'], 2)} | "
-                f"{fmt_pct(r['fcf_yield'])} | {fmt_pct(r['revenue_growth_1y'])} | "
-                f"{fmt_pct(r['funding_annualized'])} |"
-            )
-        lines.append("")
-
-    lines += [
-        "## Why each candidate scored",
-        "",
-    ]
-    for r in candidates[:15]:
-        lines.append(f"- **{r['okx_symbol']} ({r['score']}/100):** {r['reasons'] or 'No threshold flags'}")
-    lines += [
-        "",
-        "## Interpretation",
-        "",
-        "- **CORE** = satisfies the three central valuation-vs-growth conditions.",
-        "- **WATCH** = forward P/E > 40, expected EPS growth < 25%, plus PEG > 2 when calculable; it narrowly misses CORE.",
-        "- This is a research screen, not a prediction that the stock will fall.",
-        "- The scanner does not place trades or choose leverage.",
-        "",
-        "Data: OKX EEA public API + Yahoo Finance/yfinance. Analyst estimates and funding can change between runs.",
-    ]
-
     (REPORT_DIR / "latest.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_readme(rows, universe_count, timestamp):
+    short_core = sum(r["short_signal"] == "CORE" for r in rows)
+    long_core = sum(r["long_signal"] == "CORE" for r in rows)
+
+    lines = [
+        "# OKX Long / Short Fundamental Scanner",
+        "",
+        "Hourly scanner restricted to public companies represented in the **OKX TradFi / Stock Perpetual** universe.",
+        "",
+        f"**Last scan:** {timestamp}  ",
+        f"**OKX TradFi/RWA instruments discovered:** {universe_count}  ",
+        f"**Public companies analysed:** {len(rows)}  ",
+        f"**SHORT CORE:** {short_core}  ",
+        f"**LONG CORE:** {long_core}",
+        "",
+        "## Our ratio",
+        "",
+        "**Our ratio = Forward P/E ÷ expected EPS growth (%)**. It is PEG-like: lower can indicate more growth per unit of valuation; very high can indicate expensive valuation relative to expected growth.",
+        "",
+        "### SHORT CORE",
+        "",
+        "`Forward P/E > 40` + `Our ratio > 2.5` + `EPS growth < 20%`.",
+        "",
+        "### LONG CORE",
+        "",
+        "`Forward P/E <= 35` + `Our ratio <= 1.5` + `EPS growth >= 15%` + `Revenue growth >= 8%` + `FCF yield >= 2.5%`.",
+        "",
+        "Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is shown separately because it affects the cost/carry of holding an OKX perpetual.",
+        "",
+        "## Top SHORT candidates",
+        "",
+        *candidate_table(rows, "short", 10),
+        "",
+        "## Top LONG candidates",
+        "",
+        *candidate_table(rows, "long", 10),
+        "",
+        "## All OKX companies — our ratio + LONG/SHORT scores",
+        "",
+        *full_table_lines(rows),
+        "",
+        "## Files",
+        "",
+        "- `scanner.py` — scanner and scoring logic",
+        "- `reports/latest.md` — latest full report",
+        "- `data/latest.csv` — latest machine-readable snapshot",
+        "- `data/history.csv` — hourly history of **all companies** for later backtests",
+        "- `.github/workflows/hourly-okx-scanner.yml` — hourly GitHub Action",
+        "",
+        "## Data",
+        "",
+        "OKX public market data provides the TradFi/perpetual context and funding. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates. Availability can differ by OKX account/jurisdiction.",
+        "",
+        "This is a quantitative research screen, not an automatic trading system. It does not place orders or select leverage.",
+    ]
+    Path("README.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main():
@@ -416,18 +600,28 @@ def main():
             except Exception as exc:
                 print(f"WARN {item['inst_id']}: {exc}")
 
-    rows.sort(key=lambda r: (r["score"], r["forward_pe"] or -1), reverse=True)
+    rows.sort(
+        key=lambda r: (max(r["long_score"], r["short_score"]), r["long_score"]),
+        reverse=True,
+    )
 
     write_latest_csv(rows)
-    append_core_history(rows, timestamp)
+    append_history(rows, timestamp)
     write_report(rows, len(universe), timestamp)
+    write_readme(rows, len(universe), timestamp)
 
     print(f"Scanned {len(rows)} public companies from {len(universe)} OKX TradFi/RWA perps.")
-    for r in rows[:10]:
+    print("Top SHORT:")
+    for r in sorted(rows, key=lambda x: x["short_score"], reverse=True)[:5]:
         print(
-            f"{r['okx_symbol']:>12} score={r['score']:3} signal={r['signal']:<9} "
-            f"fwdPE={fmt_num(r['forward_pe'])} PEG={fmt_num(r['peg_1y'],2)} "
-            f"EPS+1y={fmt_pct(r['eps_growth_1y'])} funding={fmt_pct(r['funding_annualized'])}"
+            f"  {r['okx_symbol']:>12} short={r['short_score']:3} {r['short_signal']:<5} "
+            f"ratio={fmt_num(r['peg_1y'],2)} fwdPE={fmt_num(r['forward_pe'])}"
+        )
+    print("Top LONG:")
+    for r in sorted(rows, key=lambda x: x["long_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} long={r['long_score']:3} {r['long_signal']:<5} "
+            f"ratio={fmt_num(r['peg_1y'],2)} fwdPE={fmt_num(r['forward_pe'])}"
         )
 
 
