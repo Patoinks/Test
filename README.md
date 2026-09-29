@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-09-29 16:30 UTC  
+**Last scan:** 2026-09-29 16:31 UTC  
 **Availability scope:** user-confirmed OKX EEA Spot xStocks  
 **OKX stock/ETF markets in configured universe:** 22  
 **Public companies analysed:** 18  
@@ -21,7 +21,7 @@ Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / 
 
 `Forward P/E <= 35` + `Our ratio <= 1.5` + `EPS growth >= 15%` + `Revenue growth >= 8%` + `FCF yield >= 2.5%`.
 
-Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is shown separately because it affects the cost/carry of holding an OKX marketetual.
+Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is not applicable to these Spot xStocks markets.
 
 ## Top SHORT candidates
 
@@ -33,36 +33,36 @@ Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT
 
 | Rank | Company | OKX market | LONG score | Signal | Our ratio | Fwd P/E | EPS +1y | Rev +1y | FCF yield | Funding ann. |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
-| 1 | Coinbase Global, Inc. | `xCOIN/USDC` | **80** | **WATCH** | 0.28 | 67.1 | 239.9% | 29.5% | 5.3% | — |
+| 1 | Coinbase Global, Inc. | `xCOIN/USDC` | **80** | **WATCH** | 0.28 | 67.0 | 239.9% | 29.5% | 5.3% | — |
 | 2 | NVIDIA Corporation | `xNVDA/USDC` | **75** | **WATCH** | 0.21 | 14.7 | 68.5% | 65.9% | 0.8% | — |
 | 3 | Micron Technology, Inc. | `xMU/USDC` | **75** | **WATCH** | 0.06 | 6.6 | 118.6% | 92.1% | 0.6% | — |
 | 4 | Robinhood Markets, Inc. | `xHOOD/USDC` | **70** | **WATCH** | 0.98 | 33.4 | 34.1% | 27.9% | — | — |
 | 5 | Marvell Technology, Inc. | `xMRVL/USDC` | **70** | **WATCH** | 0.64 | 38.8 | 60.7% | 51.3% | 1.0% | — |
 | 6 | Advanced Micro Devices, Inc. | `xAMD/USDC` | **70** | **WATCH** | 0.37 | 39.3 | 105.6% | 73.2% | 0.9% | — |
 | 7 | Lumentum Holdings Inc. | `xLITE/USDC` | **67** | **WATCH** | 0.47 | 28.2 | 59.6% | 52.2% | 0.3% | — |
-| 8 | Cerebras Systems Inc. | `xCBRS/USDC` | **60** | **WATCH** | 0.44 | 165.2 | 371.3% | 232.7% | — | — |
+| 8 | Cerebras Systems Inc. | `xCBRS/USDC` | **60** | **WATCH** | 0.45 | 165.5 | 371.3% | 232.7% | — | — |
 
 ## All OKX companies — our ratio + LONG/SHORT scores
 
 | Company | OKX | Our ratio | Fwd P/E | Trail P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT | Funding ann. |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Coinbase Global, Inc. | `COIN` | 0.28 | 67.1 | — | 239.9% | 29.5% | 5.3% | **80 WATCH** | **15** | — |
+| Coinbase Global, Inc. | `COIN` | 0.28 | 67.0 | — | 239.9% | 29.5% | 5.3% | **80 WATCH** | **15** | — |
 | NVIDIA Corporation | `NVDA` | 0.21 | 14.7 | 29.1 | 68.5% | 65.9% | 0.8% | **75 WATCH** | **20** | — |
 | Micron Technology, Inc. | `MU` | 0.06 | 6.6 | 24.2 | 118.6% | 92.1% | 0.6% | **75 WATCH** | **20** | — |
 | Marvell Technology, Inc. | `MRVL` | 0.64 | 38.8 | 87.0 | 60.7% | 51.3% | 1.0% | **70 WATCH** | **15** | — |
 | Advanced Micro Devices, Inc. | `AMD` | 0.37 | 39.3 | 157.4 | 105.6% | 73.2% | 0.9% | **70 WATCH** | **15** | — |
 | Robinhood Markets, Inc. | `HOOD` | 0.98 | 33.4 | 51.0 | 34.1% | 27.9% | — | **70 WATCH** | **5** | — |
 | Lumentum Holdings Inc. | `LITE` | 0.47 | 28.2 | — | 59.6% | 52.2% | 0.3% | **67 WATCH** | **20** | — |
-| Cerebras Systems Inc. | `CBRS` | 0.44 | 165.2 | — | 371.3% | 232.7% | — | **60 WATCH** | **25** | — |
-| Tesla, Inc. | `TSLA` | 6.92 | 162.6 | 330.2 | 23.5% | 13.8% | 0.3% | **22** | **60 WATCH** | — |
-| Apple Inc. | `AAPL` | 4.01 | 34.5 | 37.9 | 8.6% | 10.5% | 2.2% | **5** | **60** | — |
+| Cerebras Systems Inc. | `CBRS` | 0.45 | 165.5 | — | 371.3% | 232.7% | — | **60 WATCH** | **25** | — |
+| Tesla, Inc. | `TSLA` | 6.92 | 162.6 | 330.1 | 23.5% | 13.8% | 0.3% | **22** | **60 WATCH** | — |
+| Apple Inc. | `AAPL` | 4.02 | 34.5 | 37.9 | 8.6% | 10.5% | 2.2% | **5** | **60** | — |
 | Strategy Inc | `MSTR` | 0.02 | 3.1 | — | 156.0% | 2.2% | -36.9% | **50** | **20** | — |
 | Intel Corporation | `INTC` | 1.58 | 56.5 | — | 35.6% | 14.2% | 0.8% | **28** | **45** | — |
-| Circle Internet Group, Inc. | `CRCL` | 1.79 | 55.4 | 17.0 | 30.9% | 24.1% | 0.9% | **43** | **25** | — |
+| Circle Internet Group, Inc. | `CRCL` | 1.79 | 55.3 | 16.9 | 30.9% | 24.1% | 0.9% | **43** | **25** | — |
 | Meta Platforms, Inc. | `META` | 2.28 | 20.6 | 27.1 | 9.0% | 20.6% | 1.2% | **17** | **40** | — |
-| Alphabet Inc. | `GOOGL` | — | 22.5 | 17.0 | -27.6% | 23.3% | 0.5% | **2** | **40** | — |
-| Nebius Group N.V. | `NBIS` | — | -69.1 | — | -123.5% | 270.0% | -14.6% | **0** | **40** | — |
-| CoreWeave, Inc. | `CRWV` | -3.20 | -47.5 | — | 14.8% | 104.0% | -19.0% | **0** | **40** | — |
+| Alphabet Inc. | `GOOGL` | — | 22.5 | 17.1 | -27.6% | 23.3% | 0.5% | **2** | **40** | — |
+| Nebius Group N.V. | `NBIS` | — | -69.0 | — | -123.5% | 270.0% | -14.7% | **0** | **40** | — |
+| CoreWeave, Inc. | `CRWV` | -3.20 | -47.4 | — | 14.8% | 104.0% | -19.1% | **0** | **40** | — |
 | Amazon.com, Inc. | `AMZN` | — | 23.6 | 19.9 | -18.5% | 14.4% | 0.1% | **0** | **40** | — |
 
 ## Files
