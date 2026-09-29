@@ -301,6 +301,16 @@ def fetch_fundamentals(item):
 
     trailing_pe = n(info.get("trailingPE"))
     forward_pe = n(info.get("forwardPE"))
+    price_to_sales = n(info.get("priceToSalesTrailing12Months"))
+    enterprise_value = n(info.get("enterpriseValue"))
+    total_revenue = n(info.get("totalRevenue"))
+    ev_to_sales = (
+        enterprise_value / total_revenue
+        if enterprise_value is not None and total_revenue is not None and total_revenue > 0
+        else None
+    )
+    operating_margin = n(info.get("operatingMargins"))
+    profit_margin = n(info.get("profitMargins"))
     fcf = n(info.get("freeCashflow"))
     fcf_yield = (fcf / market_cap) if fcf is not None and market_cap else None
     # Guard against currency/unit mismatches in synthetic/foreign quote feeds.
@@ -351,47 +361,141 @@ def fetch_fundamentals(item):
     if forward_pe is not None and eps_growth_1y is not None and eps_growth_1y > 0:
         peg_1y = forward_pe / (eps_growth_1y * 100.0)
 
-    # SHORT score: expensive valuation relative to expected growth.
+    # Regime detection: PEG/EPS growth can be badly distorted when earnings
+    # start from a tiny or negative base. In that case, use sales multiples,
+    # margins and cash generation as the primary valuation lens.
+    speculative_growth = (
+        (operating_margin is not None and operating_margin < 0)
+        or (profit_margin is not None and profit_margin < 0)
+        or trailing_pe is None
+        or (trailing_pe is not None and trailing_pe <= 0)
+    )
+
+    extreme_sales_valuation = (
+        (price_to_sales is not None and price_to_sales >= 40)
+        or (ev_to_sales is not None and ev_to_sales >= 40)
+    )
+
+    # SHORT score: expensive valuation relative to growth and business quality.
     short_score = 0
     short_reasons = []
 
     if forward_pe is not None and forward_pe > 40:
-        short_score += 25
+        short_score += 20
         short_reasons.append("Forward P/E > 40")
-    if trailing_pe is not None and trailing_pe > 40:
-        short_score += 15
-        short_reasons.append("Trailing P/E > 40")
-    if peg_1y is not None and peg_1y > 2.5:
-        short_score += 20
-        short_reasons.append("Ratio/PEG > 2.5")
-    if eps_growth_1y is not None and eps_growth_1y < 0.20:
-        short_score += 20
-        short_reasons.append("EPS growth < 20%")
-    if fcf_yield is not None and fcf_yield < 0.025:
+    if forward_pe is not None and forward_pe >= 100:
         short_score += 10
-        short_reasons.append("FCF yield < 2.5%")
+        short_reasons.append("Forward P/E >= 100")
+    if trailing_pe is not None and trailing_pe > 40:
+        short_score += 10
+        short_reasons.append("Trailing P/E > 40")
+
+    # PEG matters mainly for established profitable companies.
+    if not speculative_growth:
+        if peg_1y is not None and peg_1y > 2.5:
+            short_score += 20
+            short_reasons.append("Ratio/PEG > 2.5")
+        if eps_growth_1y is not None and eps_growth_1y < 0.20:
+            short_score += 20
+            short_reasons.append("EPS growth < 20%")
+    else:
+        if price_to_sales is not None:
+            if price_to_sales >= 50:
+                short_score += 25
+                short_reasons.append("P/S >= 50")
+            elif price_to_sales >= 25:
+                short_score += 18
+                short_reasons.append("P/S >= 25")
+            elif price_to_sales >= 15:
+                short_score += 10
+                short_reasons.append("P/S >= 15")
+        if ev_to_sales is not None:
+            if ev_to_sales >= 50:
+                short_score += 25
+                short_reasons.append("EV/Sales >= 50")
+            elif ev_to_sales >= 25:
+                short_score += 18
+                short_reasons.append("EV/Sales >= 25")
+            elif ev_to_sales >= 15:
+                short_score += 10
+                short_reasons.append("EV/Sales >= 15")
+        if operating_margin is not None and operating_margin < 0:
+            short_score += 15
+            short_reasons.append("Negative operating margin")
+        if profit_margin is not None and profit_margin < 0:
+            short_score += 10
+            short_reasons.append("Negative net margin")
+
+    if fcf_yield is not None:
+        if fcf_yield < 0:
+            short_score += 15
+            short_reasons.append("Negative FCF yield")
+        elif fcf_yield < 0.025:
+            short_score += 8
+            short_reasons.append("FCF yield < 2.5%")
+
     if revenue_decelerating:
         short_score += 10
         short_reasons.append("Revenue growth decelerating")
     if revenue_accelerating:
-        short_score -= 10
-        short_reasons.append("Penalty: revenue growth accelerating")
+        short_score -= 5
+        short_reasons.append("Mitigation: revenue growth accelerating")
+    if speculative_growth and revenue_growth_1y is not None:
+        if revenue_growth_1y >= 1.0:
+            short_score -= 10
+            short_reasons.append("Mitigation: revenue growth >= 100%")
+        elif revenue_growth_1y >= 0.50:
+            short_score -= 5
+            short_reasons.append("Mitigation: revenue growth >= 50%")
+
+    # Extreme-sales-multiple override: a loss-making company at >40x sales
+    # cannot receive a low short-risk score just because EPS growth is huge.
+    if speculative_growth and extreme_sales_valuation:
+        short_score = max(short_score, 80)
+        short_reasons.append("Override: loss-making + >=40x sales valuation")
+
     short_score = max(0, min(100, short_score))
 
-    short_core = (
-        forward_pe is not None
+    classic_short_core = (
+        not speculative_growth
+        and forward_pe is not None
         and forward_pe > 40
         and peg_1y is not None
         and peg_1y > 2.5
         and eps_growth_1y is not None
         and eps_growth_1y < 0.20
     )
+    speculative_short_core = (
+        speculative_growth
+        and short_score >= 85
+        and extreme_sales_valuation
+        and (
+            (fcf_yield is not None and fcf_yield < 0)
+            or (operating_margin is not None and operating_margin <= -0.20)
+        )
+    )
+    short_core = classic_short_core or speculative_short_core
     short_watch = (
-        forward_pe is not None
-        and forward_pe > 40
-        and eps_growth_1y is not None
-        and eps_growth_1y < 0.25
-        and (peg_1y is None or peg_1y > 2.0)
+        (not short_core)
+        and (
+            (
+                not speculative_growth
+                and forward_pe is not None
+                and forward_pe > 40
+                and eps_growth_1y is not None
+                and eps_growth_1y < 0.25
+                and (peg_1y is None or peg_1y > 2.0)
+            )
+            or (
+                speculative_growth
+                and short_score >= 65
+                and (
+                    (price_to_sales is not None and price_to_sales >= 15)
+                    or (ev_to_sales is not None and ev_to_sales >= 15)
+                    or (forward_pe is not None and forward_pe >= 100)
+                )
+            )
+        )
     )
 
     if short_core:
@@ -417,7 +521,7 @@ def fetch_fundamentals(item):
             long_score += 5
             long_reasons.append("Forward P/E <= 40")
 
-    if peg_1y is not None and peg_1y > 0:
+    if not speculative_growth and peg_1y is not None and peg_1y > 0:
         if peg_1y <= 1.0:
             long_score += 30
             long_reasons.append("Ratio/PEG <= 1.0")
@@ -429,15 +533,25 @@ def fetch_fundamentals(item):
             long_reasons.append("Ratio/PEG <= 2.0")
 
     if eps_growth_1y is not None:
-        if eps_growth_1y >= 0.25:
-            long_score += 20
-            long_reasons.append("EPS growth >= 25%")
-        elif eps_growth_1y >= 0.15:
-            long_score += 12
-            long_reasons.append("EPS growth >= 15%")
-        elif eps_growth_1y < 0:
-            long_score -= 15
-            long_reasons.append("Penalty: EPS shrinking")
+        if speculative_growth:
+            # Huge EPS percentages from a tiny/negative base are not treated
+            # as a full-quality growth signal.
+            if eps_growth_1y >= 0.25:
+                long_score += 5
+                long_reasons.append("Speculative EPS growth bonus capped")
+            elif eps_growth_1y < 0:
+                long_score -= 10
+                long_reasons.append("Penalty: EPS shrinking")
+        else:
+            if eps_growth_1y >= 0.25:
+                long_score += 20
+                long_reasons.append("EPS growth >= 25%")
+            elif eps_growth_1y >= 0.15:
+                long_score += 12
+                long_reasons.append("EPS growth >= 15%")
+            elif eps_growth_1y < 0:
+                long_score -= 15
+                long_reasons.append("Penalty: EPS shrinking")
 
     if fcf_yield is not None:
         if fcf_yield >= 0.04:
@@ -449,6 +563,26 @@ def fetch_fundamentals(item):
         elif fcf_yield < 0:
             long_score -= 15
             long_reasons.append("Penalty: negative FCF")
+
+    if speculative_growth:
+        if price_to_sales is not None and price_to_sales >= 25:
+            long_score -= 20
+            long_reasons.append("Penalty: P/S >= 25")
+        elif price_to_sales is not None and price_to_sales >= 15:
+            long_score -= 10
+            long_reasons.append("Penalty: P/S >= 15")
+        if ev_to_sales is not None and ev_to_sales >= 25:
+            long_score -= 20
+            long_reasons.append("Penalty: EV/Sales >= 25")
+        elif ev_to_sales is not None and ev_to_sales >= 15:
+            long_score -= 10
+            long_reasons.append("Penalty: EV/Sales >= 15")
+        if operating_margin is not None and operating_margin < 0:
+            long_score -= 15
+            long_reasons.append("Penalty: negative operating margin")
+        if extreme_sales_valuation:
+            long_score = min(long_score, 25)
+            long_reasons.append("Cap: extreme sales valuation")
 
     if revenue_growth_1y is not None:
         if revenue_growth_1y >= 0.15:
@@ -471,7 +605,8 @@ def fetch_fundamentals(item):
     long_score = max(0, min(100, long_score))
 
     long_core = (
-        forward_pe is not None
+        not speculative_growth
+        and forward_pe is not None
         and 0 < forward_pe <= 35
         and peg_1y is not None
         and 0 < peg_1y <= 1.5
@@ -483,7 +618,8 @@ def fetch_fundamentals(item):
         and fcf_yield >= 0.025
     )
     long_watch = (
-        long_score >= 55
+        not speculative_growth
+        and long_score >= 55
         and forward_pe is not None
         and forward_pe > 0
         and peg_1y is not None
@@ -514,6 +650,11 @@ def fetch_fundamentals(item):
         "market_cap": market_cap,
         "trailing_pe": trailing_pe,
         "forward_pe": forward_pe,
+        "price_to_sales": price_to_sales,
+        "ev_to_sales": ev_to_sales,
+        "operating_margin": operating_margin,
+        "profit_margin": profit_margin,
+        "speculative_growth": speculative_growth,
         "eps_growth_1y": eps_growth_1y,
         "peg_1y": peg_1y,
         "fcf_yield": fcf_yield,
@@ -558,6 +699,11 @@ def append_history(rows, timestamp):
         "market_cap",
         "trailing_pe",
         "forward_pe",
+        "price_to_sales",
+        "ev_to_sales",
+        "operating_margin",
+        "profit_margin",
+        "speculative_growth",
         "eps_growth_1y",
         "peg_1y",
         "fcf_yield",
@@ -580,11 +726,12 @@ def append_history(rows, timestamp):
         except Exception:
             old_header = []
         if old_header != fields:
-            legacy = DATA_DIR / "history_legacy_pre_eea_fix.csv"
-            if not legacy.exists():
-                path.replace(legacy)
-            else:
-                path.unlink()
+            legacy = DATA_DIR / (
+                "history_legacy_"
+                + datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+                + ".csv"
+            )
+            path.replace(legacy)
             exists = False
             print(f"WARN: migrated incompatible history.csv to {legacy}")
 
@@ -608,18 +755,18 @@ def full_table_lines(rows):
         reverse=True,
     )
     lines = [
-        "| Company | OKX | Our ratio | Fwd P/E | Trail P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT | Funding ann. |",
+        "| Company | OKX | P/S | EV/S | Op margin | Fwd P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT |",
         "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for r in ordered:
         long_label = f"{r['long_score']} {r['long_signal']}" if r["long_signal"] != "—" else str(r["long_score"])
         short_label = f"{r['short_score']} {r['short_signal']}" if r["short_signal"] != "—" else str(r["short_score"])
         lines.append(
-            f"| {r['company']} | `{r['okx_symbol']}` | {fmt_num(r['peg_1y'], 2)} | "
-            f"{fmt_num(r['forward_pe'])} | {fmt_num(r['trailing_pe'])} | "
-            f"{fmt_pct(r['eps_growth_1y'])} | {fmt_pct(r['revenue_growth_1y'])} | "
-            f"{fmt_pct(r['fcf_yield'])} | **{long_label}** | **{short_label}** | "
-            f"{fmt_pct(r['funding_annualized'])} |"
+            f"| {r['company']} | `{r['okx_symbol']}` | {fmt_num(r['price_to_sales'], 1)} | "
+            f"{fmt_num(r['ev_to_sales'], 1)} | {fmt_pct(r['operating_margin'])} | "
+            f"{fmt_num(r['forward_pe'])} | {fmt_pct(r['eps_growth_1y'])} | "
+            f"{fmt_pct(r['revenue_growth_1y'])} | {fmt_pct(r['fcf_yield'])} | "
+            f"**{long_label}** | **{short_label}** |"
         )
     return lines
 
@@ -631,15 +778,16 @@ def candidate_table(rows, side, limit=15):
     candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
 
     lines = [
-        f"| Rank | Company | OKX market | {side.upper()} score | Signal | Our ratio | Fwd P/E | EPS +1y | Rev +1y | FCF yield | Funding ann. |",
+        f"| Rank | Company | OKX market | {side.upper()} score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |",
         "|---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|",
     ]
     for i, r in enumerate(candidates, 1):
         lines.append(
             f"| {i} | {r['company']} | `{r['inst_id']}` | **{r[score_key]}** | "
-            f"**{r[signal_key]}** | {fmt_num(r['peg_1y'], 2)} | {fmt_num(r['forward_pe'])} | "
-            f"{fmt_pct(r['eps_growth_1y'])} | {fmt_pct(r['revenue_growth_1y'])} | "
-            f"{fmt_pct(r['fcf_yield'])} | {fmt_pct(r['funding_annualized'])} |"
+            f"**{r[signal_key]}** | {fmt_num(r['price_to_sales'], 1)} | "
+            f"{fmt_num(r['ev_to_sales'], 1)} | {fmt_pct(r['operating_margin'])} | "
+            f"{fmt_num(r['forward_pe'])} | {fmt_pct(r['revenue_growth_1y'])} | "
+            f"{fmt_pct(r['fcf_yield'])} |"
         )
     if not candidates:
         lines.append("| — | No candidates | — | — | — | — | — | — | — | — | — |")
@@ -666,7 +814,7 @@ def write_report(rows, universe_count, timestamp):
         "",
         *full_table_lines(rows),
         "",
-        "The scanner is a research ranking, not a trade instruction. Funding is a live carry input and can change rapidly.",
+        "The scanner is a research ranking, not a trade instruction. Speculative-growth names are scored primarily on sales valuation, margins and cash generation rather than PEG.",
     ]
     (REPORT_DIR / "latest.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -687,17 +835,17 @@ def write_readme(rows, universe_count, timestamp):
         f"**SHORT CORE:** {short_core}  ",
         f"**LONG CORE:** {long_core}",
         "",
-        "## Our ratio",
+        "## Model",
         "",
-        "**Our ratio = Forward P/E ÷ expected EPS growth (%)**. It is PEG-like: lower can indicate more growth per unit of valuation; very high can indicate expensive valuation relative to expected growth.",
+        "Profitable companies use a PEG-like valuation framework plus growth and free-cash-flow quality. Loss-making/speculative-growth companies use **P/S, EV/Sales, operating margin and FCF** as the primary valuation lens, because huge EPS-growth percentages can be distorted by a tiny or negative base.",
         "",
         "### SHORT CORE",
         "",
-        "`Forward P/E > 40` + `Our ratio > 2.5` + `EPS growth < 20%`.",
+        "Two routes: (1) classic expensive/slow-growth companies, or (2) loss-making companies with extreme sales multiples and weak margins/cash generation. A loss-making company at >=40x P/S or EV/Sales gets a minimum short-risk score of 80.",
         "",
         "### LONG CORE",
         "",
-        "`Forward P/E <= 35` + `Our ratio <= 1.5` + `EPS growth >= 15%` + `Revenue growth >= 8%` + `FCF yield >= 2.5%`.",
+        "Requires established profitability, reasonable forward valuation, strong growth and positive FCF yield. Speculative/loss-making names cannot qualify for LONG CORE from PEG alone.",
         "",
         "Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is not applicable to these Spot xStocks markets.",
         "",
