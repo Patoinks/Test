@@ -23,6 +23,11 @@ OKX_API_KEY = os.getenv("OKX_API_KEY", "").strip()
 OKX_API_SECRET = os.getenv("OKX_API_SECRET", "").strip()
 OKX_API_PASSPHRASE = os.getenv("OKX_API_PASSPHRASE", "").strip()
 OKX_GROUP_IDS = {"6", "7"}  # SWAP RWA / stock-perpetual fee groups
+USER_AVAILABLE_SYMBOLS = [
+    x.strip().upper()
+    for x in os.getenv("OKX_AVAILABLE_SYMBOLS", "").split(",")
+    if x.strip()
+]
 USER_UNAVAILABLE_SYMBOLS = {
     x.strip().upper()
     for x in os.getenv("OKX_UNAVAILABLE_SYMBOLS", "TWLO,DKNG").split(",")
@@ -175,6 +180,21 @@ def discover_okx_stock_perps():
     the current account. Without credentials, use the public EEA live catalogue.
     """
     global DISCOVERY_SCOPE
+
+    # Highest-confidence source: the exact xStocks/USDC universe confirmed
+    # by the user from the OKX EEA app. This avoids public-catalogue products
+    # that may not actually be exposed in the user's UI/account.
+    if USER_AVAILABLE_SYMBOLS:
+        DISCOVERY_SCOPE = "user-confirmed OKX EEA Spot xStocks"
+        return [
+            {
+                "okx_symbol": symbol,
+                "inst_id": f"x{symbol}/USDC",
+                "max_leverage": None,
+                "product_type": "SPOT_XSTOCK",
+            }
+            for symbol in USER_AVAILABLE_SYMBOLS
+        ]
 
     if OKX_API_KEY and OKX_API_SECRET and OKX_API_PASSPHRASE:
         try:
@@ -479,7 +499,10 @@ def fetch_fundamentals(item):
     else:
         long_signal = "—"
 
-    funding_rate, funding_annualized = get_funding(item["inst_id"])
+    if item.get("product_type") == "SPOT_XSTOCK":
+        funding_rate, funding_annualized = None, None
+    else:
+        funding_rate, funding_annualized = get_funding(item["inst_id"])
 
     return {
         "okx_symbol": okx_symbol,
@@ -608,7 +631,7 @@ def candidate_table(rows, side, limit=15):
     candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
 
     lines = [
-        f"| Rank | Company | OKX perp | {side.upper()} score | Signal | Our ratio | Fwd P/E | EPS +1y | Rev +1y | FCF yield | Funding ann. |",
+        f"| Rank | Company | OKX market | {side.upper()} score | Signal | Our ratio | Fwd P/E | EPS +1y | Rev +1y | FCF yield | Funding ann. |",
         "|---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|",
     ]
     for i, r in enumerate(candidates, 1):
@@ -659,7 +682,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         f"**Last scan:** {timestamp}  ",
         f"**Availability scope:** {DISCOVERY_SCOPE}  ",
-        f"**OKX TradFi/RWA instruments discovered:** {universe_count}  ",
+        f"**OKX stock/ETF markets in configured universe:** {universe_count}  ",
         f"**Public companies analysed:** {len(rows)}  ",
         f"**SHORT CORE:** {short_core}  ",
         f"**LONG CORE:** {long_core}",
@@ -676,7 +699,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "`Forward P/E <= 35` + `Our ratio <= 1.5` + `EPS growth >= 15%` + `Revenue growth >= 8%` + `FCF yield >= 2.5%`.",
         "",
-        "Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is shown separately because it affects the cost/carry of holding an OKX perpetual.",
+        "Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is shown separately because it affects the cost/carry of holding an OKX marketetual.",
         "",
         "## Top SHORT candidates",
         "",
@@ -700,7 +723,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "## Data",
         "",
-        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). If read-only OKX API credentials are configured in GitHub Secrets, the scanner first uses GET /api/v5/account/instruments so the universe reflects instruments available to that account. Otherwise it uses the public EEA catalogue plus a user-maintained exclusion list for contracts confirmed unavailable in the app. The scanner fails closed rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates.",
+        "The configured universe can be pinned to the exact OKX EEA xStocks/USDC markets confirmed in the user's app. When that allowlist is present it overrides the broader public catalogue. Yahoo Finance/yfinance supplies company valuation, cash-flow and analyst-growth estimates. ETFs can exist in the OKX universe but are excluded from the company-fundamentals ranking.",
         "",
         "### Optional account-accurate filter",
         "",
