@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import base64
 import csv
+import hashlib
+import hmac
 import math
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlencode
 
 import pandas as pd
 import requests
@@ -15,6 +19,9 @@ import yfinance as yf
 OKX_BASE = os.getenv("OKX_BASE_URL", "https://eea.okx.com").rstrip("/")
 OKX_REQUIRE_EEA = os.getenv("OKX_REQUIRE_EEA", "1") == "1"
 ALLOW_STATIC_FALLBACK = os.getenv("ALLOW_STATIC_OKX_FALLBACK", "0") == "1"
+OKX_API_KEY = os.getenv("OKX_API_KEY", "").strip()
+OKX_API_SECRET = os.getenv("OKX_API_SECRET", "").strip()
+OKX_API_PASSPHRASE = os.getenv("OKX_API_PASSPHRASE", "").strip()
 OKX_GROUP_IDS = {"6", "7"}  # SWAP RWA / stock-perpetual fee groups
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "6"))
 TIMEOUT = 20
@@ -54,6 +61,8 @@ INTC PANW BB RDW LUNR CRDO FLNC CGNX WEN TSEM KIOXIA XOM AMC GPRO
 LGELECTRONICS NAVER HANMI ZHONGJI SOFTBANK
 """.split()))
 
+DISCOVERY_SCOPE = "OKX EEA public catalogue"
+
 REPORT_DIR = Path("reports")
 DATA_DIR = Path("data")
 REPORT_DIR.mkdir(exist_ok=True)
@@ -92,31 +101,49 @@ def okx_get(path, params=None):
     return payload.get("data", [])
 
 
-def discover_okx_stock_perps():
-    """
-    Discover live OKX EEA TradFi/RWA perpetuals dynamically.
-    groupId 6/7 are the RWA/stock SWAP fee groups in current OKX API docs.
-    ETF/index/commodity instruments are allowed through discovery but are later
-    excluded unless Yahoo identifies the underlying as an EQUITY.
-    """
-    instruments = okx_get("/api/v5/public/instruments", {"instType": "SWAP"})
+def okx_private_get(path, params=None):
+    """Authenticated read-only GET for account-scoped instrument availability."""
+    if not (OKX_API_KEY and OKX_API_SECRET and OKX_API_PASSPHRASE):
+        raise RuntimeError("OKX account credentials are not configured.")
+
+    params = params or {}
+    query = urlencode(params)
+    request_path = path + (f"?{query}" if query else "")
+    timestamp = datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+    prehash = f"{timestamp}GET{request_path}"
+    signature = base64.b64encode(
+        hmac.new(
+            OKX_API_SECRET.encode("utf-8"),
+            prehash.encode("utf-8"),
+            hashlib.sha256,
+        ).digest()
+    ).decode("utf-8")
+
+    headers = {
+        "OK-ACCESS-KEY": OKX_API_KEY,
+        "OK-ACCESS-SIGN": signature,
+        "OK-ACCESS-TIMESTAMP": timestamp,
+        "OK-ACCESS-PASSPHRASE": OKX_API_PASSPHRASE,
+    }
+    r = requests.get(f"{OKX_BASE}{request_path}", headers=headers, timeout=TIMEOUT)
+    r.raise_for_status()
+    payload = r.json()
+    if payload.get("code") not in (None, "0", 0):
+        raise RuntimeError(f"OKX private API error: {payload.get('code')} {payload.get('msg')}")
+    return payload.get("data", [])
+
+
+def classify_tradfi_instruments(instruments):
     out = []
     seen = set()
     for item in instruments:
         if item.get("state") != "live":
             continue
-
         inst_id = item.get("instId", "")
         if not inst_id.endswith("-USDT-SWAP"):
             continue
 
         okx_symbol = inst_id.split("-")[0]
-
-        # Global OKX currently tags stock/RWA swaps with fee groups 6/7.
-        # EEA's public catalogue may omit/differ on groupId, so for Europe we
-        # also classify a symbol as TradFi when it is in our known TradFi symbol
-        # dictionary. Crucially, the symbol MUST still exist in the live EEA
-        # instruments response; the static list never creates availability.
         is_rwa_group = str(item.get("groupId")) in OKX_GROUP_IDS
         is_known_tradfi = okx_symbol in FALLBACK_OKX_SYMBOLS
         if not (is_rwa_group or is_known_tradfi):
@@ -124,7 +151,6 @@ def discover_okx_stock_perps():
         if inst_id in seen:
             continue
         seen.add(inst_id)
-
         out.append(
             {
                 "okx_symbol": okx_symbol,
@@ -132,8 +158,39 @@ def discover_okx_stock_perps():
                 "max_leverage": n(item.get("lever")),
             }
         )
+    return out
 
+
+def discover_okx_stock_perps():
+    """
+    Prefer the authenticated account instrument catalogue when read-only OKX
+    credentials are configured. That endpoint reflects instruments available to
+    the current account. Without credentials, use the public EEA live catalogue.
+    """
+    global DISCOVERY_SCOPE
+
+    if OKX_API_KEY and OKX_API_SECRET and OKX_API_PASSPHRASE:
+        try:
+            account_instruments = okx_private_get(
+                "/api/v5/account/instruments",
+                {"instType": "SWAP"},
+            )
+            account_out = classify_tradfi_instruments(account_instruments)
+            if account_out:
+                DISCOVERY_SCOPE = "OKX account-specific available instruments (EEA)"
+                print(
+                    f"Account catalogue: {len(account_instruments)} SWAP instruments total; "
+                    f"{len(account_out)} live TradFi/RWA candidates matched."
+                )
+                return account_out
+            print("WARN: authenticated account catalogue returned no TradFi/RWA matches; using EEA public catalogue.")
+        except Exception as exc:
+            print(f"WARN: account-specific instrument lookup failed: {exc}; using EEA public catalogue.")
+
+    instruments = okx_get("/api/v5/public/instruments", {"instType": "SWAP"})
+    out = classify_tradfi_instruments(instruments)
     if out:
+        DISCOVERY_SCOPE = "OKX EEA public catalogue (account filter not configured)"
         print(
             f"EEA catalogue: {len(instruments)} SWAP instruments total; "
             f"{len(out)} live TradFi/RWA candidates matched."
@@ -143,6 +200,7 @@ def discover_okx_stock_perps():
     # Fail closed by default. A stale/global fallback can create false positives
     # for EEA users (e.g. showing a contract that exists globally but not in Europe).
     if ALLOW_STATIC_FALLBACK:
+        DISCOVERY_SCOPE = "static diagnostic fallback (NOT account availability)"
         print(
             "WARN: EEA public catalogue returned no RWA groups; "
             "using the static fallback ONLY because ALLOW_STATIC_OKX_FALLBACK=1."
@@ -593,6 +651,7 @@ def write_readme(rows, universe_count, timestamp):
         "Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.",
         "",
         f"**Last scan:** {timestamp}  ",
+        f"**Availability scope:** {DISCOVERY_SCOPE}  ",
         f"**OKX TradFi/RWA instruments discovered:** {universe_count}  ",
         f"**Public companies analysed:** {len(rows)}  ",
         f"**SHORT CORE:** {short_core}  ",
@@ -634,7 +693,11 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "## Data",
         "",
-        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). The scanner fails closed if the EEA catalogue is unavailable, rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates. Exact account entitlements can still differ.",
+        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). If read-only OKX API credentials are configured in GitHub Secrets, the scanner first uses GET /api/v5/account/instruments so the universe reflects instruments available to that account. Otherwise it uses the public EEA catalogue. The scanner fails closed rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates.",
+        "",
+        "### Optional account-accurate filter",
+        "",
+        "Add read-only GitHub Actions secrets `OKX_API_KEY`, `OKX_API_SECRET`, and `OKX_API_PASSPHRASE`. The scanner will then query the authenticated OKX EEA account-instruments endpoint and only score contracts available to that account. Do not grant Trade or Withdraw permission for this scanner.",
         "",
         "This is a quantitative research screen, not an automatic trading system. It does not place orders or select leverage.",
     ]
