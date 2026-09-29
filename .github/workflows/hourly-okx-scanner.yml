@@ -40,6 +40,9 @@ jobs:
           OKX_BASE_URL: https://eea.okx.com
           OKX_REQUIRE_EEA: "1"
           ALLOW_STATIC_OKX_FALLBACK: "0"
+          OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
+          OKX_API_SECRET: ${{ secrets.OKX_API_SECRET }}
+          OKX_API_PASSPHRASE: ${{ secrets.OKX_API_PASSPHRASE }}
           MAX_WORKERS: "6"
         run: python scanner.py
 
