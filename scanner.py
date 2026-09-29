@@ -101,15 +101,30 @@ def discover_okx_stock_perps():
     """
     instruments = okx_get("/api/v5/public/instruments", {"instType": "SWAP"})
     out = []
+    seen = set()
     for item in instruments:
         if item.get("state") != "live":
             continue
-        if str(item.get("groupId")) not in OKX_GROUP_IDS:
-            continue
+
         inst_id = item.get("instId", "")
         if not inst_id.endswith("-USDT-SWAP"):
             continue
+
         okx_symbol = inst_id.split("-")[0]
+
+        # Global OKX currently tags stock/RWA swaps with fee groups 6/7.
+        # EEA's public catalogue may omit/differ on groupId, so for Europe we
+        # also classify a symbol as TradFi when it is in our known TradFi symbol
+        # dictionary. Crucially, the symbol MUST still exist in the live EEA
+        # instruments response; the static list never creates availability.
+        is_rwa_group = str(item.get("groupId")) in OKX_GROUP_IDS
+        is_known_tradfi = okx_symbol in FALLBACK_OKX_SYMBOLS
+        if not (is_rwa_group or is_known_tradfi):
+            continue
+        if inst_id in seen:
+            continue
+        seen.add(inst_id)
+
         out.append(
             {
                 "okx_symbol": okx_symbol,
@@ -117,7 +132,12 @@ def discover_okx_stock_perps():
                 "max_leverage": n(item.get("lever")),
             }
         )
+
     if out:
+        print(
+            f"EEA catalogue: {len(instruments)} SWAP instruments total; "
+            f"{len(out)} live TradFi/RWA candidates matched."
+        )
         return out
 
     # Fail closed by default. A stale/global fallback can create false positives
