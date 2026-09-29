@@ -12,10 +12,18 @@ import pandas as pd
 import requests
 import yfinance as yf
 
-OKX_BASE = os.getenv("OKX_BASE_URL", "https://eea.okx.com")
+OKX_BASE = os.getenv("OKX_BASE_URL", "https://eea.okx.com").rstrip("/")
+OKX_REQUIRE_EEA = os.getenv("OKX_REQUIRE_EEA", "1") == "1"
+ALLOW_STATIC_FALLBACK = os.getenv("ALLOW_STATIC_OKX_FALLBACK", "0") == "1"
 OKX_GROUP_IDS = {"6", "7"}  # SWAP RWA / stock-perpetual fee groups
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "6"))
 TIMEOUT = 20
+
+if OKX_REQUIRE_EEA and "eea.okx.com" not in OKX_BASE:
+    raise RuntimeError(
+        f"Refusing to scan non-EEA OKX domain: {OKX_BASE}. "
+        "Set OKX_REQUIRE_EEA=0 only for an intentional global diagnostic run."
+    )
 
 # Symbols where the OKX TradFi label is not the Yahoo Finance ticker.
 YAHOO_MAP = {
@@ -112,17 +120,26 @@ def discover_okx_stock_perps():
     if out:
         return out
 
-    # Some public OKX endpoints omit the RWA fee-group catalogue depending on
-    # region/IP. Fall back to the current official OKX Europe TradFi universe.
-    print("WARN: OKX public catalogue did not expose RWA groups; using official fallback universe.")
-    return [
-        {
-            "okx_symbol": symbol,
-            "inst_id": f"{symbol}-USDT-SWAP",
-            "max_leverage": 5.0,
-        }
-        for symbol in FALLBACK_OKX_SYMBOLS
-    ]
+    # Fail closed by default. A stale/global fallback can create false positives
+    # for EEA users (e.g. showing a contract that exists globally but not in Europe).
+    if ALLOW_STATIC_FALLBACK:
+        print(
+            "WARN: EEA public catalogue returned no RWA groups; "
+            "using the static fallback ONLY because ALLOW_STATIC_OKX_FALLBACK=1."
+        )
+        return [
+            {
+                "okx_symbol": symbol,
+                "inst_id": f"{symbol}-USDT-SWAP",
+                "max_leverage": 5.0,
+            }
+            for symbol in FALLBACK_OKX_SYMBOLS
+        ]
+
+    raise RuntimeError(
+        "EEA OKX public catalogue returned no live TradFi/RWA perpetuals. "
+        "Scanner stopped instead of falling back to a possibly global/stale universe."
+    )
 
 
 def get_funding(inst_id):
@@ -445,6 +462,24 @@ def append_history(rows, timestamp):
         "long_signal",
     ]
     exists = path.exists()
+
+    # history.csv previously used a shorter schema. Preserve it once and start
+    # a clean file so later backtests never mix incompatible row formats.
+    if exists:
+        try:
+            with path.open("r", newline="", encoding="utf-8") as existing_file:
+                old_header = next(csv.reader(existing_file), [])
+        except Exception:
+            old_header = []
+        if old_header != fields:
+            legacy = DATA_DIR / "history_legacy_pre_eea_fix.csv"
+            if not legacy.exists():
+                path.replace(legacy)
+            else:
+                path.unlink()
+            exists = False
+            print(f"WARN: migrated incompatible history.csv to {legacy}")
+
     with path.open("a", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields)
         if not exists:
@@ -535,7 +570,7 @@ def write_readme(rows, universe_count, timestamp):
     lines = [
         "# OKX Long / Short Fundamental Scanner",
         "",
-        "Hourly scanner restricted to public companies represented in the **OKX TradFi / Stock Perpetual** universe.",
+        "Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.",
         "",
         f"**Last scan:** {timestamp}  ",
         f"**OKX TradFi/RWA instruments discovered:** {universe_count}  ",
@@ -579,7 +614,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "## Data",
         "",
-        "OKX public market data provides the TradFi/perpetual context and funding. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates. Availability can differ by OKX account/jurisdiction.",
+        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). The scanner fails closed if the EEA catalogue is unavailable, rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates. Exact account entitlements can still differ.",
         "",
         "This is a quantitative research screen, not an automatic trading system. It does not place orders or select leverage.",
     ]
