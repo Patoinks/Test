@@ -23,6 +23,11 @@ OKX_API_KEY = os.getenv("OKX_API_KEY", "").strip()
 OKX_API_SECRET = os.getenv("OKX_API_SECRET", "").strip()
 OKX_API_PASSPHRASE = os.getenv("OKX_API_PASSPHRASE", "").strip()
 OKX_GROUP_IDS = {"6", "7"}  # SWAP RWA / stock-perpetual fee groups
+USER_UNAVAILABLE_SYMBOLS = {
+    x.strip().upper()
+    for x in os.getenv("OKX_UNAVAILABLE_SYMBOLS", "TWLO,DKNG").split(",")
+    if x.strip()
+}
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "6"))
 TIMEOUT = 20
 
@@ -147,6 +152,8 @@ def classify_tradfi_instruments(instruments):
         is_rwa_group = str(item.get("groupId")) in OKX_GROUP_IDS
         is_known_tradfi = okx_symbol in FALLBACK_OKX_SYMBOLS
         if not (is_rwa_group or is_known_tradfi):
+            continue
+        if okx_symbol in USER_UNAVAILABLE_SYMBOLS:
             continue
         if inst_id in seen:
             continue
@@ -693,7 +700,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "## Data",
         "",
-        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). If read-only OKX API credentials are configured in GitHub Secrets, the scanner first uses GET /api/v5/account/instruments so the universe reflects instruments available to that account. Otherwise it uses the public EEA catalogue. The scanner fails closed rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates.",
+        "Universe discovery and funding use the official OKX EEA REST domain (eea.okx.com). If read-only OKX API credentials are configured in GitHub Secrets, the scanner first uses GET /api/v5/account/instruments so the universe reflects instruments available to that account. Otherwise it uses the public EEA catalogue plus a user-maintained exclusion list for contracts confirmed unavailable in the app. The scanner fails closed rather than silently substituting the global universe. Yahoo Finance/yfinance supplies valuation, cash-flow and analyst-growth estimates.",
         "",
         "### Optional account-accurate filter",
         "",
