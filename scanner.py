@@ -28,6 +28,8 @@ USER_AVAILABLE_SYMBOLS = [
     for x in os.getenv("OKX_AVAILABLE_SYMBOLS", "").split(",")
     if x.strip()
 ]
+ASSET_PROXY_SYMBOLS = {"MSTR"}  # sales multiples are not economically meaningful here
+
 USER_UNAVAILABLE_SYMBOLS = {
     x.strip().upper()
     for x in os.getenv("OKX_UNAVAILABLE_SYMBOLS", "TWLO,DKNG").split(",")
@@ -364,11 +366,16 @@ def fetch_fundamentals(item):
     # Regime detection: PEG/EPS growth can be badly distorted when earnings
     # start from a tiny or negative base. In that case, use sales multiples,
     # margins and cash generation as the primary valuation lens.
+    asset_proxy = okx_symbol in ASSET_PROXY_SYMBOLS
+
     speculative_growth = (
-        (operating_margin is not None and operating_margin < 0)
-        or (profit_margin is not None and profit_margin < 0)
-        or trailing_pe is None
-        or (trailing_pe is not None and trailing_pe <= 0)
+        not asset_proxy
+        and (
+            (operating_margin is not None and operating_margin < 0)
+            or (profit_margin is not None and profit_margin < 0)
+            or trailing_pe is None
+            or (trailing_pe is not None and trailing_pe <= 0)
+        )
     )
 
     extreme_sales_valuation = (
@@ -453,6 +460,10 @@ def fetch_fundamentals(item):
     if speculative_growth and extreme_sales_valuation:
         short_score = max(short_score, 80)
         short_reasons.append("Override: loss-making + >=40x sales valuation")
+
+    if asset_proxy:
+        short_score = min(short_score, 25)
+        short_reasons.append("Asset-proxy exception: sales multiples ignored")
 
     short_score = max(0, min(100, short_score))
 
@@ -602,6 +613,10 @@ def fetch_fundamentals(item):
         long_score -= 5
         long_reasons.append("Penalty: revenue growth decelerating")
 
+    if asset_proxy:
+        long_score = min(long_score, 25)
+        long_reasons.append("Asset-proxy exception: requires NAV/premium model")
+
     long_score = max(0, min(100, long_score))
 
     long_core = (
@@ -655,6 +670,7 @@ def fetch_fundamentals(item):
         "operating_margin": operating_margin,
         "profit_margin": profit_margin,
         "speculative_growth": speculative_growth,
+        "asset_proxy": asset_proxy,
         "eps_growth_1y": eps_growth_1y,
         "peg_1y": peg_1y,
         "fcf_yield": fcf_yield,
@@ -837,7 +853,7 @@ def write_readme(rows, universe_count, timestamp):
         "",
         "## Model",
         "",
-        "Profitable companies use a PEG-like valuation framework plus growth and free-cash-flow quality. Loss-making/speculative-growth companies use **P/S, EV/Sales, operating margin and FCF** as the primary valuation lens, because huge EPS-growth percentages can be distorted by a tiny or negative base.",
+        "Profitable companies use a PEG-like valuation framework plus growth and free-cash-flow quality. Loss-making/speculative-growth companies use **P/S, EV/Sales, operating margin and FCF** as the primary valuation lens, because huge EPS-growth percentages can be distorted by a tiny or negative base. Asset-proxy companies such as MSTR are excluded from the sales-multiple model and need a separate NAV/premium framework.",
         "",
         "### SHORT CORE",
         "",
