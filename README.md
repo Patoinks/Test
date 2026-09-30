@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-09-29 23:46 UTC  
+**Last scan:** 2026-09-30 05:40 UTC  
 **Availability scope:** user-confirmed OKX EEA Spot xStocks  
 **OKX stock/ETF markets in configured universe:** 22  
 **Public companies analysed:** 18  
@@ -28,8 +28,8 @@ Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT
 | Rank | Company | OKX market | SHORT score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
 | 1 | Cerebras Systems Inc. | `xCBRS/USDC` | **95** | **CORE** | 68.0 | 58.6 | -265.0% | 153.1 | 232.7% | — |
-| 2 | Nebius Group N.V. | `xNBIS/USDC` | **80** | **WATCH** | 47.6 | 49.6 | -0.2% | -67.9 | 270.0% | -14.9% |
-| 3 | Tesla, Inc. | `xTSLA/USDC` | **63** | **WATCH** | 13.4 | 13.2 | 1.4% | 162.4 | 13.8% | 0.3% |
+| 2 | Nebius Group N.V. | `xNBIS/USDC` | **80** | **WATCH** | 44.5 | 49.6 | -0.2% | -67.9 | 270.0% | -16.0% |
+| 3 | Tesla, Inc. | `xTSLA/USDC` | **63** | **WATCH** | 13.4 | 13.2 | 1.4% | 163.1 | 13.8% | 0.3% |
 
 ## Top LONG candidates
 
@@ -46,13 +46,13 @@ Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT
 | Company | OKX | P/S | EV/S | Op margin | Fwd P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Cerebras Systems Inc. | `CBRS` | 68.0 | 58.6 | -265.0% | 153.1 | 371.3% | 232.7% | — | **0** | **95 CORE** |
-| Nebius Group N.V. | `NBIS` | 47.6 | 49.6 | -0.2% | -67.9 | -123.5% | 270.0% | -14.9% | **0** | **80 WATCH** |
+| Nebius Group N.V. | `NBIS` | 44.5 | 49.6 | -0.2% | -67.9 | -123.5% | 270.0% | -16.0% | **0** | **80 WATCH** |
 | NVIDIA Corporation | `NVDA` | 18.1 | 18.0 | 66.2% | 14.5 | 68.5% | 65.9% | 0.8% | **75 WATCH** | **18** |
 | Micron Technology, Inc. | `MU` | 13.3 | 13.1 | 80.4% | 6.6 | 118.6% | 92.1% | 0.6% | **75 WATCH** | **18** |
 | Marvell Technology, Inc. | `MRVL` | 25.0 | 24.6 | 16.7% | 38.9 | 60.7% | 51.2% | 1.0% | **70 WATCH** | **13** |
 | Advanced Micro Devices, Inc. | `AMD` | 24.0 | 23.8 | 17.2% | 39.0 | 105.6% | 73.2% | 0.9% | **70 WATCH** | **13** |
 | Robinhood Markets, Inc. | `HOOD` | 21.2 | 21.0 | 43.9% | 33.7 | 34.2% | 27.8% | — | **70 WATCH** | **5** |
-| Tesla, Inc. | `TSLA` | 13.4 | 13.2 | 1.4% | 162.4 | 23.5% | 13.8% | 0.3% | **22** | **63 WATCH** |
+| Tesla, Inc. | `TSLA` | 13.4 | 13.2 | 1.4% | 163.1 | 23.5% | 13.8% | 0.3% | **22** | **63 WATCH** |
 | Lumentum Holdings Inc. | `LITE` | 29.0 | 28.6 | 28.0% | 28.0 | 59.6% | 52.2% | 0.3% | **0** | **59** |
 | Apple Inc. | `AAPL` | 10.3 | 10.3 | 32.6% | 34.4 | 8.6% | 10.5% | 2.2% | **5** | **58** |
 | Intel Corporation | `INTC` | 10.7 | 10.9 | 12.2% | 56.2 | 35.6% | 14.2% | 0.8% | **5** | **48** |
