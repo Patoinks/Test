@@ -843,6 +843,22 @@ def fetch_fundamentals(item):
     else:
         long_signal = "—"
 
+    # Combined model: 70% fundamental + 30% P/E trend.
+    # Kept separate from both source models so no existing ranking is replaced.
+    combined_long_score = round((0.70 * long_score) + (0.30 * pe_trend_long_score))
+    combined_short_score = round((0.70 * short_score) + (0.30 * pe_trend_short_score))
+
+    combined_long_signal = (
+        "CORE" if combined_long_score >= 75
+        else "WATCH" if combined_long_score >= 55
+        else "—"
+    )
+    combined_short_signal = (
+        "CORE" if combined_short_score >= 75
+        else "WATCH" if combined_short_score >= 55
+        else "—"
+    )
+
     if item.get("product_type") == "SPOT_XSTOCK":
         funding_rate, funding_annualized = None, None
     else:
@@ -878,6 +894,10 @@ def fetch_fundamentals(item):
         "pe_trend_short_score": pe_trend_short_score,
         "pe_trend_short_signal": pe_trend_short_signal,
         "pe_trend_short_reasons": "; ".join(pe_trend_short_reasons),
+        "combined_long_score": combined_long_score,
+        "combined_long_signal": combined_long_signal,
+        "combined_short_score": combined_short_score,
+        "combined_short_signal": combined_short_signal,
         "funding_rate": funding_rate,
         "funding_annualized": funding_annualized,
         "short_score": short_score,
@@ -930,6 +950,10 @@ def append_history(rows, timestamp):
         "pe_trend_long_signal",
         "pe_trend_short_score",
         "pe_trend_short_signal",
+        "combined_long_score",
+        "combined_long_signal",
+        "combined_short_score",
+        "combined_short_signal",
         "funding_annualized",
         "short_score",
         "short_signal",
@@ -1022,6 +1046,29 @@ def pe_trend_table(rows, side, limit=10):
     return lines
 
 
+def combined_table(rows, side, limit=10):
+    score_key = f"combined_{side}_score"
+    signal_key = f"combined_{side}_signal"
+    fundamental_key = f"{side}_score"
+    pe_key = f"pe_trend_{side}_score"
+    ranked = sorted(rows, key=lambda r: (r[score_key], r[fundamental_key], r[pe_key]), reverse=True)
+    candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
+
+    lines = [
+        f"| Rank | Company | OKX | Fundamental {side.upper()} | P/E trend {side.upper()} | Combined | Signal |",
+        "|---:|---|---|---:|---:|---:|---|",
+    ]
+    for i, r in enumerate(candidates, 1):
+        lines.append(
+            f"| {i} | {r['company']} | `{r['okx_symbol']}` | "
+            f"{r[fundamental_key]} | {r[pe_key]} | "
+            f"**{r[score_key]}** | **{r[signal_key]}** |"
+        )
+    if not candidates:
+        lines.append("| — | No candidates | — | — | — | — | — |")
+    return lines
+
+
 def candidate_table(rows, side, limit=15):
     score_key = f"{side}_score"
     signal_key = f"{side}_signal"
@@ -1060,6 +1107,14 @@ def write_report(rows, universe_count, timestamp):
         "## Top LONG candidates",
         "",
         *candidate_table(rows, "long"),
+        "",
+        "## Combined model — LONG",
+        "",
+        *combined_table(rows, "long"),
+        "",
+        "## Combined model — SHORT",
+        "",
+        *combined_table(rows, "short"),
         "",
         "## P/E Compression + Growth — LONG",
         "",
@@ -1111,6 +1166,18 @@ def write_readme(rows, universe_count, timestamp):
         "### Separate P/E trend model",
         "",
         "This second ranking does **not replace** the main model. It compares trailing P/E with forward P/E and then checks whether expected EPS and revenue direction support the move. Falling forward P/E with positive growth raises the P/E-trend LONG score; rising forward P/E with weakening growth raises the P/E-trend SHORT score. Extreme absolute forward P/E is penalized on the LONG side.",
+        "",
+        "## Combined model — LONG",
+        "",
+        "Weighted score: **70% fundamental + 30% P/E trend**.",
+        "",
+        *combined_table(rows, "long", 10),
+        "",
+        "## Combined model — SHORT",
+        "",
+        "Weighted score: **70% fundamental + 30% P/E trend**.",
+        "",
+        *combined_table(rows, "short", 10),
         "",
         "## P/E Compression + Growth — LONG",
         "",
@@ -1187,6 +1254,20 @@ def main():
         print(
             f"  {r['okx_symbol']:>12} short={r['short_score']:3} {r['short_signal']:<5} "
             f"ratio={fmt_num(r['peg_1y'],2)} fwdPE={fmt_num(r['forward_pe'])}"
+        )
+    print("Top COMBINED LONG:")
+    for r in sorted(rows, key=lambda x: x["combined_long_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} combinedLong={r['combined_long_score']:3} "
+            f"{r['combined_long_signal']:<5} fundamental={r['long_score']:3} "
+            f"peTrend={r['pe_trend_long_score']:3}"
+        )
+    print("Top COMBINED SHORT:")
+    for r in sorted(rows, key=lambda x: x["combined_short_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} combinedShort={r['combined_short_score']:3} "
+            f"{r['combined_short_signal']:<5} fundamental={r['short_score']:3} "
+            f"peTrend={r['pe_trend_short_score']:3}"
         )
     print("Top P/E TREND LONG:")
     for r in sorted(rows, key=lambda x: x["pe_trend_long_score"], reverse=True)[:5]:
