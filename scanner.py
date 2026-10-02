@@ -363,6 +363,199 @@ def fetch_fundamentals(item):
     if forward_pe is not None and eps_growth_1y is not None and eps_growth_1y > 0:
         peg_1y = forward_pe / (eps_growth_1y * 100.0)
 
+    # Separate P/E trend model: compares trailing vs forward P/E, then checks
+    # whether earnings/revenue direction supports that multiple compression
+    # (LONG) or expansion (SHORT). This is intentionally separate from the
+    # main fundamental LONG/SHORT model.
+    pe_change_pct = None
+    pe_trend_long_score = 0
+    pe_trend_short_score = 0
+    pe_trend_long_reasons = []
+    pe_trend_short_reasons = []
+
+    valid_pe_pair = (
+        trailing_pe is not None
+        and forward_pe is not None
+        and trailing_pe > 0
+        and forward_pe > 0
+    )
+    if valid_pe_pair:
+        pe_change_pct = (forward_pe / trailing_pe) - 1.0
+
+        # LONG side: falling forward multiple + still-growing fundamentals.
+        compression = -pe_change_pct
+        if compression > 0:
+            if compression >= 0.50:
+                pe_trend_long_score += 50
+            elif compression >= 0.30:
+                pe_trend_long_score += 40
+            elif compression >= 0.20:
+                pe_trend_long_score += 30
+            elif compression >= 0.10:
+                pe_trend_long_score += 22
+            else:
+                pe_trend_long_score += 12
+            pe_trend_long_reasons.append(
+                f"P/E compresses {trailing_pe:.1f}x -> {forward_pe:.1f}x ({compression:.1%})"
+            )
+
+        if eps_growth_1y is not None:
+            if eps_growth_1y >= 0.50:
+                pe_trend_long_score += 25
+                pe_trend_long_reasons.append("EPS +1y >= 50%")
+            elif eps_growth_1y >= 0.25:
+                pe_trend_long_score += 20
+                pe_trend_long_reasons.append("EPS +1y >= 25%")
+            elif eps_growth_1y >= 0.10:
+                pe_trend_long_score += 12
+                pe_trend_long_reasons.append("EPS +1y >= 10%")
+            elif eps_growth_1y > 0:
+                pe_trend_long_score += 5
+                pe_trend_long_reasons.append("EPS +1y positive")
+            else:
+                pe_trend_long_score -= 30
+                pe_trend_long_reasons.append("Penalty: EPS not growing")
+
+        if revenue_growth_1y is not None:
+            if revenue_growth_1y >= 0.30:
+                pe_trend_long_score += 20
+                pe_trend_long_reasons.append("Revenue +1y >= 30%")
+            elif revenue_growth_1y >= 0.15:
+                pe_trend_long_score += 15
+                pe_trend_long_reasons.append("Revenue +1y >= 15%")
+            elif revenue_growth_1y >= 0.05:
+                pe_trend_long_score += 8
+                pe_trend_long_reasons.append("Revenue +1y >= 5%")
+            elif revenue_growth_1y > 0:
+                pe_trend_long_score += 4
+                pe_trend_long_reasons.append("Revenue +1y positive")
+            else:
+                pe_trend_long_score -= 25
+                pe_trend_long_reasons.append("Penalty: revenue not growing")
+
+        if revenue_accelerating:
+            pe_trend_long_score += 5
+            pe_trend_long_reasons.append("Revenue growth accelerating")
+        elif revenue_decelerating:
+            pe_trend_long_score -= 5
+            pe_trend_long_reasons.append("Penalty: revenue growth rate decelerating")
+
+        # Sanity check on the absolute forward multiple. Compression from an
+        # extreme valuation is useful information, but should not dominate.
+        if forward_pe <= 20:
+            pe_trend_long_score += 10
+            pe_trend_long_reasons.append("Forward P/E <= 20")
+        elif forward_pe <= 35:
+            pe_trend_long_score += 6
+            pe_trend_long_reasons.append("Forward P/E <= 35")
+        elif forward_pe <= 50:
+            pe_trend_long_score += 2
+            pe_trend_long_reasons.append("Forward P/E <= 50")
+        elif forward_pe > 120:
+            pe_trend_long_score -= 20
+            pe_trend_long_reasons.append("Penalty: forward P/E > 120")
+        elif forward_pe > 80:
+            pe_trend_long_score -= 10
+            pe_trend_long_reasons.append("Penalty: forward P/E > 80")
+
+        # SHORT side: expanding forward multiple + weakening fundamentals.
+        expansion = pe_change_pct
+        if expansion > 0:
+            if expansion >= 0.50:
+                pe_trend_short_score += 50
+            elif expansion >= 0.30:
+                pe_trend_short_score += 40
+            elif expansion >= 0.20:
+                pe_trend_short_score += 30
+            elif expansion >= 0.10:
+                pe_trend_short_score += 22
+            else:
+                pe_trend_short_score += 12
+            pe_trend_short_reasons.append(
+                f"P/E expands {trailing_pe:.1f}x -> {forward_pe:.1f}x ({expansion:.1%})"
+            )
+
+        if eps_growth_1y is not None:
+            if eps_growth_1y < 0:
+                pe_trend_short_score += 25
+                pe_trend_short_reasons.append("EPS +1y negative")
+            elif eps_growth_1y < 0.10:
+                pe_trend_short_score += 15
+                pe_trend_short_reasons.append("EPS +1y < 10%")
+            elif eps_growth_1y < 0.20:
+                pe_trend_short_score += 8
+                pe_trend_short_reasons.append("EPS +1y < 20%")
+
+        if revenue_growth_1y is not None:
+            if revenue_growth_1y < 0:
+                pe_trend_short_score += 20
+                pe_trend_short_reasons.append("Revenue +1y negative")
+            elif revenue_growth_1y < 0.05:
+                pe_trend_short_score += 12
+                pe_trend_short_reasons.append("Revenue +1y < 5%")
+            elif revenue_growth_1y < 0.10:
+                pe_trend_short_score += 6
+                pe_trend_short_reasons.append("Revenue +1y < 10%")
+
+        if revenue_decelerating:
+            pe_trend_short_score += 5
+            pe_trend_short_reasons.append("Revenue growth decelerating")
+        elif revenue_accelerating:
+            pe_trend_short_score -= 5
+            pe_trend_short_reasons.append("Mitigation: revenue growth accelerating")
+
+        if forward_pe >= 100:
+            pe_trend_short_score += 10
+            pe_trend_short_reasons.append("Forward P/E >= 100")
+        elif forward_pe >= 50:
+            pe_trend_short_score += 5
+            pe_trend_short_reasons.append("Forward P/E >= 50")
+
+    pe_trend_long_score = max(0, min(100, pe_trend_long_score))
+    pe_trend_short_score = max(0, min(100, pe_trend_short_score))
+
+    pe_trend_long_core = (
+        valid_pe_pair
+        and pe_change_pct < 0
+        and pe_trend_long_score >= 75
+        and eps_growth_1y is not None
+        and eps_growth_1y > 0
+        and revenue_growth_1y is not None
+        and revenue_growth_1y > 0
+    )
+    pe_trend_long_watch = (
+        valid_pe_pair
+        and pe_change_pct < 0
+        and not pe_trend_long_core
+        and pe_trend_long_score >= 50
+        and eps_growth_1y is not None
+        and eps_growth_1y > 0
+        and revenue_growth_1y is not None
+        and revenue_growth_1y > 0
+    )
+    pe_trend_short_core = (
+        valid_pe_pair
+        and pe_change_pct > 0
+        and pe_trend_short_score >= 70
+        and (
+            (eps_growth_1y is not None and eps_growth_1y < 0)
+            or (revenue_growth_1y is not None and revenue_growth_1y < 0)
+        )
+    )
+    pe_trend_short_watch = (
+        valid_pe_pair
+        and pe_change_pct > 0
+        and not pe_trend_short_core
+        and pe_trend_short_score >= 50
+    )
+
+    pe_trend_long_signal = (
+        "CORE" if pe_trend_long_core else "WATCH" if pe_trend_long_watch else "—"
+    )
+    pe_trend_short_signal = (
+        "CORE" if pe_trend_short_core else "WATCH" if pe_trend_short_watch else "—"
+    )
+
     # Regime detection: PEG/EPS growth can be badly distorted when earnings
     # start from a tiny or negative base. In that case, use sales multiples,
     # margins and cash generation as the primary valuation lens.
@@ -678,6 +871,13 @@ def fetch_fundamentals(item):
         "revenue_growth_1y": revenue_growth_1y,
         "revenue_decelerating": revenue_decelerating,
         "revenue_accelerating": revenue_accelerating,
+        "pe_change_pct": pe_change_pct,
+        "pe_trend_long_score": pe_trend_long_score,
+        "pe_trend_long_signal": pe_trend_long_signal,
+        "pe_trend_long_reasons": "; ".join(pe_trend_long_reasons),
+        "pe_trend_short_score": pe_trend_short_score,
+        "pe_trend_short_signal": pe_trend_short_signal,
+        "pe_trend_short_reasons": "; ".join(pe_trend_short_reasons),
         "funding_rate": funding_rate,
         "funding_annualized": funding_annualized,
         "short_score": short_score,
@@ -725,6 +925,11 @@ def append_history(rows, timestamp):
         "fcf_yield",
         "revenue_growth_0y",
         "revenue_growth_1y",
+        "pe_change_pct",
+        "pe_trend_long_score",
+        "pe_trend_long_signal",
+        "pe_trend_short_score",
+        "pe_trend_short_signal",
         "funding_annualized",
         "short_score",
         "short_signal",
@@ -787,6 +992,36 @@ def full_table_lines(rows):
     return lines
 
 
+def pe_trend_table(rows, side, limit=10):
+    score_key = f"pe_trend_{side}_score"
+    signal_key = f"pe_trend_{side}_signal"
+    ranked = sorted(rows, key=lambda r: r[score_key], reverse=True)
+    candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
+
+    lines = [
+        f"| Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | {side.upper()} score | Signal |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---|---:|---|",
+    ]
+    for i, r in enumerate(candidates, 1):
+        rev_trend = (
+            "accelerating"
+            if r["revenue_accelerating"]
+            else "decelerating"
+            if r["revenue_decelerating"]
+            else "stable/unknown"
+        )
+        lines.append(
+            f"| {i} | {r['company']} | `{r['okx_symbol']}` | "
+            f"{fmt_num(r['trailing_pe'])} | {fmt_num(r['forward_pe'])} | "
+            f"{fmt_pct(r['pe_change_pct'])} | {fmt_pct(r['eps_growth_1y'])} | "
+            f"{fmt_pct(r['revenue_growth_1y'])} | {rev_trend} | "
+            f"**{r[score_key]}** | **{r[signal_key]}** |"
+        )
+    if not candidates:
+        lines.append("| — | No candidates | — | — | — | — | — | — | — | — | — |")
+    return lines
+
+
 def candidate_table(rows, side, limit=15):
     score_key = f"{side}_score"
     signal_key = f"{side}_signal"
@@ -826,6 +1061,14 @@ def write_report(rows, universe_count, timestamp):
         "",
         *candidate_table(rows, "long"),
         "",
+        "## P/E Compression + Growth — LONG",
+        "",
+        *pe_trend_table(rows, "long"),
+        "",
+        "## P/E Expansion + Weakening — SHORT",
+        "",
+        *pe_trend_table(rows, "short"),
+        "",
         "## All companies",
         "",
         *full_table_lines(rows),
@@ -864,6 +1107,18 @@ def write_readme(rows, universe_count, timestamp):
         "Requires established profitability, reasonable forward valuation, strong growth and positive FCF yield. Speculative/loss-making names cannot qualify for LONG CORE from PEG alone.",
         "",
         "Scores are 0-100 heuristics. Revenue acceleration helps LONG and penalizes SHORT; deceleration does the opposite. Funding is not applicable to these Spot xStocks markets.",
+        "",
+        "### Separate P/E trend model",
+        "",
+        "This second ranking does **not replace** the main model. It compares trailing P/E with forward P/E and then checks whether expected EPS and revenue direction support the move. Falling forward P/E with positive growth raises the P/E-trend LONG score; rising forward P/E with weakening growth raises the P/E-trend SHORT score. Extreme absolute forward P/E is penalized on the LONG side.",
+        "",
+        "## P/E Compression + Growth — LONG",
+        "",
+        *pe_trend_table(rows, "long", 10),
+        "",
+        "## P/E Expansion + Weakening — SHORT",
+        "",
+        *pe_trend_table(rows, "short", 10),
         "",
         "## Top SHORT candidates",
         "",
@@ -932,6 +1187,20 @@ def main():
         print(
             f"  {r['okx_symbol']:>12} short={r['short_score']:3} {r['short_signal']:<5} "
             f"ratio={fmt_num(r['peg_1y'],2)} fwdPE={fmt_num(r['forward_pe'])}"
+        )
+    print("Top P/E TREND LONG:")
+    for r in sorted(rows, key=lambda x: x["pe_trend_long_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} peLong={r['pe_trend_long_score']:3} "
+            f"{r['pe_trend_long_signal']:<5} trailPE={fmt_num(r['trailing_pe'])} "
+            f"fwdPE={fmt_num(r['forward_pe'])} delta={fmt_pct(r['pe_change_pct'])}"
+        )
+    print("Top P/E TREND SHORT:")
+    for r in sorted(rows, key=lambda x: x["pe_trend_short_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} peShort={r['pe_trend_short_score']:3} "
+            f"{r['pe_trend_short_signal']:<5} trailPE={fmt_num(r['trailing_pe'])} "
+            f"fwdPE={fmt_num(r['forward_pe'])} delta={fmt_pct(r['pe_change_pct'])}"
         )
     print("Top LONG:")
     for r in sorted(rows, key=lambda x: x["long_score"], reverse=True)[:5]:
