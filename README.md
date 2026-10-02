@@ -45,8 +45,9 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Fundamental SHORT | P/E trend SHORT | Combined | Signal |
 |---:|---|---|---:|---:|---:|---|
-| 1 | Cerebras Systems Inc. | `CBRS` | 88 | 0 | **62** | **WATCH** |
-| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **56** | **WATCH** |
+| 1 | Cerebras Systems Inc. | `CBRS` | 88 | 0 | **88** | **CORE** |
+| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **80** | **CORE** |
+| 3 | Lumentum Holdings Inc. | `LITE` | 59 | 0 | **59** | **WATCH** |
 
 ## P/E Compression + Growth — LONG
 
