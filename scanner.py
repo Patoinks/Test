@@ -843,10 +843,15 @@ def fetch_fundamentals(item):
     else:
         long_signal = "—"
 
-    # Combined model: 70% fundamental + 30% P/E trend.
-    # Kept separate from both source models so no existing ranking is replaced.
-    combined_long_score = round((0.70 * long_score) + (0.30 * pe_trend_long_score))
-    combined_short_score = round((0.70 * short_score) + (0.30 * pe_trend_short_score))
+    # Combined model: 70% fundamental + 30% P/E trend when a valid
+    # trailing/forward P/E pair exists. If P/E trend is unavailable, preserve
+    # the fundamental score instead of treating missing data as a zero signal.
+    if valid_pe_pair:
+        combined_long_score = round((0.70 * long_score) + (0.30 * pe_trend_long_score))
+        combined_short_score = round((0.70 * short_score) + (0.30 * pe_trend_short_score))
+    else:
+        combined_long_score = long_score
+        combined_short_score = short_score
 
     combined_long_signal = (
         "CORE" if combined_long_score >= 75
