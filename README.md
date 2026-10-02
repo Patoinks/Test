@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-02 21:50 UTC  
+**Last scan:** 2026-10-02 21:51 UTC  
 **Availability scope:** user-confirmed OKX EEA Spot xStocks  
 **OKX stock/ETF markets in configured universe:** 22  
 **Public companies analysed:** 18  
@@ -46,8 +46,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | Rank | Company | OKX | Fundamental SHORT | P/E trend SHORT | Combined | Signal |
 |---:|---|---|---:|---:|---:|---|
 | 1 | Cerebras Systems Inc. | `CBRS` | 88 | 0 | **88** | **CORE** |
-| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **80** | **CORE** |
-| 3 | Lumentum Holdings Inc. | `LITE` | 59 | 0 | **59** | **WATCH** |
+| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **80** | **WATCH** |
 
 ## P/E Compression + Growth — LONG
 

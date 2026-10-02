@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-02 21:50 UTC
+**Updated:** 2026-10-02 21:51 UTC
 **OKX stock/RWA perps discovered:** 22
 **Public companies with usable fundamentals:** 18
 
@@ -37,8 +37,7 @@
 | Rank | Company | OKX | Fundamental SHORT | P/E trend SHORT | Combined | Signal |
 |---:|---|---|---:|---:|---:|---|
 | 1 | Cerebras Systems Inc. | `CBRS` | 88 | 0 | **88** | **CORE** |
-| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **80** | **CORE** |
-| 3 | Lumentum Holdings Inc. | `LITE` | 59 | 0 | **59** | **WATCH** |
+| 2 | Nebius Group N.V. | `NBIS` | 80 | 0 | **80** | **WATCH** |
 
 ## P/E Compression + Growth — LONG
 
