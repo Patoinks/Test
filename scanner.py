@@ -853,16 +853,20 @@ def fetch_fundamentals(item):
         combined_long_score = long_score
         combined_short_score = short_score
 
-    combined_long_signal = (
-        "CORE" if combined_long_score >= 75
-        else "WATCH" if combined_long_score >= 55
-        else "—"
-    )
-    combined_short_signal = (
-        "CORE" if combined_short_score >= 75
-        else "WATCH" if combined_short_score >= 55
-        else "—"
-    )
+    if valid_pe_pair:
+        combined_long_signal = (
+            "CORE" if combined_long_score >= 75
+            else "WATCH" if combined_long_score >= 55
+            else "—"
+        )
+        combined_short_signal = (
+            "CORE" if combined_short_score >= 75
+            else "WATCH" if combined_short_score >= 55
+            else "—"
+        )
+    else:
+        combined_long_signal = long_signal
+        combined_short_signal = short_signal
 
     if item.get("product_type") == "SPOT_XSTOCK":
         funding_rate, funding_annualized = None, None
