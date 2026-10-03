@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-03 12:36 UTC
+**Updated:** 2026-10-03 17:20 UTC
 **OKX stock/RWA perps discovered:** 22
 **Public companies with usable fundamentals:** 18
 
@@ -45,7 +45,7 @@
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | Marvell Technology, Inc. | `MRVL` | 88.4 | 40.3 | -54.4% | 60.3% | 50.9% | accelerating | **100** | **CORE** |
 | 2 | Advanced Micro Devices, Inc. | `AMD` | 156.1 | 40.7 | -73.9% | 105.7% | 73.2% | accelerating | **100** | **CORE** |
-| 3 | NVIDIA Corporation | `NVDA` | 29.2 | 14.9 | -48.9% | 68.6% | 66.0% | decelerating | **90** | **CORE** |
+| 3 | NVIDIA Corporation | `NVDA` | 29.6 | 14.9 | -49.6% | 68.6% | 66.0% | decelerating | **90** | **CORE** |
 | 4 | Robinhood Markets, Inc. | `HOOD` | 50.1 | 32.8 | -34.5% | 33.8% | 27.8% | accelerating | **86** | **CORE** |
 | 5 | Micron Technology, Inc. | `MU` | 14.5 | 5.2 | -63.7% | 16.0% | 14.1% | decelerating | **75** | **CORE** |
 | 6 | Tesla, Inc. | `TSLA` | 346.3 | 171.4 | -50.5% | 23.4% | 13.7% | accelerating | **55** | **WATCH** |
