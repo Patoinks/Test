@@ -28,7 +28,11 @@ USER_AVAILABLE_SYMBOLS = [
     for x in os.getenv("OKX_AVAILABLE_SYMBOLS", "").split(",")
     if x.strip()
 ]
-ASSET_PROXY_SYMBOLS = {"MSTR"}  # sales multiples are not economically meaningful here
+ASSET_PROXY_SYMBOLS = {"MSTR", "BMNR", "PURI"}  # treasury/asset-proxy names need NAV/premium analysis
+
+ETF_SYMBOLS = {"SOXL", "SPY", "QQQ", "EWY", "SNX", "DRAM", "SOXS", "KORU", "SKDD", "MUU"}
+PRIVATE_SYNTHETIC_SYMBOLS = {"SPCX", "OPENAI", "ANTHROPIC", "ZHIPU", "MINIMAX"}
+NON_FUNDAMENTAL_SYMBOLS = ETF_SYMBOLS | PRIVATE_SYNTHETIC_SYMBOLS
 
 USER_UNAVAILABLE_SYMBOLS = {
     x.strip().upper()
@@ -55,6 +59,10 @@ YAHOO_MAP = {
     "POPMART": "9992.HK",
     "XIAOMI": "1810.HK",
     "SKHY": "000660.KS",
+    "SKHYNIX": "000660.KS",
+    "SAMSUNG": "005930.KS",
+    "AXT": "AXTI",
+    "PURI": "PURR",
 }
 
 # Current OKX Europe TradFi universe fallback.
@@ -71,6 +79,8 @@ HPE KO LRCX NOW POPMART RDDT SMH SNOW TTWO XIAOMI APLD BOT BX ISRG OKTA RIVN
 UNH WDC ZM GLW JNJ KLAC QCOM ROK STRC
 INTC PANW BB RDW LUNR CRDO FLNC CGNX WEN TSEM KIOXIA XOM AMC GPRO
 LGELECTRONICS NAVER HANMI ZHONGJI SOFTBANK
+SKHYNIX BMNR SNX ZHIPU ANTHROPIC OPENAI PURI DRAM SOXS MRNA KORU AXT
+SAMSUNG IONQ MINIMAX SKDD MUU
 """.split()))
 
 DISCOVERY_SCOPE = "OKX EEA public catalogue"
@@ -187,13 +197,13 @@ def discover_okx_stock_perps():
     # by the user from the OKX EEA app. This avoids public-catalogue products
     # that may not actually be exposed in the user's UI/account.
     if USER_AVAILABLE_SYMBOLS:
-        DISCOVERY_SCOPE = "user-confirmed OKX EEA Spot xStocks"
+        DISCOVERY_SCOPE = "user-confirmed OKX EEA Stock Futures / X-Perp"
         return [
             {
                 "okx_symbol": symbol,
-                "inst_id": f"x{symbol}/USDC",
+                "inst_id": f"{symbol}-USDT-SWAP",
                 "max_leverage": None,
-                "product_type": "SPOT_XSTOCK",
+                "product_type": "STOCK_PERP",
             }
             for symbol in USER_AVAILABLE_SYMBOLS
         ]
@@ -286,6 +296,10 @@ def dataframe_value(df, row_name, col_name):
 
 def fetch_fundamentals(item):
     okx_symbol = item["okx_symbol"]
+    # Explicitly skip ETFs and private/pre-IPO synthetic markets so ticker
+    # collisions (for example SNX) can never be mistaken for a public company.
+    if okx_symbol in NON_FUNDAMENTAL_SYMBOLS:
+        return None
     yahoo_symbol = YAHOO_MAP.get(okx_symbol, okx_symbol.replace(".", "-"))
     t = yf.Ticker(yahoo_symbol)
 
@@ -868,10 +882,7 @@ def fetch_fundamentals(item):
         combined_long_signal = long_signal
         combined_short_signal = short_signal
 
-    if item.get("product_type") == "SPOT_XSTOCK":
-        funding_rate, funding_annualized = None, None
-    else:
-        funding_rate, funding_annualized = get_funding(item["inst_id"])
+    funding_rate, funding_annualized = get_funding(item["inst_id"])
 
     return {
         "okx_symbol": okx_symbol,
