@@ -667,23 +667,44 @@ def fetch_fundamentals(item):
             short_score += 20
             short_reasons.append("EPS growth < 20%")
     else:
+        # Progressive sales-multiple penalty. This avoids the old cliff where
+        # a loss-making name at ~30-39x sales was treated too similarly to one
+        # at ~25x. High multiples now get progressively more expensive from 20x.
         if price_to_sales is not None:
             if price_to_sales >= 50:
-                short_score += 25
+                short_score += 28
                 short_reasons.append("P/S >= 50")
+            elif price_to_sales >= 40:
+                short_score += 25
+                short_reasons.append("P/S >= 40")
+            elif price_to_sales >= 30:
+                short_score += 22
+                short_reasons.append("P/S >= 30")
             elif price_to_sales >= 25:
                 short_score += 18
                 short_reasons.append("P/S >= 25")
+            elif price_to_sales >= 20:
+                short_score += 14
+                short_reasons.append("P/S >= 20")
             elif price_to_sales >= 15:
                 short_score += 10
                 short_reasons.append("P/S >= 15")
         if ev_to_sales is not None:
             if ev_to_sales >= 50:
-                short_score += 25
+                short_score += 28
                 short_reasons.append("EV/Sales >= 50")
+            elif ev_to_sales >= 40:
+                short_score += 25
+                short_reasons.append("EV/Sales >= 40")
+            elif ev_to_sales >= 30:
+                short_score += 22
+                short_reasons.append("EV/Sales >= 30")
             elif ev_to_sales >= 25:
                 short_score += 18
                 short_reasons.append("EV/Sales >= 25")
+            elif ev_to_sales >= 20:
+                short_score += 14
+                short_reasons.append("EV/Sales >= 20")
             elif ev_to_sales >= 15:
                 short_score += 10
                 short_reasons.append("EV/Sales >= 15")
@@ -837,15 +858,33 @@ def fetch_fundamentals(item):
             long_reasons.append("Penalty: negative FCF")
 
     if speculative_growth:
-        if price_to_sales is not None and price_to_sales >= 25:
-            long_score -= 20
+        if price_to_sales is not None and price_to_sales >= 40:
+            long_score -= 25
+            long_reasons.append("Penalty: P/S >= 40")
+        elif price_to_sales is not None and price_to_sales >= 30:
+            long_score -= 22
+            long_reasons.append("Penalty: P/S >= 30")
+        elif price_to_sales is not None and price_to_sales >= 25:
+            long_score -= 18
             long_reasons.append("Penalty: P/S >= 25")
+        elif price_to_sales is not None and price_to_sales >= 20:
+            long_score -= 14
+            long_reasons.append("Penalty: P/S >= 20")
         elif price_to_sales is not None and price_to_sales >= 15:
             long_score -= 10
             long_reasons.append("Penalty: P/S >= 15")
-        if ev_to_sales is not None and ev_to_sales >= 25:
-            long_score -= 20
+        if ev_to_sales is not None and ev_to_sales >= 40:
+            long_score -= 25
+            long_reasons.append("Penalty: EV/Sales >= 40")
+        elif ev_to_sales is not None and ev_to_sales >= 30:
+            long_score -= 22
+            long_reasons.append("Penalty: EV/Sales >= 30")
+        elif ev_to_sales is not None and ev_to_sales >= 25:
+            long_score -= 18
             long_reasons.append("Penalty: EV/Sales >= 25")
+        elif ev_to_sales is not None and ev_to_sales >= 20:
+            long_score -= 14
+            long_reasons.append("Penalty: EV/Sales >= 20")
         elif ev_to_sales is not None and ev_to_sales >= 15:
             long_score -= 10
             long_reasons.append("Penalty: EV/Sales >= 15")
