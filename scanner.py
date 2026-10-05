@@ -1266,6 +1266,37 @@ def combined_table(rows, side, limit=10):
     return lines
 
 
+def timed_table(rows, side, limit=15):
+    score_key = f"timed_{side}_score"
+    signal_key = f"timed_{side}_signal"
+    base_key = f"combined_{side}_score"
+    adjustment_key = f"timing_{side}_adjustment"
+    previous_key = f"previous_{side}able"
+    ranked = sorted(
+        rows,
+        key=lambda r: (r[score_key], r[base_key], r["timing_strength"]),
+        reverse=True,
+    )
+    candidates = [r for r in ranked if r[signal_key] != "—"][:limit]
+
+    lines = [
+        f"| Rank | Company | OKX | 24h | 7d | 50/50 move | Base {side.upper()} | Timing adj. | Final | Signal | Prev. {side.upper()}? |",
+        "|---:|---|---|---:|---:|---:|---:|---:|---:|---|---|",
+    ]
+    for i, r in enumerate(candidates, 1):
+        adjustment = int(r[adjustment_key])
+        lines.append(
+            f"| {i} | {r['company']} | {r['okx_symbol']} | "
+            f"{fmt_pct(r['price_change_24h'])} | {fmt_pct(r['price_change_7d'])} | "
+            f"{fmt_pct(r['price_timing_move'])} | {r[base_key]} | {adjustment:+d} | "
+            f"**{r[score_key]}** | **{r[signal_key]}** | "
+            f"{'yes' if r[previous_key] else 'no'} |"
+        )
+    if not candidates:
+        lines.append("| — | No candidates | — | — | — | — | — | — | — | — | — |")
+    return lines
+
+
 def candidate_table(rows, side, limit=15):
     score_key = f"{side}_score"
     signal_key = f"{side}_signal"
@@ -1297,11 +1328,19 @@ def write_report(rows, universe_count, timestamp):
         f"**OKX stock/RWA perps discovered:** {universe_count}",
         f"**Public companies with usable fundamentals:** {len(rows)}",
         "",
-        "## Top SHORT candidates",
+        "## Final model + Price Timing — SHORT",
+        "",
+        *timed_table(rows, "short"),
+        "",
+        "## Final model + Price Timing — LONG",
+        "",
+        *timed_table(rows, "long"),
+        "",
+        "## Top SHORT candidates — fundamentals only",
         "",
         *candidate_table(rows, "short"),
         "",
-        "## Top LONG candidates",
+        "## Top LONG candidates — fundamentals only",
         "",
         *candidate_table(rows, "long"),
         "",
@@ -1363,6 +1402,18 @@ def write_readme(rows, universe_count, timestamp):
         "### Separate P/E trend model",
         "",
         "This second ranking does **not replace** the main model. It compares trailing P/E with forward P/E and then checks whether expected EPS and revenue direction support the move. Falling forward P/E with positive growth raises the P/E-trend LONG score; rising forward P/E with weakening growth raises the P/E-trend SHORT score. Extreme absolute forward P/E is penalized on the LONG side.",
+        "",
+        "### Price Timing / Dislocation layer",
+        "",
+        "The final ranking adds entry timing without allowing price momentum to create a thesis by itself. Price move = **50% 24h return + 50% 7-day return**. A 25% absolute weighted move is maximum timing stress and can adjust the final score by up to 20 points. If a name is already LONG-qualified now or was LONG-qualified in the previous hourly run, a fall boosts LONG and a rally reduces it. If it is already SHORT-qualified, a rally boosts SHORT and a fall reduces it.",
+        "",
+        "## Final model + Price Timing — LONG",
+        "",
+        *timed_table(rows, "long", 10),
+        "",
+        "## Final model + Price Timing — SHORT",
+        "",
+        *timed_table(rows, "short", 10),
         "",
         "## Combined model — LONG",
         "",
