@@ -42,6 +42,15 @@ USER_UNAVAILABLE_SYMBOLS = {
 MAX_WORKERS = int(os.getenv("MAX_WORKERS", "6"))
 TIMEOUT = 20
 
+# Price-dislocation / entry-timing layer.
+# 24h and 7-day price moves carry equal weight.
+PRICE_TIMING_24H_WEIGHT = 0.50
+PRICE_TIMING_7D_WEIGHT = 0.50
+PRICE_TIMING_FULL_MOVE = 0.25
+PRICE_TIMING_MAX_ADJUSTMENT = 20
+FINAL_WATCH_THRESHOLD = 55
+FINAL_CORE_THRESHOLD = 75
+
 if OKX_REQUIRE_EEA and "eea.okx.com" not in OKX_BASE:
     raise RuntimeError(
         f"Refusing to scan non-EEA OKX domain: {OKX_BASE}. "
@@ -294,6 +303,42 @@ def dataframe_value(df, row_name, col_name):
         return None
 
 
+def get_price_changes(t, current_price):
+    """Return approximate 24h and 7-calendar-day returns from Yahoo daily bars."""
+    try:
+        history = t.history(period="12d", interval="1d", auto_adjust=False)
+        if history is None or history.empty or "Close" not in history.columns:
+            return None, None
+
+        closes = history["Close"].dropna()
+        if closes.empty:
+            return None, None
+
+        latest = n(current_price)
+        if latest is None:
+            latest = n(closes.iloc[-1])
+        if latest is None or latest <= 0:
+            return None, None
+
+        idx_tz = getattr(closes.index, "tz", None)
+        now_ts = pd.Timestamp.now(tz=idx_tz) if idx_tz is not None else pd.Timestamp.now()
+
+        def baseline(days):
+            target = now_ts - pd.Timedelta(days=days)
+            eligible = closes[closes.index <= target]
+            if eligible.empty:
+                return None
+            return n(eligible.iloc[-1])
+
+        base_24h = baseline(1)
+        base_7d = baseline(7)
+        change_24h = (latest / base_24h) - 1.0 if base_24h and base_24h > 0 else None
+        change_7d = (latest / base_7d) - 1.0 if base_7d and base_7d > 0 else None
+        return change_24h, change_7d
+    except Exception:
+        return None, None
+
+
 def fetch_fundamentals(item):
     okx_symbol = item["okx_symbol"]
     # Explicitly skip ETFs and private/pre-IPO synthetic markets so ticker
@@ -314,6 +359,15 @@ def fetch_fundamentals(item):
     # Keep companies only: excludes ETFs, indices, commodities, private assets, etc.
     if quote_type != "EQUITY" or not market_cap or market_cap <= 0:
         return None
+
+    price = n(info.get("currentPrice") or info.get("regularMarketPrice"))
+    price_change_24h, price_change_7d = get_price_changes(t, price)
+    price_timing_move = (
+        (PRICE_TIMING_24H_WEIGHT * price_change_24h)
+        + (PRICE_TIMING_7D_WEIGHT * price_change_7d)
+        if price_change_24h is not None and price_change_7d is not None
+        else None
+    )
 
     trailing_pe = n(info.get("trailingPE"))
     forward_pe = n(info.get("forwardPE"))
@@ -890,8 +944,11 @@ def fetch_fundamentals(item):
         "company": info.get("shortName") or info.get("longName") or yahoo_symbol,
         "inst_id": item["inst_id"],
         "max_leverage": item.get("max_leverage"),
-        "price": n(info.get("currentPrice") or info.get("regularMarketPrice")),
+        "price": price,
         "market_cap": market_cap,
+        "price_change_24h": price_change_24h,
+        "price_change_7d": price_change_7d,
+        "price_timing_move": price_timing_move,
         "trailing_pe": trailing_pe,
         "forward_pe": forward_pe,
         "price_to_sales": price_to_sales,
@@ -933,6 +990,114 @@ def fetch_fundamentals(item):
     }
 
 
+def load_previous_snapshot():
+    """Load prior hourly scores so previous LONG/SHORT status can gate timing."""
+    path = DATA_DIR / "latest.csv"
+    if not path.exists():
+        return {}
+    try:
+        df = pd.read_csv(path)
+    except Exception:
+        return {}
+
+    out = {}
+    for _, row in df.iterrows():
+        symbol = str(row.get("okx_symbol") or "").strip().upper()
+        if not symbol:
+            continue
+
+        def row_num(*keys):
+            for key in keys:
+                if key in row:
+                    value = n(row.get(key))
+                    if value is not None:
+                        return value
+            return None
+
+        out[symbol] = {
+            "long_score": row_num("timed_long_score", "combined_long_score", "long_score"),
+            "short_score": row_num("timed_short_score", "combined_short_score", "short_score"),
+        }
+    return out
+
+
+def apply_price_timing(rows, previous_snapshot):
+    """
+    Final timing layer:
+      - move = 50% x 24h return + 50% x 7-day return.
+      - price action only changes a side if it is already qualified now, or was
+        qualified in the previous hourly run.
+      - LONG + falling price => stronger LONG; LONG + rally => weaker LONG.
+      - SHORT + rising price => stronger SHORT; SHORT + fall => weaker SHORT.
+    """
+    for row in rows:
+        move = n(row.get("price_timing_move"))
+        if move is None:
+            strength = 0
+            raw_adjustment = 0
+        else:
+            strength = round(
+                min(100.0, (abs(move) / PRICE_TIMING_FULL_MOVE) * 100.0)
+            )
+            raw_adjustment = round(
+                (strength / 100.0) * PRICE_TIMING_MAX_ADJUSTMENT
+            )
+
+        previous = previous_snapshot.get(row["okx_symbol"], {})
+        previous_long_score = n(previous.get("long_score"))
+        previous_short_score = n(previous.get("short_score"))
+        was_longable = (
+            previous_long_score is not None
+            and previous_long_score >= FINAL_WATCH_THRESHOLD
+        )
+        was_shortable = (
+            previous_short_score is not None
+            and previous_short_score >= FINAL_WATCH_THRESHOLD
+        )
+
+        base_long = int(row["combined_long_score"])
+        base_short = int(row["combined_short_score"])
+        long_eligible = base_long >= FINAL_WATCH_THRESHOLD or was_longable
+        short_eligible = base_short >= FINAL_WATCH_THRESHOLD or was_shortable
+
+        long_adjustment = 0
+        short_adjustment = 0
+        if move is not None:
+            if long_eligible:
+                long_adjustment = (
+                    raw_adjustment if move < 0
+                    else -raw_adjustment if move > 0
+                    else 0
+                )
+            if short_eligible:
+                short_adjustment = (
+                    raw_adjustment if move > 0
+                    else -raw_adjustment if move < 0
+                    else 0
+                )
+
+        timed_long_score = max(0, min(100, base_long + long_adjustment))
+        timed_short_score = max(0, min(100, base_short + short_adjustment))
+
+        row["timing_strength"] = strength
+        row["timing_long_adjustment"] = long_adjustment
+        row["timing_short_adjustment"] = short_adjustment
+        row["previous_longable"] = was_longable
+        row["previous_shortable"] = was_shortable
+        row["timed_long_score"] = timed_long_score
+        row["timed_short_score"] = timed_short_score
+        row["timed_long_signal"] = (
+            "CORE" if timed_long_score >= FINAL_CORE_THRESHOLD
+            else "WATCH" if timed_long_score >= FINAL_WATCH_THRESHOLD
+            else "—"
+        )
+        row["timed_short_signal"] = (
+            "CORE" if timed_short_score >= FINAL_CORE_THRESHOLD
+            else "WATCH" if timed_short_score >= FINAL_WATCH_THRESHOLD
+            else "—"
+        )
+
+
 def write_latest_csv(rows):
     path = DATA_DIR / "latest.csv"
     if not rows:
@@ -953,6 +1118,18 @@ def append_history(rows, timestamp):
         "inst_id",
         "price",
         "market_cap",
+        "price_change_24h",
+        "price_change_7d",
+        "price_timing_move",
+        "timing_strength",
+        "timing_long_adjustment",
+        "timing_short_adjustment",
+        "previous_longable",
+        "previous_shortable",
+        "timed_long_score",
+        "timed_long_signal",
+        "timed_short_score",
+        "timed_short_signal",
         "trailing_pe",
         "forward_pe",
         "price_to_sales",
@@ -1258,8 +1435,14 @@ def main():
             except Exception as exc:
                 print(f"WARN {item['inst_id']}: {exc}")
 
+    previous_snapshot = load_previous_snapshot()
+    apply_price_timing(rows, previous_snapshot)
+
     rows.sort(
-        key=lambda r: (max(r["long_score"], r["short_score"]), r["long_score"]),
+        key=lambda r: (
+            max(r["timed_long_score"], r["timed_short_score"]),
+            r["timed_long_score"],
+        ),
         reverse=True,
     )
 
@@ -1269,7 +1452,23 @@ def main():
     write_readme(rows, len(universe), timestamp)
 
     print(f"Scanned {len(rows)} public companies from {len(universe)} OKX TradFi/RWA perps.")
-    print("Top SHORT:")
+    print("Top FINAL SHORT:")
+    for r in sorted(rows, key=lambda x: x["timed_short_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} finalShort={r['timed_short_score']:3} "
+            f"{r['timed_short_signal']:<5} base={r['combined_short_score']:3} "
+            f"24h={fmt_pct(r['price_change_24h'])} 7d={fmt_pct(r['price_change_7d'])} "
+            f"timing={r['timing_short_adjustment']:+d}"
+        )
+    print("Top FINAL LONG:")
+    for r in sorted(rows, key=lambda x: x["timed_long_score"], reverse=True)[:5]:
+        print(
+            f"  {r['okx_symbol']:>12} finalLong={r['timed_long_score']:3} "
+            f"{r['timed_long_signal']:<5} base={r['combined_long_score']:3} "
+            f"24h={fmt_pct(r['price_change_24h'])} 7d={fmt_pct(r['price_change_7d'])} "
+            f"timing={r['timing_long_adjustment']:+d}"
+        )
+    print("Top FUNDAMENTAL SHORT:")
     for r in sorted(rows, key=lambda x: x["short_score"], reverse=True)[:5]:
         print(
             f"  {r['okx_symbol']:>12} short={r['short_score']:3} {r['short_signal']:<5} "
