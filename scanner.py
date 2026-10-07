@@ -16,6 +16,7 @@ import pandas as pd
 import requests
 import yfinance as yf
 
+# BTC/HK market-regime research layer.
 from hk_btc_correlation import run_hk_btc_correlation
 
 OKX_BASE = os.getenv("OKX_BASE_URL", "https://eea.okx.com").rstrip("/")
