@@ -16,6 +16,8 @@ import pandas as pd
 import requests
 import yfinance as yf
 
+from hk_btc_correlation import run_hk_btc_correlation
+
 OKX_BASE = os.getenv("OKX_BASE_URL", "https://eea.okx.com").rstrip("/")
 OKX_REQUIRE_EEA = os.getenv("OKX_REQUIRE_EEA", "1") == "1"
 ALLOW_STATIC_FALLBACK = os.getenv("ALLOW_STATIC_OKX_FALLBACK", "0") == "1"
@@ -1489,9 +1491,12 @@ def write_readme(rows, universe_count, timestamp):
         "## Files",
         "",
         "- `scanner.py` — scanner and scoring logic",
+        "- `hk_btc_correlation.py` — BTC/Hong Kong correlation scanner",
         "- `reports/latest.md` — latest full report",
+        "- `reports/hk_btc_latest.md` — BTC vs Hang Seng/HSTECH/Xiaomi correlation report",
         "- `data/latest.csv` — latest machine-readable snapshot",
         "- `data/history.csv` — hourly history of **all companies** for later backtests",
+        "- `data/hk_btc_history.csv` — rolling BTC/Hong Kong correlation history",
         "- `.github/workflows/hourly-okx-scanner.yml` — hourly GitHub Action",
         "",
         "## Data",
@@ -1540,6 +1545,21 @@ def main():
     append_history(rows, timestamp)
     write_report(rows, len(universe), timestamp)
     write_readme(rows, len(universe), timestamp)
+
+    try:
+        hk_corr_rows = run_hk_btc_correlation(timestamp)
+        print("BTC/HK correlation scanner:")
+        for corr_row in hk_corr_rows:
+            same_corr = corr_row.get("corr_same_5m")
+            overnight_corr = corr_row.get("overnight_corr")
+            lead = corr_row.get("best_btc_lead_minutes")
+            print(
+                f"  {corr_row['asset']}: same5m={same_corr if same_corr is not None else 'n/a'} "
+                f"bestLead={lead if lead is not None else 'n/a'}m "
+                f"overnight={overnight_corr if overnight_corr is not None else 'n/a'}"
+            )
+    except Exception as exc:
+        print(f"WARN BTC/HK correlation scanner failed: {exc}")
 
     print(f"Scanned {len(rows)} public companies from {len(universe)} OKX TradFi/RWA perps.")
     print("Top FINAL SHORT:")
