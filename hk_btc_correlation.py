@@ -100,8 +100,7 @@ def _lag_pair(market_returns, btc_returns, lag_minutes):
     ).dropna()
 
 
-def _intraday_metrics(asset_name, asset_ticker, btc_close):
-    market_frame = _history(asset_ticker, INTRADAY_PERIOD, INTRADAY_INTERVAL)
+def _intraday_metrics(asset_name, asset_ticker, btc_close, market_frame):
     market_close = market_frame["Close"].dropna()
     market_returns = _continuous_returns(market_close)
     btc_returns = _continuous_returns(btc_close)
@@ -157,24 +156,42 @@ def _btc_price_asof(btc_close, timestamp):
     return _num(btc_close.asof(timestamp))
 
 
-def _overnight_rows(asset_name, asset_ticker, btc_close):
-    daily = _history(asset_ticker, "6mo", "1d")
-    daily = daily[["Open", "Close"]].dropna().sort_index()
+def _overnight_rows(asset_name, asset_ticker, btc_close, market_frame):
+    """Compare BTC while HKEX is closed with the next opening gap."""
+    frame = market_frame[["Open", "Close"]].dropna(how="all").copy()
+    if frame.empty:
+        return []
+
+    local_index = frame.index.tz_convert(HK_TZ)
+    frame["session_date_hk"] = [str(ts.date()) for ts in local_index]
+
+    sessions = []
+    for session_date, group in frame.groupby("session_date_hk", sort=True):
+        open_values = group["Open"].dropna()
+        close_values = group["Close"].dropna()
+        if open_values.empty or close_values.empty:
+            continue
+        sessions.append(
+            {
+                "date": session_date,
+                "open": _num(open_values.iloc[0]),
+                "close": _num(close_values.iloc[-1]),
+            }
+        )
+
     rows = []
-
-    for i in range(1, len(daily)):
-        prev_idx = daily.index[i - 1]
-        curr_idx = daily.index[i]
-        prev_day = pd.Timestamp(prev_idx).tz_convert(HK_TZ).date()
-        curr_day = pd.Timestamp(curr_idx).tz_convert(HK_TZ).date()
-
-        prev_close = _num(daily.iloc[i - 1]["Close"])
-        curr_open = _num(daily.iloc[i]["Open"])
+    for i in range(1, len(sessions)):
+        prev = sessions[i - 1]
+        curr = sessions[i]
+        prev_close = prev["close"]
+        curr_open = curr["open"]
         if not prev_close or not curr_open:
             continue
 
-        btc_start_hk = pd.Timestamp(prev_day).tz_localize(HK_TZ) + pd.Timedelta(hours=16, minutes=10)
-        btc_end_hk = pd.Timestamp(curr_day).tz_localize(HK_TZ) + pd.Timedelta(hours=9, minutes=30)
+        prev_day = pd.Timestamp(prev["date"])
+        curr_day = pd.Timestamp(curr["date"])
+        btc_start_hk = prev_day.tz_localize(HK_TZ) + pd.Timedelta(hours=16, minutes=10)
+        btc_end_hk = curr_day.tz_localize(HK_TZ) + pd.Timedelta(hours=9, minutes=30)
 
         btc_start = _btc_price_asof(btc_close, btc_start_hk.tz_convert("UTC"))
         btc_end = _btc_price_asof(btc_close, btc_end_hk.tz_convert("UTC"))
@@ -185,7 +202,7 @@ def _overnight_rows(asset_name, asset_ticker, btc_close):
             {
                 "asset": asset_name,
                 "ticker": asset_ticker,
-                "session_date_hk": str(curr_day),
+                "session_date_hk": curr["date"],
                 "btc_overnight_return": (btc_end / btc_start) - 1.0,
                 "hk_open_gap": (curr_open / prev_close) - 1.0,
             }
@@ -303,8 +320,9 @@ def run_hk_btc_correlation(timestamp=None):
     all_overnight_rows = []
 
     for asset_name, asset_ticker in HK_ASSETS.items():
-        summary, asset_lags = _intraday_metrics(asset_name, asset_ticker, btc_close)
-        overnight_rows = _overnight_rows(asset_name, asset_ticker, btc_close)
+        market_frame = _history(asset_ticker, INTRADAY_PERIOD, INTRADAY_INTERVAL)
+        summary, asset_lags = _intraday_metrics(asset_name, asset_ticker, btc_close, market_frame)
+        overnight_rows = _overnight_rows(asset_name, asset_ticker, btc_close, market_frame)
         summary.update(_overnight_metrics(overnight_rows))
         summary_rows.append(summary)
         lag_rows.extend(asset_lags)
