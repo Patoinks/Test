@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-07 04:12 UTC  
+**Last scan:** 2026-10-07 04:15 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 69  
 **Public companies analysed:** 54  
@@ -191,7 +191,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | Palantir Technologies Inc. | `PLTR` | 75.0 | 73.5 | 47.1% | 81.9 | 44.7% | 49.7% | 0.5% | **33** | **48** |
 | Intel Corporation | `INTC` | 10.4 | 10.6 | 12.2% | 54.0 | 36.9% | 14.8% | 0.8% | **5** | **48** |
 | AXT Inc | `AXT` | 43.9 | 41.0 | 21.9% | 37.4 | 159.2% | 111.3% | -0.8% | **45** | **35** |
-| SK hynix | `SKHYNIX` | 6.6 | 6.3 | 76.3% | 3.7 | 32.9% | 54.3% | 4.5% | **45** | **5** |
+| SK hynix | `SKHYNIX` | 6.5 | 6.3 | 76.3% | 3.7 | 32.9% | 54.3% | 4.5% | **45** | **5** |
 | SK hynix | `SKHY` | 6.6 | 6.3 | 76.3% | 3.7 | 32.9% | 54.3% | 4.5% | **45** | **5** |
 | Applied Optoelectronics, Inc. | `AAOI` | 18.5 | 18.1 | -12.9% | 28.3 | 576.8% | 156.5% | -8.0% | **0** | **45** |
 | Coinbase Global, Inc. | `COIN` | 8.1 | 7.8 | -13.9% | 65.5 | 245.9% | 29.3% | 5.4% | **20** | **40** |
@@ -204,8 +204,8 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | Circle Internet Group, Inc. | `CRCL` | 7.4 | 6.8 | 4.9% | 59.6 | 29.3% | 23.7% | 1.0% | **35** | **33** |
 | Fluence Energy, Inc. | `FLNC` | 0.6 | 0.5 | -8.9% | -30.1 | 70.1% | 35.3% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURI` | 367.7 | 246.8 | 9595.1% | 33.8 | 51.0% | 33.4% | — | **25** | **10** |
-| Strategy Inc | `MSTR` | 131.7 | 164.6 | -6808.1% | 3.3 | 157.5% | 2.2% | -34.4% | **25** | **25** |
 | BitMine Immersion Technologies, | `BMNR` | 258.3 | 252.7 | 8.4% | 27.9 | 103.2% | 421.8% | -3.3% | **25** | **25** |
+| Strategy Inc | `MSTR` | 131.7 | 164.6 | -6808.1% | 3.3 | 157.5% | 2.2% | -34.4% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.4 | 4.5 | 18.5% | 17.7 | -2.7% | 4.8% | 5.3% | **25** | **15** |
 
 ## Files

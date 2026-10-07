@@ -1,6 +1,6 @@
 # BTC ↔ Hong Kong Correlation Scanner
 
-**Updated:** 2026-10-07 04:12 UTC
+**Updated:** 2026-10-07 04:15 UTC
 
 Purpose: test whether Bitcoin weakness is associated with Hong Kong market weakness,
 without mixing ordinary intraday co-movement with the overnight period when HKEX is closed.
@@ -10,8 +10,8 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 | Asset | Same 5m corr | Best BTC lead | Best corr | BTC -0.25%/5m events | HK down hit-rate | Avg HK return on BTC drop | Overnight corr | BTC-down -> negative open | Avg opening gap when BTC down |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Hang Seng Index | +0.11 | 0m | +0.11 | 29 | 59% | -0.02% | +0.36 | 60% | -0.23% |
-| Hang Seng TECH | +0.13 | 0m | +0.13 | 29 | 69% | -0.05% | — | — | — |
-| Xiaomi | +0.04 | 0m | +0.04 | 27 | 48% | -0.04% | +0.38 | 55% | -0.26% |
+| Hang Seng TECH | +0.13 | 0m | +0.13 | 29 | 69% | -0.05% | +0.39 | 70% | -0.24% |
+| Xiaomi | +0.04 | 0m | +0.04 | 27 | 48% | -0.04% | +0.35 | 55% | -0.24% |
 
 ## BTC lead / lag detail
 
@@ -19,16 +19,16 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 
 | Asset | BTC lead | Correlation | Samples |
 |---|---:|---:|---:|
-| Hang Seng Index | 0m | +0.11 | 2817 |
-| Hang Seng Index | 5m | +0.02 | 2817 |
-| Hang Seng Index | 15m | +0.03 | 2817 |
-| Hang Seng Index | 30m | -0.05 | 2817 |
-| Hang Seng Index | 60m | +0.01 | 2817 |
-| Hang Seng TECH | 0m | +0.13 | 2817 |
-| Hang Seng TECH | 5m | +0.03 | 2817 |
-| Hang Seng TECH | 15m | +0.03 | 2817 |
-| Hang Seng TECH | 30m | -0.04 | 2817 |
-| Hang Seng TECH | 60m | -0.02 | 2817 |
+| Hang Seng Index | 0m | +0.11 | 2818 |
+| Hang Seng Index | 5m | +0.02 | 2818 |
+| Hang Seng Index | 15m | +0.03 | 2818 |
+| Hang Seng Index | 30m | -0.05 | 2818 |
+| Hang Seng Index | 60m | +0.01 | 2818 |
+| Hang Seng TECH | 0m | +0.13 | 2818 |
+| Hang Seng TECH | 5m | +0.03 | 2818 |
+| Hang Seng TECH | 15m | +0.03 | 2818 |
+| Hang Seng TECH | 30m | -0.04 | 2818 |
+| Hang Seng TECH | 60m | -0.02 | 2818 |
 | Xiaomi | 0m | +0.04 | 2653 |
 | Xiaomi | 5m | +0.02 | 2653 |
 | Xiaomi | 15m | +0.00 | 2653 |
