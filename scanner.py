@@ -31,10 +31,10 @@ USER_AVAILABLE_SYMBOLS = [
     for x in os.getenv("OKX_AVAILABLE_SYMBOLS", "").split(",")
     if x.strip()
 ]
-ASSET_PROXY_SYMBOLS = {"MSTR", "BMNR", "PURI"}  # treasury/asset-proxy names need NAV/premium analysis
+ASSET_PROXY_SYMBOLS = {"MSTR", "BMNR", "PURR"}  # treasury/asset-proxy names need NAV/premium analysis
 
-ETF_SYMBOLS = {"SOXL", "SPY", "QQQ", "EWY", "SNX", "DRAM", "SOXS", "KORU", "SKDD", "MUU"}
-PRIVATE_SYNTHETIC_SYMBOLS = {"SPCX", "OPENAI", "ANTHROPIC", "ZHIPU", "MINIMAX"}
+ETF_SYMBOLS = {"SOXL", "SPY", "QQQ", "EWY", "EWZ", "SNXX", "DRAM", "SOXS", "KORU", "SKDD", "MUU"}
+PRIVATE_SYNTHETIC_SYMBOLS = {"SPCX", "OPENAI", "ANTHROPIC", "ZHIPU", "MINIMAX", "OURA"}
 NON_FUNDAMENTAL_SYMBOLS = ETF_SYMBOLS | PRIVATE_SYNTHETIC_SYMBOLS
 
 USER_UNAVAILABLE_SYMBOLS = {
@@ -74,7 +74,6 @@ YAHOO_MAP = {
     "SKHYNIX": "000660.KS",
     "SAMSUNG": "005930.KS",
     "AXT": "AXTI",
-    "PURI": "PURR",
 }
 
 # Current OKX Europe TradFi universe fallback.
@@ -91,8 +90,8 @@ HPE KO LRCX NOW POPMART RDDT SMH SNOW TTWO XIAOMI APLD BOT BX ISRG OKTA RIVN
 UNH WDC ZM GLW JNJ KLAC QCOM ROK STRC
 INTC PANW BB RDW LUNR CRDO FLNC CGNX WEN TSEM KIOXIA XOM AMC GPRO
 LGELECTRONICS NAVER HANMI ZHONGJI SOFTBANK
-SKHYNIX BMNR SNX ZHIPU ANTHROPIC OPENAI PURI DRAM SOXS MRNA KORU AXT
-SAMSUNG IONQ MINIMAX SKDD MUU
+SKHYNIX BMNR SNXX ZHIPU ANTHROPIC OPENAI PURR DRAM SOXS MRNA KORU AXT
+SAMSUNG IONQ MINIMAX SKDD MUU EWZ OURA
 """.split()))
 
 DISCOVERY_SCOPE = "OKX EEA public catalogue"
@@ -364,6 +363,44 @@ def fetch_fundamentals(item):
         return None
 
     price = n(info.get("currentPrice") or info.get("regularMarketPrice"))
+    # Yahoo Finance 12-month analyst price target. Compare against Yahoo's
+    # underlying equity quote, never directly against a synthetic OKX X-Perp.
+    # Target and spot are in the same Yahoo quote currency (USD, HKD, KRW...).
+    analyst_target_mean = n(info.get("targetMeanPrice"))
+    analyst_target_low = n(info.get("targetLowPrice"))
+    analyst_target_high = n(info.get("targetHighPrice"))
+    analyst_count = n(info.get("numberOfAnalystOpinions"))
+    if analyst_target_mean is None or analyst_count is None:
+        try:
+            targets = t.analyst_price_targets or {}
+            if analyst_target_mean is None:
+                analyst_target_mean = n(targets.get("mean"))
+            if analyst_target_low is None:
+                analyst_target_low = n(targets.get("low"))
+            if analyst_target_high is None:
+                analyst_target_high = n(targets.get("high"))
+        except Exception:
+            pass
+
+    analyst_target_status = "missing"
+    analyst_upside_pct = None
+    if analyst_target_mean is not None and analyst_target_mean > 0 and price and price > 0:
+        ratio = analyst_target_mean / price
+        # Small sample, bad split adjustment and mismatched price scales
+        # must not be silently promoted to "best upside/downside".
+        suspicious_range = (
+            (analyst_target_low is not None and analyst_target_low > analyst_target_mean)
+            or (analyst_target_high is not None and analyst_target_high < analyst_target_mean)
+            or ratio < 0.20 or ratio > 3.0
+        )
+        if suspicious_range:
+            analyst_target_status = "CHECK"
+        elif analyst_count is None or analyst_count < 3:
+            analyst_target_status = "LOW_COVERAGE"
+        else:
+            analyst_target_status = "OK"
+            analyst_upside_pct = ratio - 1.0
+
     price_change_24h, price_change_7d = get_price_changes(t, price)
     price_timing_move = (
         (PRICE_TIMING_24H_WEIGHT * price_change_24h)
@@ -987,6 +1024,13 @@ def fetch_fundamentals(item):
         "inst_id": item["inst_id"],
         "max_leverage": item.get("max_leverage"),
         "price": price,
+        "analyst_target_mean": analyst_target_mean,
+        "analyst_target_low": analyst_target_low,
+        "analyst_target_high": analyst_target_high,
+        "analyst_count": int(analyst_count) if analyst_count is not None else None,
+        "analyst_upside_pct": analyst_upside_pct,
+        "analyst_target_status": analyst_target_status,
+        "quote_currency": info.get("currency"),
         "market_cap": market_cap,
         "price_change_24h": price_change_24h,
         "price_change_7d": price_change_7d,
@@ -1160,6 +1204,10 @@ def append_history(rows, timestamp):
         "inst_id",
         "price",
         "market_cap",
+        "analyst_target_mean",
+        "analyst_count",
+        "analyst_upside_pct",
+        "analyst_target_status",
         "price_change_24h",
         "price_change_7d",
         "price_timing_move",
@@ -1362,6 +1410,34 @@ def candidate_table(rows, side, limit=15):
     return lines
 
 
+def analyst_target_table(rows, direction, limit=15):
+    """Rank 12-month consensus potential for real listed equities only."""
+    valid = [r for r in rows if r.get("analyst_target_status") == "OK"]
+    ordered = sorted(
+        valid,
+        key=lambda r: r["analyst_upside_pct"],
+        reverse=(direction == "upside"),
+    )
+    if direction == "upside":
+        ordered = [r for r in ordered if r["analyst_upside_pct"] > 0]
+    else:
+        ordered = [r for r in ordered if r["analyst_upside_pct"] < 0]
+    lines = [
+        "| Rank | Company | OKX | Price | Analyst mean target | Gap | Analysts | Currency |",
+        "|---:|---|---|---:|---:|---:|---:|---|",
+    ]
+    for i, r in enumerate(ordered[:limit], 1):
+        lines.append(
+            f"| {i} | {r['company']} | `{r['okx_symbol']}` | "
+            f"{fmt_num(r['price'], 2)} | {fmt_num(r['analyst_target_mean'], 2)} | "
+            f"**{fmt_pct(r['analyst_upside_pct'])}** | {r['analyst_count']} | "
+            f"{r.get('quote_currency') or '—'} |"
+        )
+    if not ordered:
+        lines.append("| — | No qualifying companies | — | — | — | — | — | — |")
+    return lines
+
+
 def write_report(rows, universe_count, timestamp):
     lines = [
         "# OKX Long / Short Fundamental Scanner",
@@ -1401,6 +1477,16 @@ def write_report(rows, universe_count, timestamp):
         "## P/E Expansion + Weakening — SHORT",
         "",
         *pe_trend_table(rows, "short"),
+        "",
+        "## Analyst consensus (12-month price target) — most upside",
+        "",
+        *analyst_target_table(rows, "upside"),
+        "",
+        "## Analyst consensus (12-month price target) — most downside",
+        "",
+        *analyst_target_table(rows, "downside"),
+        "",
+        "Price/target is from Yahoo Finance, in the underlying share quote currency; not the OKX X-Perp price. Rankings require at least 3 reported analysts and reject extreme/malformed price scales. Missing targets remain unranked; these are opinions, not expected returns.",
         "",
         "## All companies",
         "",
@@ -1485,6 +1571,16 @@ def write_readme(rows, universe_count, timestamp):
         "",
         *candidate_table(rows, "long", 10),
         "",
+        "## Analyst consensus (12-month price target) — most upside",
+        "",
+        *analyst_target_table(rows, "upside"),
+        "",
+        "## Analyst consensus (12-month price target) — most downside",
+        "",
+        *analyst_target_table(rows, "downside"),
+        "",
+        "Price/target uses the underlying Yahoo Finance share quote, not the OKX derivative. Minimum 3 analysts; unreliable price scales and missing coverage excluded. Targets are analyst opinions, not guaranteed forecasts.",
+        "",
         "## All OKX companies — our ratio + LONG/SHORT scores",
         "",
         *full_table_lines(rows),
@@ -1495,7 +1591,7 @@ def write_readme(rows, universe_count, timestamp):
         "- `hk_btc_correlation.py` — BTC/Hong Kong correlation scanner",
         "- `reports/latest.md` — latest full report",
         "- `reports/hk_btc_latest.md` — BTC vs Hang Seng/HSTECH/Xiaomi correlation report",
-        "- `data/latest.csv` — latest machine-readable snapshot",
+        "- `data/latest.csv` — latest machine-readable snapshot, including analyst targets/gap",
         "- `data/history.csv` — hourly history of **all companies** for later backtests",
         "- `data/hk_btc_history.csv` — rolling BTC/Hong Kong correlation history",
         "- `.github/workflows/hourly-okx-scanner.yml` — hourly GitHub Action",
