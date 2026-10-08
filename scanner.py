@@ -1413,8 +1413,13 @@ def candidate_table(rows, side, limit=15):
 def analyst_target_table(rows, direction, limit=15):
     """Rank 12-month consensus potential for real listed equities only."""
     valid = [r for r in rows if r.get("analyst_target_status") == "OK"]
+    # Several OKX contracts can quote the same underlying company (SKHY /
+    # SKHYNIX). Keep them all in data/latest.csv, but rank each equity once.
+    unique = {}
+    for r in sorted(valid, key=lambda item: (-len(item["okx_symbol"]), item["okx_symbol"])):
+        unique.setdefault(r.get("yahoo_symbol") or r["okx_symbol"], r)
     ordered = sorted(
-        valid,
+        unique.values(),
         key=lambda r: r["analyst_upside_pct"],
         reverse=(direction == "upside"),
     )
