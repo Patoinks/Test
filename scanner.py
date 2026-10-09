@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# Manual data refresh trigger (no scoring changes): 2026-10-09 05:55 UTC
+
 import base64
 import csv
 import hashlib
