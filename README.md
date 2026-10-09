@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-09 05:58 UTC  
+**Last scan:** 2026-10-09 09:16 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -113,7 +113,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | SHORT score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
-| 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 6.8 | 19.8 | 191.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
+| 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 6.8 | 19.7 | 191.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
 | 2 | Alphabet Inc. | `GOOGL` | 17.5 | 23.1 | 32.2% | -27.4% | 23.3% | decelerating | **70** | **CORE** |
 | 3 | Hyperliquid Strategies Inc | `PURR` | 3.5 | 30.5 | 767.6% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
 | 4 | Amazon.com, Inc. | `AMZN` | 20.4 | 24.3 | 18.8% | -18.4% | 14.5% | decelerating | **52** | **WATCH** |
@@ -146,7 +146,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | 7 | NVIDIA Corporation | `NVDA-USDT-SWAP` | **75** | **WATCH** | 18.4 | 18.3 | 66.2% | 14.5 | 68.2% | 0.8% |
 | 8 | Robinhood Markets, Inc. | `HOOD-USDT-SWAP` | **70** | **WATCH** | 19.5 | 19.3 | 43.9% | 31.1 | 28.6% | — |
 | 9 | Marvell Technology, Inc. | `MRVL-USDT-SWAP` | **70** | **WATCH** | 26.1 | 25.6 | 16.7% | 37.7 | 63.1% | 1.0% |
-| 10 | XIAOMI-W | `XIAOMI-USDT-SWAP` | **70** | **WATCH** | 1.5 | 1.2 | 4.0% | 16.6 | 22.6% | -1.3% |
+| 10 | XIAOMI-W | `XIAOMI-USDT-SWAP` | **70** | **WATCH** | 1.5 | 1.2 | 4.0% | 16.9 | 22.6% | -1.3% |
 
 ## Analyst consensus (12-month price target) — most upside
 
@@ -202,7 +202,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Oracle Corporation | `ORCL` | 5.7 | 7.6 | 35.6% | 12.3 | 35.1% | 45.7% | -11.1% | **70 WATCH** | **10** |
 | Marvell Technology, Inc. | `MRVL` | 26.1 | 25.6 | 16.7% | 37.7 | 72.6% | 63.1% | 1.0% | **70 WATCH** | **13** |
 | Robinhood Markets, Inc. | `HOOD` | 19.5 | 19.3 | 43.9% | 31.1 | 35.3% | 28.6% | — | **70 WATCH** | **5** |
-| XIAOMI-W | `XIAOMI` | 1.5 | 1.2 | 4.0% | 16.6 | 39.6% | 22.6% | -1.3% | **70 WATCH** | **10** |
+| XIAOMI-W | `XIAOMI` | 1.5 | 1.2 | 4.0% | 16.9 | 39.6% | 22.6% | -1.3% | **70 WATCH** | **10** |
 | Credo Technology Group Holding  | `CRDO` | 25.0 | 24.6 | 25.2% | 21.9 | 53.7% | 54.8% | 0.6% | **67 WATCH** | **28** |
 | Micron Technology, Inc. | `MU` | 8.8 | 8.5 | 80.7% | 5.0 | 17.1% | 16.0% | 2.5% | **67 WATCH** | **38** |
 | Lumentum Holdings Inc. | `LITE` | 31.5 | 30.9 | 28.0% | 29.5 | 63.4% | 55.7% | 0.2% | **0** | **67 WATCH** |
@@ -226,7 +226,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | SamsungElec | `SAMSUNG` | 3.5 | 3.2 | 52.2% | 3.6 | 50.8% | 37.7% | 4.0% | **45** | **10** |
 | Circle Internet Group, Inc. | `CRCL` | 7.1 | 6.5 | 4.9% | 57.2 | 30.8% | 24.9% | 1.0% | **43** | **33** |
 | Coinbase Global, Inc. | `COIN` | 7.5 | 7.2 | -13.9% | 60.6 | 267.7% | 29.9% | 5.9% | **20** | **40** |
-| SOFTBANK GROUP CORP | `SOFTBANK` | 4.2 | 7.7 | -11.6% | 19.8 | -14.5% | 6.9% | -6.6% | **0** | **40** |
+| SOFTBANK GROUP CORP | `SOFTBANK` | 4.1 | 7.7 | -11.6% | 19.7 | -14.5% | 6.9% | -6.6% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 5.9 | 12.0 | -1.9% | -45.0 | 15.4% | 104.3% | -20.2% | **0** | **40** |
 | Meta Platforms, Inc. | `META` | 8.0 | 8.1 | 34.8% | 20.9 | 9.8% | 20.6% | 1.2% | **17** | **38** |
 | Alphabet Inc. | `GOOGL` | 9.6 | 9.3 | 34.0% | 23.1 | -27.4% | 23.3% | 0.5% | **2** | **38** |
@@ -235,8 +235,8 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Applied Optoelectronics, Inc. | `AAOI` | 15.1 | 14.7 | -12.9% | 23.0 | 576.8% | 156.5% | -9.9% | **0** | **35** |
 | Fluence Energy, Inc. | `FLNC` | 0.6 | 0.5 | -8.9% | -28.0 | 70.1% | 35.3% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 332.4 | 221.7 | 9595.1% | 30.5 | 51.0% | 31.4% | — | **25** | **10** |
-| Strategy Inc | `MSTR` | 121.2 | 154.4 | -6808.1% | 3.1 | 157.6% | 2.2% | -37.4% | **25** | **25** |
 | BitMine Immersion Technologies, | `BMNR` | 237.0 | 231.4 | 8.4% | 25.6 | 103.2% | 421.8% | -3.6% | **25** | **25** |
+| Strategy Inc | `MSTR` | 121.2 | 154.4 | -6808.1% | 3.1 | 157.6% | 2.2% | -37.4% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.3 | 4.4 | 18.5% | 17.2 | -2.7% | 4.8% | 5.4% | **25** | **15** |
 
 ## Files
