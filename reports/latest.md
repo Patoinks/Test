@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-10 08:36 UTC
+**Updated:** 2026-10-10 15:26 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -52,7 +52,7 @@
 | 7 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 172.0 | 143.0 | -544.6% | -39.6 | 259.9% | -9.1% |
 | 8 | Moderna, Inc. | `MRNA-USDT-SWAP` | **80** | **WATCH** | 40.3 | 38.6 | -557.9% | -50.7 | 16.1% | 0.3% |
 | 9 | Lumentum Holdings Inc. | `LITE-USDT-SWAP` | **67** | **WATCH** | 33.2 | 32.5 | 28.0% | 31.0 | 55.7% | 0.2% |
-| 10 | Tesla, Inc. | `TSLA-USDT-SWAP` | **63** | **WATCH** | 14.6 | 14.3 | 1.4% | 178.4 | 13.8% | 0.3% |
+| 10 | Tesla, Inc. | `TSLA-USDT-SWAP` | **63** | **WATCH** | 14.6 | 14.3 | 1.4% | 175.4 | 13.8% | 0.3% |
 
 ## Top LONG candidates — fundamentals only
 
@@ -188,7 +188,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Lumentum Holdings Inc. | `LITE` | 33.2 | 32.5 | 28.0% | 31.0 | 63.4% | 55.7% | 0.2% | **0** | **67 WATCH** |
 | Adobe Inc. | `ADBE` | 3.6 | 3.7 | 34.8% | 8.8 | 13.0% | 9.2% | 9.9% | **65 WATCH** | **30** |
 | IREN LIMITED | `IREN` | 19.6 | 22.4 | -102.5% | -8.8 | -16.4% | 160.9% | -30.4% | **0** | **64** |
-| Tesla, Inc. | `TSLA` | 14.6 | 14.3 | 1.4% | 178.4 | 24.8% | 13.8% | 0.3% | **22** | **63 WATCH** |
+| Tesla, Inc. | `TSLA` | 14.6 | 14.3 | 1.4% | 175.4 | 24.8% | 13.8% | 0.3% | **22** | **63 WATCH** |
 | Corning Incorporated | `GLW` | 8.0 | 8.4 | 15.6% | 35.8 | 33.0% | 19.6% | 0.5% | **60 WATCH** | **13** |
 | Microsoft Corporation | `MSFT` | 12.0 | 12.1 | 45.1% | 22.6 | 19.8% | 19.6% | 0.4% | **59 WATCH** | **23** |
 | Dell Technologies Inc. | `DELL` | 2.5 | 2.6 | 12.0% | 20.1 | 0.8% | 16.5% | 1.6% | **17** | **58** |
