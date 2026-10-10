@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-10 15:26 UTC  
+**Last scan:** 2026-10-10 20:08 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -204,7 +204,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Marvell Technology, Inc. | `MRVL` | 26.2 | 25.7 | 16.7% | 37.8 | 72.6% | 63.1% | 1.0% | **70 WATCH** | **13** |
 | Oracle Corporation | `ORCL` | 6.0 | 7.9 | 35.6% | 12.9 | 35.1% | 45.7% | -10.7% | **70 WATCH** | **10** |
 | Robinhood Markets, Inc. | `HOOD` | 19.9 | 19.7 | 43.9% | 31.7 | 35.9% | 28.9% | — | **70 WATCH** | **5** |
-| XIAOMI-W | `XIAOMI` | 1.5 | 1.3 | 4.0% | 17.0 | 39.1% | 22.6% | -1.3% | **70 WATCH** | **10** |
+| XIAOMI-W | `XIAOMI` | 1.5 | 1.3 | 4.0% | 16.9 | 39.1% | 22.6% | -1.3% | **70 WATCH** | **10** |
 | Credo Technology Group Holding  | `CRDO` | 25.6 | 25.1 | 25.2% | 22.3 | 53.7% | 54.8% | 0.6% | **67 WATCH** | **28** |
 | Lumentum Holdings Inc. | `LITE` | 33.2 | 32.5 | 28.0% | 31.0 | 63.4% | 55.7% | 0.2% | **0** | **67 WATCH** |
 | Adobe Inc. | `ADBE` | 3.6 | 3.7 | 34.8% | 8.8 | 13.0% | 9.2% | 9.9% | **65 WATCH** | **30** |
