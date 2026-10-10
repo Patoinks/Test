@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-10 20:08 UTC  
+**Last scan:** 2026-10-10 23:38 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -236,8 +236,8 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Arm Holdings plc | `ARM` | 55.2 | 54.5 | 7.6% | 86.9 | 37.5% | 36.2% | 0.5% | **35** | **33** |
 | Fluence Energy, Inc. | `FLNC` | 0.5 | 0.5 | -8.9% | -27.9 | 70.1% | 35.3% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 326.8 | 217.8 | 9595.1% | 30.0 | 51.0% | 31.4% | — | **25** | **10** |
-| BitMine Immersion Technologies, | `BMNR` | 236.9 | 231.3 | 8.4% | 25.6 | 103.2% | 421.8% | -3.6% | **25** | **25** |
 | Strategy Inc | `MSTR` | 123.5 | 156.6 | -6808.1% | 3.1 | 157.6% | 2.2% | -36.7% | **25** | **25** |
+| BitMine Immersion Technologies, | `BMNR` | 236.9 | 231.3 | 8.4% | 25.6 | 103.2% | 421.8% | -3.6% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.3 | 4.3 | 18.5% | 17.2 | -2.7% | 4.8% | 5.5% | **25** | **15** |
 
 ## Files
