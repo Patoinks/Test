@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-11 18:08 UTC  
+**Last scan:** 2026-10-11 22:05 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -227,7 +227,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | SamsungElec | `SAMSUNG` | 3.5 | 3.2 | 52.2% | 3.7 | 50.0% | 37.5% | 4.0% | **45** | **10** |
 | Applied Optoelectronics, Inc. | `AAOI` | 15.6 | 17.1 | -12.9% | 23.8 | 576.8% | 156.5% | -9.5% | **0** | **45** |
 | Circle Internet Group, Inc. | `CRCL` | 7.4 | 6.5 | 4.9% | 59.3 | 30.8% | 24.9% | 1.0% | **43** | **33** |
-| Coinbase Global, Inc. | `COIN` | 7.8 | 7.4 | -13.9% | 58.8 | 267.7% | 29.9% | 5.6% | **20** | **40** |
+| Coinbase Global, Inc. | `COIN` | 7.8 | 7.4 | -13.9% | 58.7 | 267.7% | 29.9% | 5.6% | **20** | **40** |
 | SOFTBANK GROUP CORP | `SOFTBANK` | 4.1 | 7.7 | -11.6% | 19.7 | -14.5% | 6.9% | -6.6% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 6.0 | 12.5 | -1.9% | -45.3 | 15.4% | 104.3% | -20.1% | **0** | **40** |
 | Meta Platforms, Inc. | `META` | 8.0 | 8.1 | 34.8% | 20.8 | 9.8% | 20.6% | 1.2% | **17** | **38** |
@@ -236,8 +236,8 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Arm Holdings plc | `ARM` | 55.2 | 60.3 | 7.6% | 86.9 | 37.5% | 36.2% | 0.5% | **35** | **33** |
 | Fluence Energy, Inc. | `FLNC` | 0.5 | 0.5 | -8.9% | -27.9 | 70.1% | 35.3% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 326.8 | 230.7 | 9595.1% | 30.0 | 51.0% | 31.4% | — | **25** | **10** |
-| BitMine Immersion Technologies, | `BMNR` | 236.9 | 237.6 | 8.4% | 25.6 | 103.2% | 421.8% | -3.6% | **25** | **25** |
 | Strategy Inc | `MSTR` | 123.5 | 155.9 | -6808.1% | 3.1 | 157.5% | 2.2% | -36.7% | **25** | **25** |
+| BitMine Immersion Technologies, | `BMNR` | 236.9 | 237.6 | 8.4% | 25.6 | 103.2% | 421.8% | -3.6% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.3 | 4.4 | 18.5% | 17.2 | -2.7% | 4.8% | 5.5% | **25** | **15** |
 
 ## Files
