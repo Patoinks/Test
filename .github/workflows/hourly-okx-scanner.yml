@@ -1,4 +1,5 @@
 name: Hourly OKX valuation scanner
+# On-demand refresh requested 2026-10-12; scanner logic unchanged.
 
 on:
   push:
