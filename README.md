@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-15 07:32 UTC  
+**Last scan:** 2026-10-15 13:30 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -35,29 +35,29 @@ The final ranking adds entry timing without allowing price momentum to create a 
 
 | Rank | Company | OKX | 24h | 7d | 50/50 move | Base LONG | Timing adj. | Final | Signal | Prev. LONG? |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---|---|
-| 1 | Taiwan Semiconductor Manufactur | TSM | 0.0% | -6.1% | -3.1% | 88 | +2 | **90** | **CORE** | yes |
-| 2 | Credo Technology Group Holding  | CRDO | -0.0% | -15.4% | -7.7% | 82 | +6 | **88** | **CORE** | yes |
-| 3 | Applied Materials, Inc. | AMAT | -0.0% | -12.4% | -6.2% | 81 | +5 | **86** | **CORE** | yes |
-| 4 | Applovin Corporation | APP | -0.0% | -6.4% | -3.2% | 82 | +3 | **85** | **CORE** | yes |
-| 5 | NVIDIA Corporation | NVDA | -0.0% | -4.0% | -2.0% | 82 | +2 | **84** | **CORE** | yes |
-| 6 | Broadcom Inc. | AVGO | 0.0% | -3.9% | -1.9% | 82 | +2 | **84** | **CORE** | yes |
-| 7 | Marvell Technology, Inc. | MRVL | 0.0% | -10.7% | -5.3% | 79 | +4 | **83** | **CORE** | yes |
-| 8 | Robinhood Markets, Inc. | HOOD | -0.0% | -5.5% | -2.8% | 80 | +2 | **82** | **CORE** | yes |
-| 9 | Advanced Micro Devices, Inc. | AMD | -0.0% | -8.0% | -4.0% | 79 | +3 | **82** | **CORE** | yes |
-| 10 | Sandisk Corporation | SNDK | 0.0% | -12.8% | -6.4% | 77 | +5 | **82** | **CORE** | yes |
+| 1 | Taiwan Semiconductor Manufactur | TSM | -4.7% | -10.5% | -7.6% | 88 | +6 | **94** | **CORE** | yes |
+| 2 | Sandisk Corporation | SNDK | -6.4% | -18.4% | -12.4% | 82 | +10 | **92** | **CORE** | yes |
+| 3 | Credo Technology Group Holding  | CRDO | -5.0% | -19.7% | -12.3% | 82 | +10 | **92** | **CORE** | yes |
+| 4 | Applied Materials, Inc. | AMAT | -3.1% | -15.0% | -9.1% | 81 | +7 | **88** | **CORE** | yes |
+| 5 | Marvell Technology, Inc. | MRVL | -5.5% | -15.6% | -10.5% | 79 | +8 | **87** | **CORE** | yes |
+| 6 | NVIDIA Corporation | NVDA | -2.7% | -6.6% | -4.6% | 82 | +4 | **86** | **CORE** | yes |
+| 7 | Advanced Micro Devices, Inc. | AMD | -4.9% | -12.5% | -8.7% | 79 | +7 | **86** | **CORE** | yes |
+| 8 | Broadcom Inc. | AVGO | -2.3% | -6.1% | -4.2% | 82 | +3 | **85** | **CORE** | yes |
+| 9 | Robinhood Markets, Inc. | HOOD | -3.3% | -8.7% | -6.0% | 80 | +5 | **85** | **CORE** | yes |
+| 10 | Micron Technology, Inc. | MU | -4.3% | -15.6% | -10.0% | 77 | +8 | **85** | **CORE** | yes |
 
 ## Final model + Price Timing — SHORT
 
 | Rank | Company | OKX | 24h | 7d | 50/50 move | Base SHORT | Timing adj. | Final | Signal | Prev. SHORT? |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---|---|
-| 1 | Rocket Lab Corporation | RKLB | -0.0% | -13.5% | -6.7% | 100 | -5 | **95** | **CORE** | yes |
-| 2 | USA Rare Earth, Inc. | USAR | 0.0% | -18.3% | -9.1% | 100 | -7 | **93** | **CORE** | yes |
-| 3 | Cerebras Systems Inc. | CBRS | 0.0% | -15.7% | -7.9% | 92 | -6 | **86** | **CORE** | yes |
-| 4 | Moderna, Inc. | MRNA | -0.0% | 14.9% | 7.4% | 80 | +6 | **86** | **CORE** | yes |
-| 5 | IonQ, Inc. | IONQ | -0.0% | -20.4% | -10.2% | 88 | -8 | **80** | **CORE** | yes |
-| 6 | Nebius Group N.V. | NBIS | 0.0% | -15.3% | -7.7% | 84 | -6 | **78** | **CORE** | yes |
-| 7 | AST SpaceMobile, Inc. | ASTS | 0.0% | -26.0% | -13.0% | 80 | -10 | **70** | **WATCH** | yes |
-| 8 | Okta, Inc. | OKTA | 0.0% | -3.8% | -1.9% | 60 | -2 | **58** | **WATCH** | yes |
+| 1 | USA Rare Earth, Inc. | USAR | -3.6% | -21.2% | -12.4% | 100 | -10 | **90** | **CORE** | yes |
+| 2 | Rocket Lab Corporation | RKLB | -8.1% | -20.5% | -14.3% | 100 | -11 | **89** | **CORE** | yes |
+| 3 | Moderna, Inc. | MRNA | -1.0% | 13.7% | 6.4% | 80 | +5 | **85** | **CORE** | yes |
+| 4 | Cerebras Systems Inc. | CBRS | -3.1% | -18.4% | -10.7% | 92 | -9 | **83** | **CORE** | yes |
+| 5 | IonQ, Inc. | IONQ | -2.1% | -22.0% | -12.0% | 88 | -10 | **78** | **CORE** | yes |
+| 6 | Nebius Group N.V. | NBIS | -5.5% | -20.0% | -12.8% | 84 | -10 | **74** | **WATCH** | yes |
+| 7 | AST SpaceMobile, Inc. | ASTS | -2.4% | -27.8% | -15.1% | 80 | -12 | **68** | **WATCH** | yes |
+| 8 | Okta, Inc. | OKTA | -3.9% | -7.6% | -5.7% | 60 | -5 | **55** | **WATCH** | yes |
 
 ## Combined model — LONG
 
@@ -67,14 +67,14 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 |---:|---|---|---:|---:|---:|---|
 | 1 | Taiwan Semiconductor Manufactur | `TSM` | 90 | 85 | **88** | **CORE** |
 | 2 | Applovin Corporation | `APP` | 83 | 80 | **82** | **CORE** |
-| 3 | Credo Technology Group Holding  | `CRDO` | 75 | 100 | **82** | **CORE** |
-| 4 | NVIDIA Corporation | `NVDA` | 75 | 100 | **82** | **CORE** |
-| 5 | Broadcom Inc. | `AVGO` | 75 | 100 | **82** | **CORE** |
-| 6 | Applied Materials, Inc. | `AMAT` | 77 | 91 | **81** | **CORE** |
-| 7 | Robinhood Markets, Inc. | `HOOD` | 77 | 86 | **80** | **CORE** |
-| 8 | Marvell Technology, Inc. | `MRVL` | 70 | 100 | **79** | **CORE** |
-| 9 | Advanced Micro Devices, Inc. | `AMD` | 70 | 100 | **79** | **CORE** |
-| 10 | Corning Incorporated | `GLW` | 70 | 96 | **78** | **CORE** |
+| 3 | Sandisk Corporation | `SNDK` | 82 | 82 | **82** | **CORE** |
+| 4 | Credo Technology Group Holding  | `CRDO` | 75 | 100 | **82** | **CORE** |
+| 5 | NVIDIA Corporation | `NVDA` | 75 | 100 | **82** | **CORE** |
+| 6 | Broadcom Inc. | `AVGO` | 75 | 100 | **82** | **CORE** |
+| 7 | Applied Materials, Inc. | `AMAT` | 77 | 91 | **81** | **CORE** |
+| 8 | Robinhood Markets, Inc. | `HOOD` | 77 | 86 | **80** | **CORE** |
+| 9 | Marvell Technology, Inc. | `MRVL` | 70 | 100 | **79** | **CORE** |
+| 10 | Advanced Micro Devices, Inc. | `AMD` | 70 | 100 | **79** | **CORE** |
 
 ## Combined model — SHORT
 
@@ -82,8 +82,8 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Fundamental SHORT | P/E trend SHORT | Combined | Signal |
 |---:|---|---|---:|---:|---:|---|
-| 1 | Rocket Lab Corporation | `RKLB` | 100 | 0 | **100** | **CORE** |
-| 2 | USA Rare Earth, Inc. | `USAR` | 100 | 0 | **100** | **CORE** |
+| 1 | USA Rare Earth, Inc. | `USAR` | 100 | 0 | **100** | **CORE** |
+| 2 | Rocket Lab Corporation | `RKLB` | 100 | 0 | **100** | **CORE** |
 | 3 | Cerebras Systems Inc. | `CBRS` | 92 | 0 | **92** | **CORE** |
 | 4 | IonQ, Inc. | `IONQ` | 88 | 0 | **88** | **CORE** |
 | 5 | Nebius Group N.V. | `NBIS` | 84 | 0 | **84** | **WATCH** |
@@ -95,81 +95,81 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | LONG score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
-| 1 | Credo Technology Group Holding  | `CRDO` | 70.3 | 18.5 | -73.7% | 53.7% | 54.8% | decelerating | **100** | **CORE** |
-| 2 | NVIDIA Corporation | `NVDA` | 28.9 | 13.9 | -51.9% | 70.9% | 68.2% | decelerating | **100** | **CORE** |
-| 3 | Broadcom Inc. | `AVGO` | 44.2 | 17.9 | -59.6% | 66.4% | 64.1% | decelerating | **100** | **CORE** |
-| 4 | Marvell Technology, Inc. | `MRVL` | 77.9 | 33.7 | -56.7% | 72.9% | 63.2% | accelerating | **100** | **CORE** |
-| 5 | Advanced Micro Devices, Inc. | `AMD` | 145.6 | 36.3 | -75.1% | 107.2% | 74.6% | accelerating | **100** | **CORE** |
-| 6 | Corning Incorporated | `GLW` | 64.6 | 32.2 | -50.1% | 33.0% | 19.6% | accelerating | **96** | **CORE** |
-| 7 | AXT Inc | `AXT` | 1539.8 | 27.4 | -98.2% | 159.2% | 111.3% | decelerating | **96** | **CORE** |
-| 8 | Oracle Corporation | `ORCL` | 22.4 | 11.9 | -47.1% | 35.1% | 45.7% | accelerating | **95** | **CORE** |
-| 9 | Coherent Corp. | `COHR` | 70.4 | 18.7 | -73.4% | 49.2% | 38.9% | decelerating | **95** | **CORE** |
-| 10 | Arm Holdings plc | `ARM` | 245.4 | 77.7 | -68.3% | 37.5% | 36.2% | accelerating | **95** | **CORE** |
+| 1 | Credo Technology Group Holding  | `CRDO` | 66.8 | 17.6 | -73.7% | 53.7% | 54.8% | decelerating | **100** | **CORE** |
+| 2 | Marvell Technology, Inc. | `MRVL` | 73.6 | 31.8 | -56.7% | 72.9% | 63.2% | accelerating | **100** | **CORE** |
+| 3 | NVIDIA Corporation | `NVDA` | 28.1 | 13.5 | -51.9% | 70.9% | 68.2% | decelerating | **100** | **CORE** |
+| 4 | Advanced Micro Devices, Inc. | `AMD` | 146.7 | 34.5 | -76.5% | 107.7% | 74.8% | accelerating | **100** | **CORE** |
+| 5 | Broadcom Inc. | `AVGO` | 44.6 | 17.4 | -60.9% | 66.4% | 64.1% | decelerating | **100** | **CORE** |
+| 6 | Corning Incorporated | `GLW` | 65.3 | 30.9 | -52.6% | 33.0% | 19.6% | accelerating | **96** | **CORE** |
+| 7 | AXT Inc | `AXT` | 1437.5 | 25.6 | -98.2% | 159.2% | 111.3% | decelerating | **96** | **CORE** |
+| 8 | Coherent Corp. | `COHR` | 66.2 | 17.6 | -73.4% | 49.2% | 38.9% | decelerating | **95** | **CORE** |
+| 9 | Oracle Corporation | `ORCL` | 22.2 | 11.7 | -47.1% | 35.1% | 45.7% | accelerating | **95** | **CORE** |
+| 10 | Arm Holdings plc | `ARM` | 254.5 | 74.8 | -70.6% | 37.5% | 36.2% | accelerating | **95** | **CORE** |
 
 ## P/E Expansion + Weakening — SHORT
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | SHORT score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 5.6 | 16.4 | 191.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
-| 2 | Hyperliquid Strategies Inc | `PURR` | 3.2 | 25.6 | 705.4% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
-| 3 | Amazon.com, Inc. | `AMZN` | 20.4 | 24.3 | 18.9% | -18.3% | 14.5% | decelerating | **52** | **WATCH** |
-| 4 | Alphabet Inc. | `GOOGL` | 17.8 | 22.8 | 28.4% | -26.9% | 24.1% | accelerating | **50** | **WATCH** |
+| 2 | Hyperliquid Strategies Inc | `PURR` | 3.0 | 24.3 | 705.4% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
+| 3 | Amazon.com, Inc. | `AMZN` | 20.5 | 23.9 | 16.8% | -18.3% | 14.5% | decelerating | **52** | **WATCH** |
+| 4 | Alphabet Inc. | `GOOGL` | 17.6 | 22.5 | 28.4% | -26.9% | 24.4% | accelerating | **50** | **WATCH** |
 
 ## Top SHORT candidates
 
 | Rank | Company | OKX market | SHORT score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
-| 1 | Rocket Lab Corporation | `RKLB-USDT-SWAP` | **100** | **CORE** | 49.2 | 43.2 | -24.6% | 910.6 | 41.3% | -0.7% |
-| 2 | USA Rare Earth, Inc. | `USAR-USDT-SWAP` | **100** | **CORE** | 294.1 | 76.6 | -795.6% | 344.0 | 870.1% | -7.3% |
-| 3 | Cerebras Systems Inc. | `CBRS-USDT-SWAP` | **92** | **CORE** | 49.4 | 39.9 | -265.0% | 111.1 | 232.7% | — |
-| 4 | IonQ, Inc. | `IONQ-USDT-SWAP` | **88** | **CORE** | 51.6 | 40.2 | -408.2% | -24.3 | 79.0% | -0.7% |
-| 5 | Nebius Group N.V. | `NBIS-USDT-SWAP` | **84** | **WATCH** | 34.9 | 39.2 | -0.2% | -52.3 | 268.0% | -20.4% |
-| 6 | Okta, Inc. | `OKTA-USDT-SWAP` | **80** | **CORE** | 12.1 | 11.3 | 13.3% | 48.4 | 10.0% | 2.8% |
-| 7 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 142.2 | 120.1 | -544.6% | -32.8 | 247.3% | -11.0% |
-| 8 | Moderna, Inc. | `MRNA-USDT-SWAP` | **80** | **WATCH** | 40.6 | 38.8 | -557.9% | -51.0 | 16.1% | 0.3% |
-| 9 | Tesla, Inc. | `TSLA-USDT-SWAP` | **63** | **WATCH** | 14.0 | 13.7 | 1.4% | 168.4 | 13.6% | 0.3% |
+| 1 | Rocket Lab Corporation | `RKLB-USDT-SWAP` | **100** | **CORE** | 45.2 | 43.2 | -24.6% | 836.5 | 41.3% | -0.7% |
+| 2 | USA Rare Earth, Inc. | `USAR-USDT-SWAP` | **100** | **CORE** | 283.5 | 76.6 | -795.6% | 331.0 | 870.1% | -7.6% |
+| 3 | Cerebras Systems Inc. | `CBRS-USDT-SWAP` | **92** | **CORE** | 47.8 | 39.9 | -265.0% | 107.6 | 232.7% | — |
+| 4 | IonQ, Inc. | `IONQ-USDT-SWAP` | **88** | **CORE** | 50.6 | 40.2 | -408.2% | -22.6 | 77.6% | -0.7% |
+| 5 | Nebius Group N.V. | `NBIS-USDT-SWAP` | **84** | **WATCH** | 32.9 | 39.2 | -0.2% | -49.4 | 268.0% | -21.5% |
+| 6 | Okta, Inc. | `OKTA-USDT-SWAP` | **80** | **CORE** | 11.6 | 11.3 | 13.3% | 46.5 | 10.0% | 2.9% |
+| 7 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 138.8 | 120.1 | -544.6% | -32.0 | 247.3% | -11.2% |
+| 8 | Moderna, Inc. | `MRNA-USDT-SWAP` | **80** | **WATCH** | 40.1 | 38.8 | -557.9% | -50.5 | 16.1% | 0.3% |
+| 9 | Tesla, Inc. | `TSLA-USDT-SWAP` | **63** | **WATCH** | 13.7 | 13.7 | 1.4% | 166.2 | 13.5% | 0.3% |
 
 ## Top LONG candidates
 
 | Rank | Company | OKX market | LONG score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
-| 1 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.5 | 3.5 | 60.3% | 19.3 | 35.9% | 32.8% |
-| 2 | Applovin Corporation | `APP-USDT-SWAP` | **83** | **CORE** | 12.8 | 12.9 | 77.7% | 12.8 | 26.0% | 3.6% |
-| 3 | Robinhood Markets, Inc. | `HOOD-USDT-SWAP` | **77** | **WATCH** | 18.4 | 18.2 | 43.9% | 29.5 | 29.2% | — |
-| 4 | Applied Materials, Inc. | `AMAT-USDT-SWAP` | **77** | **WATCH** | 11.5 | 11.4 | 33.7% | 24.2 | 35.2% | 0.9% |
-| 5 | Credo Technology Group Holding  | `CRDO-USDT-SWAP` | **75** | **WATCH** | 21.2 | 20.7 | 25.2% | 18.5 | 54.8% | 0.7% |
-| 6 | Broadcom Inc. | `AVGO-USDT-SWAP` | **75** | **WATCH** | 18.5 | 18.9 | 54.3% | 17.9 | 64.1% | 1.9% |
-| 7 | Micron Technology, Inc. | `MU-USDT-SWAP` | **75** | **CORE** | 7.8 | 7.5 | 80.7% | 4.4 | 15.7% | 2.8% |
-| 8 | Sandisk Corporation | `SNDK-USDT-SWAP` | **75** | **CORE** | 10.0 | 9.9 | 78.5% | 5.3 | 18.9% | 3.8% |
-| 9 | NVIDIA Corporation | `NVDA-USDT-SWAP` | **75** | **WATCH** | 17.6 | 17.5 | 66.2% | 13.9 | 68.2% | 0.8% |
-| 10 | Western Digital Corporation | `WDC-USDT-SWAP` | **75** | **WATCH** | 10.5 | 10.1 | 43.6% | 11.0 | 37.2% | 1.7% |
+| 1 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.5 | 3.5 | 60.3% | 18.3 | 35.2% | 34.4% |
+| 2 | Applovin Corporation | `APP-USDT-SWAP` | **83** | **CORE** | 12.9 | 12.9 | 77.7% | 12.8 | 26.0% | 3.6% |
+| 3 | Sandisk Corporation | `SNDK-USDT-SWAP` | **82** | **CORE** | 9.4 | 9.9 | 78.5% | 4.9 | 18.9% | 4.1% |
+| 4 | Robinhood Markets, Inc. | `HOOD-USDT-SWAP` | **77** | **WATCH** | 17.8 | 18.2 | 43.9% | 28.5 | 29.2% | — |
+| 5 | Applied Materials, Inc. | `AMAT-USDT-SWAP` | **77** | **WATCH** | 11.1 | 11.4 | 33.7% | 23.4 | 35.2% | 0.9% |
+| 6 | Credo Technology Group Holding  | `CRDO-USDT-SWAP` | **75** | **WATCH** | 20.1 | 20.7 | 25.2% | 17.6 | 54.8% | 0.8% |
+| 7 | Micron Technology, Inc. | `MU-USDT-SWAP` | **75** | **CORE** | 7.4 | 7.5 | 80.7% | 4.3 | 15.5% | 2.9% |
+| 8 | Broadcom Inc. | `AVGO-USDT-SWAP` | **75** | **WATCH** | 18.1 | 18.9 | 54.3% | 17.4 | 64.1% | 1.9% |
+| 9 | NVIDIA Corporation | `NVDA-USDT-SWAP` | **75** | **WATCH** | 17.2 | 17.5 | 66.2% | 13.5 | 68.2% | 0.8% |
+| 10 | Western Digital Corporation | `WDC-USDT-SWAP` | **75** | **WATCH** | 10.0 | 10.1 | 43.6% | 10.5 | 37.2% | 1.8% |
 
 ## Analyst consensus (12-month price target) — most upside
 
 | Rank | Company | OKX | Price | Analyst mean target | Gap | Analysts | Currency |
 |---:|---|---|---:|---:|---:|---:|---|
-| 1 | IREN LIMITED | `IREN` | 30.56 | 78.14 | **155.7%** | 18 | USD |
+| 1 | IREN LIMITED | `IREN` | 29.14 | 78.14 | **168.2%** | 18 | USD |
 | 2 | SK hynix | `SKHYNIX` | 1262000.00 | 3141024.80 | **148.9%** | 38 | KRW |
-| 3 | Hyperliquid Strategies Inc | `PURR` | 9.47 | 22.32 | **135.7%** | 4 | USD |
-| 4 | SamsungElec | `SAMSUNG` | 210000.00 | 478905.62 | **128.1%** | 36 | KRW |
-| 5 | CoreWeave, Inc. | `CRWV` | 65.78 | 141.47 | **115.1%** | 38 | USD |
-| 6 | IonQ, Inc. | `IONQ` | 31.42 | 66.63 | **112.1%** | 14 | USD |
-| 7 | BitMine Immersion Technologies, | `BMNR` | 22.25 | 45.87 | **106.1%** | 3 | USD |
-| 8 | Cerebras Systems Inc. | `CBRS` | 141.48 | 291.64 | **106.1%** | 11 | USD |
-| 9 | Applied Optoelectronics, Inc. | `AAOI` | 86.22 | 163.40 | **89.5%** | 5 | USD |
-| 10 | Western Digital Corporation | `WDC` | 364.10 | 668.50 | **83.6%** | 24 | USD |
-| 11 | Applovin Corporation | `APP` | 262.19 | 480.08 | **83.1%** | 31 | USD |
-| 12 | Oracle Corporation | `ORCL` | 130.55 | 237.97 | **82.3%** | 41 | USD |
-| 13 | Rocket Lab Corporation | `RKLB` | 59.18 | 105.05 | **77.5%** | 19 | USD |
-| 14 | AST SpaceMobile, Inc. | `ASTS` | 42.14 | 74.28 | **76.3%** | 12 | USD |
-| 15 | Micron Technology, Inc. | `MU` | 914.13 | 1560.57 | **70.7%** | 46 | USD |
+| 3 | Hyperliquid Strategies Inc | `PURR` | 9.00 | 22.32 | **148.1%** | 4 | USD |
+| 4 | CoreWeave, Inc. | `CRWV` | 61.95 | 141.47 | **128.3%** | 38 | USD |
+| 5 | SamsungElec | `SAMSUNG` | 210000.00 | 478905.62 | **128.1%** | 36 | KRW |
+| 6 | BitMine Immersion Technologies, | `BMNR` | 21.16 | 45.87 | **116.7%** | 3 | USD |
+| 7 | Cerebras Systems Inc. | `CBRS` | 137.07 | 291.64 | **112.8%** | 11 | USD |
+| 8 | IonQ, Inc. | `IONQ` | 30.77 | 64.06 | **108.2%** | 14 | USD |
+| 9 | Applied Optoelectronics, Inc. | `AAOI` | 81.01 | 163.40 | **101.7%** | 5 | USD |
+| 10 | Western Digital Corporation | `WDC` | 345.89 | 668.50 | **93.3%** | 24 | USD |
+| 11 | Rocket Lab Corporation | `RKLB` | 54.37 | 105.05 | **93.2%** | 19 | USD |
+| 12 | Oracle Corporation | `ORCL` | 129.19 | 237.97 | **84.2%** | 41 | USD |
+| 13 | Applovin Corporation | `APP` | 263.28 | 480.08 | **82.3%** | 31 | USD |
+| 14 | AST SpaceMobile, Inc. | `ASTS` | 41.13 | 74.28 | **80.6%** | 12 | USD |
+| 15 | Micron Technology, Inc. | `MU` | 874.41 | 1560.57 | **78.5%** | 46 | USD |
 
 ## Analyst consensus (12-month price target) — most downside
 
 | Rank | Company | OKX | Price | Analyst mean target | Gap | Analysts | Currency |
 |---:|---|---|---:|---:|---:|---:|---|
-| 1 | Moderna, Inc. | `MRNA` | 226.30 | 122.67 | **-45.8%** | 18 | USD |
-| 2 | Apple Inc. | `AAPL` | 342.96 | 329.38 | **-4.0%** | 39 | USD |
+| 1 | Moderna, Inc. | `MRNA` | 224.05 | 123.61 | **-44.8%** | 18 | USD |
+| 2 | Apple Inc. | `AAPL` | 347.10 | 329.38 | **-5.1%** | 39 | USD |
 
 Price/target uses the underlying Yahoo Finance share quote, not the OKX derivative. Minimum 3 analysts; unreliable price scales and missing coverage excluded. Targets are analyst opinions, not guaranteed forecasts.
 
@@ -177,61 +177,61 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 
 | Company | OKX | P/S | EV/S | Op margin | Fwd P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Rocket Lab Corporation | `RKLB` | 49.2 | 43.2 | -24.6% | 910.6 | 75.5% | 41.3% | -0.7% | **0** | **100 CORE** |
-| USA Rare Earth, Inc. | `USAR` | 294.1 | 76.6 | -795.6% | 344.0 | 105.3% | 870.1% | -7.3% | **0** | **100 CORE** |
-| Cerebras Systems Inc. | `CBRS` | 49.4 | 39.9 | -265.0% | 111.1 | 371.3% | 232.7% | — | **0** | **92 CORE** |
-| Taiwan Semiconductor Manufactur | `TSM` | 0.5 | 3.5 | 60.3% | 19.3 | 30.9% | 35.9% | 32.8% | **90 CORE** | **10** |
-| IonQ, Inc. | `IONQ` | 51.6 | 40.2 | -408.2% | -24.3 | 18.1% | 79.0% | -0.7% | **0** | **88 CORE** |
-| Nebius Group N.V. | `NBIS` | 34.9 | 39.2 | -0.2% | -52.3 | -191.4% | 268.0% | -20.4% | **0** | **84 WATCH** |
-| Applovin Corporation | `APP` | 12.8 | 12.9 | 77.7% | 12.8 | 27.3% | 26.0% | 3.6% | **83 CORE** | **10** |
-| Okta, Inc. | `OKTA` | 12.1 | 11.3 | 13.3% | 48.4 | 11.4% | 10.0% | 2.8% | **8** | **80 CORE** |
-| Moderna, Inc. | `MRNA` | 40.6 | 38.8 | -557.9% | -51.0 | 43.0% | 16.1% | 0.3% | **0** | **80 WATCH** |
-| AST SpaceMobile, Inc. | `ASTS` | 142.2 | 120.1 | -544.6% | -32.8 | 44.3% | 247.3% | -11.0% | **0** | **80 WATCH** |
-| Applied Materials, Inc. | `AMAT` | 11.5 | 11.4 | 33.7% | 24.2 | 44.4% | 35.2% | 0.9% | **77 WATCH** | **13** |
-| Robinhood Markets, Inc. | `HOOD` | 18.4 | 18.2 | 43.9% | 29.5 | 36.5% | 29.2% | — | **77 WATCH** | **5** |
-| Credo Technology Group Holding  | `CRDO` | 21.2 | 20.7 | 25.2% | 18.5 | 53.7% | 54.8% | 0.7% | **75 WATCH** | **28** |
-| NVIDIA Corporation | `NVDA` | 17.6 | 17.5 | 66.2% | 13.9 | 70.9% | 68.2% | 0.8% | **75 WATCH** | **18** |
-| Broadcom Inc. | `AVGO` | 18.5 | 18.9 | 54.3% | 17.9 | 66.4% | 64.1% | 1.9% | **75 WATCH** | **28** |
-| Micron Technology, Inc. | `MU` | 7.8 | 7.5 | 80.7% | 4.4 | 17.1% | 15.7% | 2.8% | **75 CORE** | **30** |
-| Sandisk Corporation | `SNDK` | 10.0 | 9.9 | 78.5% | 5.3 | 24.0% | 18.9% | 3.8% | **75 CORE** | **10** |
-| Western Digital Corporation | `WDC` | 10.5 | 10.1 | 43.6% | 11.0 | 61.2% | 37.2% | 1.7% | **75 WATCH** | **18** |
-| Marvell Technology, Inc. | `MRVL` | 23.3 | 22.9 | 16.7% | 33.7 | 72.9% | 63.2% | 1.1% | **70 WATCH** | **13** |
-| Advanced Micro Devices, Inc. | `AMD` | 22.6 | 22.3 | 17.2% | 36.3 | 107.2% | 74.6% | 0.9% | **70 WATCH** | **13** |
-| Corning Incorporated | `GLW` | 7.1 | 7.6 | 15.6% | 32.2 | 33.0% | 19.6% | 0.6% | **70 WATCH** | **13** |
-| Oracle Corporation | `ORCL` | 5.5 | 7.4 | 35.6% | 11.9 | 35.1% | 45.7% | -11.6% | **70 WATCH** | **10** |
-| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.0% | 17.6 | 38.8% | 22.3% | -1.2% | **70 WATCH** | **10** |
-| Adobe Inc. | `ADBE` | 3.6 | 3.7 | 34.8% | 8.7 | 12.4% | 9.1% | 10.0% | **65 WATCH** | **30** |
-| Tesla, Inc. | `TSLA` | 14.0 | 13.7 | 1.4% | 168.4 | 24.5% | 13.6% | 0.3% | **22** | **63 WATCH** |
-| Coherent Corp. | `COHR` | 7.3 | 7.5 | 11.8% | 18.7 | 49.2% | 38.9% | -1.3% | **60 WATCH** | **35** |
-| IREN LIMITED | `IREN` | 17.0 | 19.8 | -102.5% | -7.7 | -16.4% | 160.9% | -35.0% | **0** | **60** |
-| Microsoft Corporation | `MSFT` | 11.9 | 12.1 | 45.1% | 22.5 | 19.8% | 19.6% | 0.4% | **59 WATCH** | **23** |
-| Lumentum Holdings Inc. | `LITE` | 26.9 | 26.3 | 28.0% | 24.9 | 65.3% | 57.0% | 0.3% | **0** | **59** |
-| Coca-Cola Company (The) | `KO` | 7.9 | 8.5 | 34.9% | 26.0 | 6.7% | 0.1% | 1.3% | **7** | **58** |
-| Apple Inc. | `AAPL` | 10.7 | 10.8 | 32.6% | 35.8 | 8.6% | 10.5% | 2.2% | **5** | **58** |
-| Bloom Energy Corporation | `BE` | 22.6 | 22.7 | 17.1% | 48.6 | 78.9% | 64.4% | 0.8% | **55 WATCH** | **48** |
-| AXT Inc | `AXT` | 32.2 | 29.5 | 21.9% | 27.4 | 159.2% | 111.3% | -1.1% | **52** | **35** |
-| Super Micro Computer, Inc. | `SMCI` | 0.6 | 0.8 | 13.4% | 6.7 | 22.8% | 17.3% | -35.6% | **52** | **25** |
-| Netflix, Inc. | `NFLX` | 6.1 | 6.2 | 33.4% | 18.6 | 5.9% | 11.2% | 8.6% | **35** | **50** |
-| Palantir Technologies Inc. | `PLTR` | 78.5 | 77.0 | 47.1% | 85.7 | 45.2% | 50.1% | 0.4% | **33** | **48** |
-| Intel Corporation | `INTC` | 9.1 | 9.3 | 12.2% | 46.9 | 37.2% | 14.9% | 0.9% | **5** | **48** |
-| SK hynix | `SKHYNIX` | 4.7 | 5.0 | 76.3% | 2.7 | 32.4% | 54.4% | 6.2% | **45** | **5** |
-| SK hynix | `SKHY` | 4.7 | 5.0 | 76.3% | 2.7 | 32.4% | 54.4% | 6.2% | **45** | **5** |
+| USA Rare Earth, Inc. | `USAR` | 283.5 | 76.6 | -795.6% | 331.0 | 105.3% | 870.1% | -7.6% | **0** | **100 CORE** |
+| Rocket Lab Corporation | `RKLB` | 45.2 | 43.2 | -24.6% | 836.5 | 75.5% | 41.3% | -0.7% | **0** | **100 CORE** |
+| Cerebras Systems Inc. | `CBRS` | 47.8 | 39.9 | -265.0% | 107.6 | 371.3% | 232.7% | — | **0** | **92 CORE** |
+| Taiwan Semiconductor Manufactur | `TSM` | 0.5 | 3.5 | 60.3% | 18.3 | 27.9% | 35.2% | 34.4% | **90 CORE** | **10** |
+| IonQ, Inc. | `IONQ` | 50.6 | 40.2 | -408.2% | -22.6 | 17.5% | 77.6% | -0.7% | **0** | **88 CORE** |
+| Nebius Group N.V. | `NBIS` | 32.9 | 39.2 | -0.2% | -49.4 | -191.4% | 268.0% | -21.5% | **0** | **84 WATCH** |
+| Applovin Corporation | `APP` | 12.9 | 12.9 | 77.7% | 12.8 | 27.3% | 26.0% | 3.6% | **83 CORE** | **10** |
+| Sandisk Corporation | `SNDK` | 9.4 | 9.9 | 78.5% | 4.9 | 24.0% | 18.9% | 4.1% | **82 CORE** | **10** |
+| Okta, Inc. | `OKTA` | 11.6 | 11.3 | 13.3% | 46.5 | 11.4% | 10.0% | 2.9% | **8** | **80 CORE** |
+| Moderna, Inc. | `MRNA` | 40.1 | 38.8 | -557.9% | -50.5 | 43.0% | 16.1% | 0.3% | **0** | **80 WATCH** |
+| AST SpaceMobile, Inc. | `ASTS` | 138.8 | 120.1 | -544.6% | -32.0 | 44.3% | 247.3% | -11.2% | **0** | **80 WATCH** |
+| Applied Materials, Inc. | `AMAT` | 11.1 | 11.4 | 33.7% | 23.4 | 44.4% | 35.2% | 0.9% | **77 WATCH** | **3** |
+| Robinhood Markets, Inc. | `HOOD` | 17.8 | 18.2 | 43.9% | 28.5 | 36.5% | 29.2% | — | **77 WATCH** | **5** |
+| Credo Technology Group Holding  | `CRDO` | 20.1 | 20.7 | 25.2% | 17.6 | 53.7% | 54.8% | 0.8% | **75 WATCH** | **28** |
+| NVIDIA Corporation | `NVDA` | 17.2 | 17.5 | 66.2% | 13.5 | 70.9% | 68.2% | 0.8% | **75 WATCH** | **18** |
+| Micron Technology, Inc. | `MU` | 7.4 | 7.5 | 80.7% | 4.3 | 15.8% | 15.5% | 2.9% | **75 CORE** | **30** |
+| Broadcom Inc. | `AVGO` | 18.1 | 18.9 | 54.3% | 17.4 | 66.4% | 64.1% | 1.9% | **75 WATCH** | **28** |
+| Western Digital Corporation | `WDC` | 10.0 | 10.1 | 43.6% | 10.5 | 61.2% | 37.2% | 1.8% | **75 WATCH** | **18** |
+| Marvell Technology, Inc. | `MRVL` | 22.0 | 22.9 | 16.7% | 31.8 | 72.9% | 63.2% | 1.2% | **70 WATCH** | **13** |
+| Advanced Micro Devices, Inc. | `AMD` | 21.5 | 22.3 | 17.2% | 34.5 | 107.7% | 74.8% | 1.0% | **70 WATCH** | **13** |
+| Corning Incorporated | `GLW` | 6.8 | 7.6 | 15.6% | 30.9 | 33.0% | 19.6% | 0.6% | **70 WATCH** | **13** |
+| Oracle Corporation | `ORCL` | 5.5 | 7.4 | 35.6% | 11.7 | 35.1% | 45.7% | -11.7% | **70 WATCH** | **10** |
+| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.0% | 17.7 | 38.8% | 22.3% | -1.2% | **70 WATCH** | **10** |
+| Adobe Inc. | `ADBE` | 3.7 | 3.7 | 34.8% | 8.9 | 12.4% | 9.1% | 9.8% | **65 WATCH** | **30** |
+| Tesla, Inc. | `TSLA` | 13.7 | 13.7 | 1.4% | 166.2 | 24.4% | 13.5% | 0.3% | **22** | **63 WATCH** |
+| Coherent Corp. | `COHR` | 6.8 | 7.5 | 11.8% | 17.6 | 49.2% | 38.9% | -1.3% | **60 WATCH** | **35** |
+| IREN LIMITED | `IREN` | 16.2 | 19.8 | -102.5% | -7.3 | -16.4% | 160.9% | -36.8% | **0** | **60** |
+| Microsoft Corporation | `MSFT` | 11.9 | 12.1 | 45.1% | 22.5 | 19.9% | 19.6% | 0.4% | **59 WATCH** | **23** |
+| Lumentum Holdings Inc. | `LITE` | 25.4 | 26.3 | 28.0% | 23.5 | 65.3% | 57.0% | 0.3% | **0** | **59** |
+| Coca-Cola Company (The) | `KO` | 8.0 | 8.5 | 34.9% | 26.5 | 6.7% | 0.1% | 1.3% | **7** | **58** |
+| Apple Inc. | `AAPL` | 10.9 | 10.8 | 32.6% | 36.2 | 8.6% | 10.5% | 2.1% | **5** | **58** |
+| Bloom Energy Corporation | `BE` | 21.3 | 22.7 | 17.1% | 45.8 | 82.1% | 65.5% | 0.8% | **55 WATCH** | **48** |
+| AXT Inc | `AXT` | 30.0 | 29.5 | 21.9% | 25.6 | 159.2% | 111.3% | -1.2% | **52** | **35** |
+| Super Micro Computer, Inc. | `SMCI` | 0.6 | 0.8 | 13.4% | 6.5 | 22.8% | 17.3% | -37.0% | **52** | **25** |
+| Netflix, Inc. | `NFLX` | 6.2 | 6.2 | 33.4% | 18.8 | 5.9% | 11.2% | 8.5% | **35** | **50** |
+| Palantir Technologies Inc. | `PLTR` | 76.4 | 77.0 | 47.1% | 83.4 | 45.2% | 50.1% | 0.5% | **33** | **48** |
+| Intel Corporation | `INTC` | 8.7 | 9.3 | 12.2% | 44.6 | 37.8% | 14.8% | 1.0% | **5** | **48** |
+| SK hynix | `SKHY` | 4.9 | 5.0 | 76.3% | 2.7 | 32.4% | 54.4% | 6.1% | **45** | **5** |
+| SK hynix | `SKHYNIX` | 4.9 | 5.0 | 76.3% | 2.7 | 32.4% | 54.4% | 6.1% | **45** | **5** |
 | SamsungElec | `SAMSUNG` | 2.8 | 2.8 | 52.2% | 2.9 | 50.9% | 38.0% | 5.1% | **45** | **10** |
-| Circle Internet Group, Inc. | `CRCL` | 7.0 | 6.4 | 4.9% | 54.2 | 31.7% | 25.8% | 1.0% | **43** | **33** |
-| Coinbase Global, Inc. | `COIN` | 7.5 | 7.2 | -13.9% | 57.4 | 261.1% | 29.8% | 5.8% | **20** | **40** |
+| Arm Holdings plc | `ARM` | 47.4 | 48.6 | 7.6% | 74.8 | 37.5% | 36.2% | 0.5% | **43** | **33** |
+| Circle Internet Group, Inc. | `CRCL` | 6.6 | 6.4 | 4.9% | 51.5 | 31.7% | 25.8% | 1.1% | **43** | **33** |
+| Coinbase Global, Inc. | `COIN` | 7.4 | 7.2 | -13.9% | 56.0 | 261.1% | 29.8% | 6.0% | **20** | **40** |
 | SOFTBANK GROUP CORP | `SOFTBANK` | 3.5 | 7.2 | -11.6% | 16.4 | -14.5% | 6.9% | -7.9% | **0** | **40** |
-| CoreWeave, Inc. | `CRWV` | 4.8 | 10.9 | -1.9% | -35.9 | 15.4% | 104.3% | -25.1% | **0** | **40** |
-| Dell Technologies Inc. | `DELL` | 2.1 | 2.3 | 12.0% | 17.0 | 9.6% | 18.4% | 1.9% | **33** | **38** |
-| Meta Platforms, Inc. | `META` | 8.2 | 8.3 | 34.8% | 21.3 | 10.4% | 20.7% | 1.1% | **17** | **38** |
-| Amazon.com, Inc. | `AMZN` | 3.5 | 3.7 | 13.7% | 24.3 | -18.3% | 14.5% | 0.1% | **0** | **38** |
-| Arm Holdings plc | `ARM` | 49.3 | 48.6 | 7.6% | 77.7 | 37.5% | 36.2% | 0.5% | **35** | **33** |
-| Fluence Energy, Inc. | `FLNC` | 0.5 | 0.4 | -8.9% | -17.9 | 66.2% | 29.9% | 0.2% | **5** | **28** |
-| Hyperliquid Strategies Inc | `PURR` | 278.6 | 183.5 | 9595.1% | 25.6 | 51.0% | 31.4% | — | **25** | **10** |
-| Strategy Inc | `MSTR` | 121.7 | 148.1 | -6808.1% | 2.9 | 157.6% | 2.2% | -37.2% | **25** | **25** |
-| BitMine Immersion Technologies, | `BMNR` | 219.3 | 213.8 | 8.4% | 23.7 | 103.2% | 421.8% | -3.9% | **25** | **25** |
-| QUALCOMM Incorporated | `QCOM` | 4.2 | 4.3 | 18.5% | 16.9 | -2.7% | 4.8% | 5.6% | **25** | **15** |
-| Applied Optoelectronics, Inc. | `AAOI` | 12.3 | 11.9 | -12.9% | 18.7 | 576.8% | 156.5% | -12.1% | **10** | **25** |
-| Alphabet Inc. | `GOOGL` | 9.5 | 9.3 | 34.0% | 22.8 | -26.9% | 24.1% | 0.5% | **12** | **23** |
+| CoreWeave, Inc. | `CRWV` | 4.5 | 10.9 | -1.9% | -33.8 | 15.4% | 104.3% | -26.6% | **0** | **40** |
+| Dell Technologies Inc. | `DELL` | 2.0 | 2.3 | 12.0% | 16.0 | 9.6% | 18.4% | 2.0% | **33** | **38** |
+| Meta Platforms, Inc. | `META` | 8.1 | 8.3 | 34.8% | 21.0 | 10.4% | 20.7% | 1.2% | **17** | **38** |
+| Amazon.com, Inc. | `AMZN` | 3.5 | 3.7 | 13.7% | 23.9 | -18.3% | 14.5% | 0.1% | **0** | **38** |
+| Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -13.3 | 66.2% | 29.9% | 0.2% | **5** | **28** |
+| Hyperliquid Strategies Inc | `PURR` | 264.7 | 183.5 | 9595.1% | 24.3 | 51.0% | 31.4% | — | **25** | **10** |
+| Strategy Inc | `MSTR` | 117.1 | 148.1 | -6808.1% | 2.8 | 157.6% | 2.2% | -38.7% | **25** | **25** |
+| BitMine Immersion Technologies, | `BMNR` | 208.6 | 213.8 | 8.4% | 22.5 | 103.2% | 421.8% | -4.1% | **25** | **25** |
+| QUALCOMM Incorporated | `QCOM` | 4.1 | 4.3 | 18.5% | 16.6 | -2.7% | 4.7% | 5.7% | **25** | **15** |
+| Applied Optoelectronics, Inc. | `AAOI` | 11.5 | 11.9 | -12.9% | 17.6 | 576.8% | 156.5% | -12.9% | **10** | **25** |
+| Alphabet Inc. | `GOOGL` | 9.4 | 9.3 | 34.0% | 22.5 | -26.9% | 24.4% | 0.5% | **12** | **23** |
 
 ## Files
 
