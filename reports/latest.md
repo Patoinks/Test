@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-17 14:15 UTC
+**Updated:** 2026-10-17 17:19 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -136,7 +136,7 @@
 | 8 | Applied Optoelectronics, Inc. | `AAOI` | 75.57 | 160.00 | **111.7%** | 5 | USD |
 | 9 | IonQ, Inc. | `IONQ` | 31.28 | 64.06 | **104.8%** | 14 | USD |
 | 10 | Western Digital Corporation | `WDC` | 332.00 | 668.50 | **101.4%** | 24 | USD |
-| 11 | Rocket Lab Corporation | `RKLB` | 50.84 | 102.26 | **101.1%** | 19 | USD |
+| 11 | Rocket Lab Corporation | `RKLB` | 50.84 | 102.15 | **100.9%** | 20 | USD |
 | 12 | Oracle Corporation | `ORCL` | 128.23 | 237.36 | **85.1%** | 41 | USD |
 | 13 | AST SpaceMobile, Inc. | `ASTS` | 40.66 | 74.28 | **82.7%** | 12 | USD |
 | 14 | Applovin Corporation | `APP` | 266.13 | 480.08 | **80.4%** | 31 | USD |
@@ -156,7 +156,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Company | OKX | P/S | EV/S | Op margin | Fwd P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | USA Rare Earth, Inc. | `USAR` | 300.4 | 80.7 | -795.6% | 351.3 | 105.3% | 870.1% | -7.2% | **0** | **100 CORE** |
-| Rocket Lab Corporation | `RKLB` | 42.3 | 36.7 | -24.6% | 884.3 | 65.5% | 38.8% | -0.8% | **0** | **100 CORE** |
+| Rocket Lab Corporation | `RKLB` | 42.3 | 36.7 | -24.6% | 884.3 | 65.8% | 38.8% | -0.8% | **0** | **100 CORE** |
 | Taiwan Semiconductor Manufactur | `TSM` | 0.4 | 2.8 | 58.7% | 17.6 | 33.6% | 37.5% | 56.2% | **90 CORE** | **10** |
 | IonQ, Inc. | `IONQ` | 51.4 | 40.0 | -408.2% | -23.3 | 21.3% | 77.6% | -0.7% | **0** | **88 CORE** |
 | Nebius Group N.V. | `NBIS` | 33.2 | 35.1 | -0.2% | -46.5 | -191.4% | 268.0% | -21.4% | **0** | **84 WATCH** |
