@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-17 05:39 UTC  
+**Last scan:** 2026-10-17 10:53 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -94,25 +94,25 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | LONG score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
-| 1 | Credo Technology Group Holding  | `CRDO` | 63.3 | 17.5 | -72.3% | 53.7% | 54.8% | decelerating | **100** | **CORE** |
+| 1 | Credo Technology Group Holding  | `CRDO` | 60.2 | 17.5 | -70.9% | 53.7% | 54.8% | decelerating | **100** | **CORE** |
 | 2 | Broadcom Inc. | `AVGO` | 43.3 | 17.0 | -60.9% | 66.4% | 64.2% | decelerating | **100** | **CORE** |
 | 3 | Marvell Technology, Inc. | `MRVL` | 72.3 | 31.3 | -56.7% | 72.9% | 63.2% | accelerating | **100** | **CORE** |
 | 4 | NVIDIA Corporation | `NVDA` | 27.1 | 13.5 | -50.3% | 70.9% | 68.2% | decelerating | **100** | **CORE** |
-| 5 | Advanced Micro Devices, Inc. | `AMD` | 143.3 | 33.6 | -76.6% | 107.7% | 74.8% | accelerating | **100** | **CORE** |
-| 6 | Corning Incorporated | `GLW` | 63.5 | 30.2 | -52.4% | 33.0% | 19.6% | accelerating | **96** | **CORE** |
+| 5 | Advanced Micro Devices, Inc. | `AMD` | 134.9 | 33.6 | -75.1% | 107.7% | 74.8% | accelerating | **100** | **CORE** |
+| 6 | Corning Incorporated | `GLW` | 60.6 | 30.2 | -50.1% | 33.0% | 19.6% | accelerating | **96** | **CORE** |
 | 7 | AXT Inc | `AXT` | 1286.8 | 22.9 | -98.2% | 159.2% | 111.3% | decelerating | **96** | **CORE** |
 | 8 | Oracle Corporation | `ORCL` | 20.1 | 11.7 | -42.0% | 35.0% | 45.7% | accelerating | **95** | **CORE** |
 | 9 | Coherent Corp. | `COHR` | 56.5 | 16.6 | -70.7% | 49.2% | 38.9% | decelerating | **95** | **CORE** |
-| 10 | Arm Holdings plc | `ARM` | 253.1 | 74.4 | -70.6% | 37.5% | 36.2% | accelerating | **95** | **CORE** |
+| 10 | Arm Holdings plc | `ARM` | 234.8 | 74.4 | -68.3% | 37.5% | 36.2% | accelerating | **95** | **CORE** |
 
 ## P/E Expansion + Weakening — SHORT
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | SHORT score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 5.8 | 16.7 | 191.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
-| 2 | Hyperliquid Strategies Inc | `PURR` | 2.8 | 24.5 | 767.6% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
-| 3 | Amazon.com, Inc. | `AMZN` | 20.5 | 23.9 | 16.8% | -18.2% | 14.6% | decelerating | **52** | **WATCH** |
-| 4 | Alphabet Inc. | `GOOGL` | 17.5 | 22.3 | 27.1% | -26.8% | 24.8% | accelerating | **50** | **WATCH** |
+| 2 | Alphabet Inc. | `GOOGL` | 17.1 | 22.3 | 30.4% | -26.8% | 24.8% | accelerating | **60** | **WATCH** |
+| 3 | Hyperliquid Strategies Inc | `PURR` | 2.8 | 24.5 | 767.6% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
+| 4 | Amazon.com, Inc. | `AMZN` | 20.1 | 23.9 | 19.0% | -18.2% | 14.6% | decelerating | **52** | **WATCH** |
 
 ## Top SHORT candidates
 
@@ -132,7 +132,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX market | LONG score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
-| 1 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.5 | 3.5 | 60.3% | 17.6 | 37.5% | 34.2% |
+| 1 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.4 | 2.8 | 58.7% | 17.6 | 37.5% | 56.2% |
 | 2 | Applovin Corporation | `APP-USDT-SWAP` | **83** | **CORE** | 13.0 | 13.1 | 77.7% | 13.0 | 26.0% | 3.6% |
 | 3 | Sandisk Corporation | `SNDK-USDT-SWAP` | **82** | **CORE** | 9.3 | 9.2 | 78.5% | 4.9 | 18.9% | 4.1% |
 | 4 | Robinhood Markets, Inc. | `HOOD-USDT-SWAP` | **77** | **WATCH** | 18.0 | 17.8 | 43.9% | 28.8 | 29.3% | — |
@@ -178,7 +178,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | USA Rare Earth, Inc. | `USAR` | 300.4 | 80.7 | -795.6% | 351.3 | 105.3% | 870.1% | -7.2% | **0** | **100 CORE** |
 | Rocket Lab Corporation | `RKLB` | 42.3 | 36.7 | -24.6% | 782.3 | 65.5% | 38.8% | -0.8% | **0** | **100 CORE** |
-| Taiwan Semiconductor Manufactur | `TSM` | 0.5 | 3.5 | 60.3% | 17.6 | 33.5% | 37.5% | 34.2% | **90 CORE** | **10** |
+| Taiwan Semiconductor Manufactur | `TSM` | 0.4 | 2.8 | 58.7% | 17.6 | 33.5% | 37.5% | 56.2% | **90 CORE** | **10** |
 | IonQ, Inc. | `IONQ` | 51.4 | 40.0 | -408.2% | -23.3 | 21.3% | 77.6% | -0.7% | **0** | **88 CORE** |
 | Nebius Group N.V. | `NBIS` | 31.0 | 35.1 | -0.2% | -46.5 | -191.4% | 268.0% | -22.9% | **0** | **84 WATCH** |
 | Applovin Corporation | `APP` | 13.0 | 13.1 | 77.7% | 13.0 | 27.3% | 26.0% | 3.6% | **83 CORE** | **10** |
