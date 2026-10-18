@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-17 23:11 UTC
+**Updated:** 2026-10-18 01:09 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
