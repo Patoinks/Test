@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-18 01:09 UTC
+**Updated:** 2026-10-18 06:00 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -205,8 +205,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Amazon.com, Inc. | `AMZN` | 3.5 | 3.6 | 13.7% | 23.9 | -18.2% | 14.6% | 0.1% | **0** | **38** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -12.8 | 60.4% | 27.7% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 266.8 | 175.1 | 9595.1% | 24.5 | 51.0% | 31.4% | — | **25** | **10** |
-| BitMine Immersion Technologies, | `BMNR` | 213.5 | 208.0 | 8.4% | 23.0 | 103.2% | 421.8% | -4.0% | **25** | **25** |
 | Strategy Inc | `MSTR` | 116.3 | 143.1 | -6808.1% | 2.8 | 168.2% | 2.2% | -39.0% | **25** | **25** |
+| BitMine Immersion Technologies, | `BMNR` | 213.5 | 208.0 | 8.4% | 23.0 | 103.2% | 421.8% | -4.0% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.2 | 4.3 | 18.5% | 16.9 | -2.8% | 4.7% | 5.6% | **25** | **15** |
 | Applied Optoelectronics, Inc. | `AAOI` | 10.8 | 10.4 | -12.9% | 16.4 | 576.8% | 156.5% | -13.8% | **10** | **25** |
 | Alphabet Inc. | `GOOGL` | 9.3 | 9.1 | 34.0% | 22.3 | -26.8% | 24.8% | 0.5% | **12** | **23** |
