@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-24 01:39 UTC  
+**Last scan:** 2026-10-24 07:23 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -35,30 +35,30 @@ The final ranking adds entry timing without allowing price momentum to create a 
 
 | Rank | Company | OKX | 24h | 7d | 50/50 move | Base LONG | Timing adj. | Final | Signal | Prev. LONG? |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---|---|
-| 1 | Credo Technology Group Holding  | CRDO | -9.5% | -13.2% | -11.4% | 82 | +9 | **91** | **CORE** | yes |
-| 2 | Taiwan Semiconductor Manufactur | TSM | 1.5% | 1.4% | 1.5% | 88 | -1 | **87** | **CORE** | yes |
-| 3 | Corning Incorporated | GLW | -0.2% | -6.3% | -3.3% | 83 | +3 | **86** | **CORE** | yes |
-| 4 | Sandisk Corporation | SNDK | -1.8% | -4.7% | -3.3% | 82 | +3 | **85** | **CORE** | yes |
-| 5 | Applied Materials, Inc. | AMAT | 0.4% | -7.8% | -3.7% | 81 | +3 | **84** | **CORE** | yes |
-| 6 | Applovin Corporation | APP | -1.5% | -2.2% | -1.9% | 82 | +1 | **83** | **CORE** | yes |
-| 7 | Broadcom Inc. | AVGO | -0.5% | -2.2% | -1.3% | 82 | +1 | **83** | **CORE** | yes |
-| 8 | NVIDIA Corporation | NVDA | -0.6% | -1.5% | -1.0% | 82 | +1 | **83** | **CORE** | yes |
-| 9 | Robinhood Markets, Inc. | HOOD | -1.6% | -3.8% | -2.7% | 80 | +2 | **82** | **CORE** | yes |
-| 10 | Western Digital Corporation | WDC | -3.0% | 3.5% | 0.3% | 80 | +0 | **80** | **CORE** | yes |
+| 1 | Taiwan Semiconductor Manufactur | TSM | -0.0% | 1.4% | 0.7% | 88 | -1 | **87** | **CORE** | yes |
+| 2 | Credo Technology Group Holding  | CRDO | 0.0% | -13.2% | -6.6% | 82 | +5 | **87** | **CORE** | yes |
+| 3 | Corning Incorporated | GLW | -0.0% | -6.3% | -3.1% | 83 | +3 | **86** | **CORE** | yes |
+| 4 | Sandisk Corporation | SNDK | -0.0% | -4.7% | -2.4% | 82 | +2 | **84** | **CORE** | yes |
+| 5 | Applied Materials, Inc. | AMAT | 0.0% | -7.8% | -3.9% | 81 | +3 | **84** | **CORE** | yes |
+| 6 | Applovin Corporation | APP | 0.0% | -2.2% | -1.1% | 82 | +1 | **83** | **CORE** | yes |
+| 7 | Broadcom Inc. | AVGO | 0.0% | -2.2% | -1.1% | 82 | +1 | **83** | **CORE** | yes |
+| 8 | NVIDIA Corporation | NVDA | -0.0% | -1.5% | -0.7% | 82 | +1 | **83** | **CORE** | yes |
+| 9 | Robinhood Markets, Inc. | HOOD | 0.0% | -3.8% | -1.9% | 80 | +2 | **82** | **CORE** | yes |
+| 10 | Advanced Micro Devices, Inc. | AMD | 0.0% | -2.3% | -1.1% | 79 | +1 | **80** | **CORE** | yes |
 
 ## Final model + Price Timing — SHORT
 
 | Rank | Company | OKX | 24h | 7d | 50/50 move | Base SHORT | Timing adj. | Final | Signal | Prev. SHORT? |
 |---:|---|---|---:|---:|---:|---:|---:|---:|---|---|
-| 1 | Rocket Lab Corporation | RKLB | 2.7% | 3.5% | 3.1% | 100 | +2 | **100** | **CORE** | yes |
-| 2 | USA Rare Earth, Inc. | USAR | -3.1% | -11.5% | -7.3% | 100 | -6 | **94** | **CORE** | yes |
-| 3 | IonQ, Inc. | IONQ | 0.4% | -0.0% | 0.2% | 88 | +0 | **88** | **CORE** | yes |
-| 4 | Nebius Group N.V. | NBIS | -0.3% | -4.1% | -2.2% | 84 | -2 | **82** | **CORE** | yes |
-| 5 | AST SpaceMobile, Inc. | ASTS | 2.6% | -2.1% | 0.2% | 80 | +0 | **80** | **CORE** | yes |
-| 6 | Cerebras Systems Inc. | CBRS | 1.7% | -12.9% | -5.6% | 75 | -4 | **71** | **WATCH** | yes |
-| 7 | Moderna, Inc. | MRNA | -1.2% | -8.2% | -4.7% | 72 | -4 | **68** | **WATCH** | yes |
-| 8 | Okta, Inc. | OKTA | 5.8% | 13.8% | 9.8% | 60 | +8 | **68** | **WATCH** | yes |
-| 9 | Tesla, Inc. | TSLA | -0.6% | 4.9% | 2.2% | 59 | +2 | **61** | **WATCH** | yes |
+| 1 | Rocket Lab Corporation | RKLB | 0.0% | 3.5% | 1.7% | 100 | +1 | **100** | **CORE** | yes |
+| 2 | USA Rare Earth, Inc. | USAR | 0.0% | -11.5% | -5.7% | 100 | -5 | **95** | **CORE** | yes |
+| 3 | IonQ, Inc. | IONQ | -0.0% | -0.0% | -0.0% | 88 | +0 | **88** | **CORE** | yes |
+| 4 | Nebius Group N.V. | NBIS | -0.0% | -4.1% | -2.0% | 84 | -2 | **82** | **CORE** | yes |
+| 5 | AST SpaceMobile, Inc. | ASTS | -0.0% | -2.1% | -1.1% | 80 | -1 | **79** | **CORE** | yes |
+| 6 | Cerebras Systems Inc. | CBRS | 0.0% | -12.9% | -6.4% | 75 | -5 | **70** | **WATCH** | yes |
+| 7 | Moderna, Inc. | MRNA | -0.0% | -8.2% | -4.1% | 72 | -3 | **69** | **WATCH** | yes |
+| 8 | Okta, Inc. | OKTA | -0.0% | 13.8% | 6.9% | 60 | +6 | **66** | **WATCH** | yes |
+| 9 | Tesla, Inc. | TSLA | -0.0% | 4.9% | 2.5% | 59 | +2 | **61** | **WATCH** | yes |
 
 ## Combined model — LONG
 
@@ -75,7 +75,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | 7 | Broadcom Inc. | `AVGO` | 75 | 100 | **82** | **CORE** |
 | 8 | Applied Materials, Inc. | `AMAT` | 77 | 91 | **81** | **CORE** |
 | 9 | Robinhood Markets, Inc. | `HOOD` | 77 | 86 | **80** | **CORE** |
-| 10 | Western Digital Corporation | `WDC` | 75 | 90 | **80** | **CORE** |
+| 10 | Advanced Micro Devices, Inc. | `AMD` | 70 | 100 | **79** | **CORE** |
 
 ## Combined model — SHORT
 
@@ -112,7 +112,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 
 | Rank | Company | OKX | Trail P/E | Fwd P/E | P/E change | EPS +1y | Rev +1y | Rev trend | SHORT score | Signal |
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
-| 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 5.0 | 14.5 | 189.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
+| 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 5.0 | 14.5 | 191.0% | -14.5% | 6.9% | decelerating | **86** | **CORE** |
 | 2 | Hyperliquid Strategies Inc | `PURR` | 2.7 | 23.7 | 767.6% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
 | 3 | Amazon.com, Inc. | `AMZN` | 20.0 | 23.8 | 19.2% | -18.2% | 14.6% | decelerating | **52** | **WATCH** |
 | 4 | Alphabet Inc. | `GOOGL` | 16.1 | 20.8 | 29.8% | -26.6% | 25.3% | accelerating | **50** | **WATCH** |
@@ -195,8 +195,8 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Credo Technology Group Holding  | `CRDO` | 17.4 | 16.9 | 25.2% | 15.2 | 53.9% | 55.0% | 0.9% | **75 WATCH** | **28** |
 | NVIDIA Corporation | `NVDA` | 16.8 | 16.7 | 66.2% | 13.3 | 70.9% | 68.2% | 0.8% | **75 WATCH** | **18** |
 | Broadcom Inc. | `AVGO` | 17.2 | 17.6 | 54.3% | 16.6 | 66.7% | 64.3% | 2.0% | **75 WATCH** | **28** |
-| Western Digital Corporation | `WDC` | 10.0 | 9.9 | 43.6% | 8.7 | 59.1% | 36.9% | 1.8% | **75 WATCH** | **18** |
 | Micron Technology, Inc. | `MU` | 7.5 | 7.2 | 80.7% | 4.2 | 17.2% | 15.7% | 2.9% | **75 CORE** | **30** |
+| Western Digital Corporation | `WDC` | 10.0 | 9.9 | 43.6% | 8.7 | 59.1% | 36.9% | 1.8% | **75 WATCH** | **18** |
 | Cerebras Systems Inc. | `CBRS` | 38.7 | 29.2 | -265.0% | 87.0 | 371.3% | 232.7% | — | **0** | **75 WATCH** |
 | Moderna, Inc. | `MRNA` | 35.9 | 34.1 | -557.9% | -44.2 | 42.6% | 15.8% | 0.4% | **0** | **72 WATCH** |
 | Advanced Micro Devices, Inc. | `AMD` | 20.4 | 20.2 | 17.2% | 32.8 | 107.7% | 74.9% | 1.0% | **70 WATCH** | **13** |
