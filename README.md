@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-24 12:44 UTC  
+**Last scan:** 2026-10-24 16:40 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -222,15 +222,15 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | SamsungElec | `SAMSUNG` | 2.9 | 2.6 | 52.2% | 3.0 | 51.5% | 38.3% | 5.0% | **45** | **10** |
 | Arm Holdings plc | `ARM` | 43.6 | 42.9 | 7.6% | 68.6 | 37.5% | 36.4% | 0.6% | **43** | **33** |
 | Circle Internet Group, Inc. | `CRCL` | 7.5 | 6.9 | 4.9% | 58.1 | 30.0% | 26.7% | 0.9% | **43** | **33** |
-| Coinbase Global, Inc. | `COIN` | 7.2 | 6.8 | -13.9% | 54.5 | 271.1% | 30.2% | 6.2% | **20** | **40** |
+| Coinbase Global, Inc. | `COIN` | 7.2 | 6.8 | -13.9% | 53.5 | 271.1% | 30.2% | 6.2% | **20** | **40** |
 | SOFTBANK GROUP CORP | `SOFTBANK` | 3.0 | 6.4 | -11.6% | 14.5 | -14.5% | 6.9% | -9.0% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 3.9 | 10.0 | -1.9% | -28.4 | 11.4% | 105.6% | -30.4% | **0** | **40** |
 | Dell Technologies Inc. | `DELL` | 1.9 | 2.1 | 12.0% | 15.3 | 9.6% | 18.4% | 2.1% | **33** | **38** |
 | Amazon.com, Inc. | `AMZN` | 3.4 | 3.6 | 13.7% | 23.8 | -18.2% | 14.6% | 0.1% | **0** | **38** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -12.4 | 60.4% | 26.9% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 258.3 | 169.0 | 9595.1% | 23.7 | 51.0% | 31.4% | — | **25** | **10** |
-| Strategy Inc | `MSTR` | 124.1 | 150.2 | -6808.1% | 3.0 | 168.2% | 2.2% | -36.5% | **25** | **25** |
 | BitMine Immersion Technologies, | `BMNR` | 220.8 | 215.3 | 8.4% | 23.8 | 103.2% | 421.8% | -3.8% | **25** | **25** |
+| Strategy Inc | `MSTR` | 124.1 | 150.2 | -6808.1% | 3.0 | 168.2% | 2.2% | -36.5% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.3 | 4.4 | 18.5% | 17.3 | -2.8% | 4.7% | 5.5% | **25** | **15** |
 | Applied Optoelectronics, Inc. | `AAOI` | 9.6 | 9.2 | -12.9% | 14.7 | 576.8% | 156.5% | -15.5% | **10** | **25** |
 | Alphabet Inc. | `GOOGL` | 8.8 | 8.6 | 34.0% | 20.8 | -26.6% | 25.3% | 0.6% | **12** | **23** |
