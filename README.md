@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-10-25 19:43 UTC  
+**Last scan:** 2026-10-25 22:37 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -200,8 +200,8 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Cerebras Systems Inc. | `CBRS` | 38.7 | 29.2 | -265.0% | 87.0 | 371.3% | 232.7% | — | **0** | **75 WATCH** |
 | Moderna, Inc. | `MRNA` | 35.9 | 34.1 | -557.9% | -43.6 | 42.6% | 15.8% | 0.4% | **0** | **72 WATCH** |
 | Advanced Micro Devices, Inc. | `AMD` | 20.4 | 20.2 | 17.2% | 32.8 | 107.7% | 74.9% | 1.0% | **70 WATCH** | **13** |
-| Marvell Technology, Inc. | `MRVL` | 21.7 | 21.3 | 16.7% | 31.2 | 73.7% | 63.3% | 1.2% | **70 WATCH** | **13** |
 | Oracle Corporation | `ORCL` | 5.3 | 7.2 | 35.6% | 11.5 | 35.0% | 45.7% | -12.0% | **70 WATCH** | **10** |
+| Marvell Technology, Inc. | `MRVL` | 21.7 | 21.3 | 16.7% | 31.2 | 73.7% | 63.3% | 1.2% | **70 WATCH** | **13** |
 | XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.0% | 17.8 | 36.8% | 19.7% | -1.3% | **70 WATCH** | **10** |
 | Adobe Inc. | `ADBE` | 4.0 | 4.0 | 34.8% | 9.6 | 12.4% | 9.1% | 9.1% | **65 WATCH** | **30** |
 | Coherent Corp. | `COHR` | 5.8 | 6.0 | 11.8% | 15.0 | 48.3% | 38.3% | -1.6% | **60 WATCH** | **35** |
