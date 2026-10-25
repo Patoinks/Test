@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-25 17:05 UTC
+**Updated:** 2026-10-25 19:43 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -107,7 +107,7 @@
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | Credo Technology Group Holding  | `CRDO` | 52.2 | 15.2 | -71.0% | 53.9% | 55.0% | decelerating | **100** | **CORE** |
 | 2 | NVIDIA Corporation | `NVDA` | 26.7 | 13.3 | -50.3% | 70.9% | 68.2% | decelerating | **100** | **CORE** |
-| 3 | Broadcom Inc. | `AVGO` | 42.9 | 16.6 | -61.5% | 66.7% | 64.3% | decelerating | **100** | **CORE** |
+| 3 | Broadcom Inc. | `AVGO` | 41.1 | 16.6 | -59.7% | 66.7% | 64.3% | decelerating | **100** | **CORE** |
 | 4 | Advanced Micro Devices, Inc. | `AMD` | 131.8 | 32.8 | -75.1% | 107.7% | 74.9% | accelerating | **100** | **CORE** |
 | 5 | Marvell Technology, Inc. | `MRVL` | 75.2 | 31.2 | -58.5% | 73.7% | 63.3% | accelerating | **100** | **CORE** |
 | 6 | Corning Incorporated | `GLW` | 56.7 | 28.1 | -50.4% | 33.6% | 20.0% | accelerating | **96** | **CORE** |
@@ -179,8 +179,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Cerebras Systems Inc. | `CBRS` | 38.7 | 29.2 | -265.0% | 87.0 | 371.3% | 232.7% | — | **0** | **75 WATCH** |
 | Moderna, Inc. | `MRNA` | 35.9 | 34.1 | -557.9% | -43.6 | 42.6% | 15.8% | 0.4% | **0** | **72 WATCH** |
 | Advanced Micro Devices, Inc. | `AMD` | 20.4 | 20.2 | 17.2% | 32.8 | 107.7% | 74.9% | 1.0% | **70 WATCH** | **13** |
-| Oracle Corporation | `ORCL` | 5.3 | 7.2 | 35.6% | 11.5 | 35.0% | 45.7% | -12.0% | **70 WATCH** | **10** |
 | Marvell Technology, Inc. | `MRVL` | 21.7 | 21.3 | 16.7% | 31.2 | 73.7% | 63.3% | 1.2% | **70 WATCH** | **13** |
+| Oracle Corporation | `ORCL` | 5.3 | 7.2 | 35.6% | 11.5 | 35.0% | 45.7% | -12.0% | **70 WATCH** | **10** |
 | XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.0% | 17.8 | 36.8% | 19.7% | -1.3% | **70 WATCH** | **10** |
 | Adobe Inc. | `ADBE` | 4.0 | 4.0 | 34.8% | 9.6 | 12.4% | 9.1% | 9.1% | **65 WATCH** | **30** |
 | Coherent Corp. | `COHR` | 5.8 | 6.0 | 11.8% | 15.0 | 48.3% | 38.3% | -1.6% | **60 WATCH** | **35** |
@@ -208,8 +208,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Amazon.com, Inc. | `AMZN` | 3.4 | 3.6 | 13.7% | 23.8 | -18.2% | 14.6% | 0.1% | **0** | **38** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -12.4 | 60.4% | 26.9% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 258.3 | 169.0 | 9595.1% | 23.7 | 51.0% | 31.4% | — | **25** | **10** |
-| Strategy Inc | `MSTR` | 124.1 | 150.2 | -6808.1% | 3.0 | 168.2% | 2.2% | -36.5% | **25** | **25** |
 | BitMine Immersion Technologies, | `BMNR` | 220.8 | 215.3 | 8.4% | 23.8 | 103.2% | 421.8% | -3.8% | **25** | **25** |
+| Strategy Inc | `MSTR` | 124.1 | 150.2 | -6808.1% | 3.0 | 168.2% | 2.2% | -36.5% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.3 | 4.4 | 18.5% | 17.3 | -2.8% | 4.7% | 5.5% | **25** | **15** |
 | Applied Optoelectronics, Inc. | `AAOI` | 9.6 | 9.2 | -12.9% | 14.7 | 576.8% | 156.5% | -15.5% | **10** | **25** |
 | Alphabet Inc. | `GOOGL` | 8.8 | 8.6 | 34.0% | 20.8 | -26.6% | 25.3% | 0.6% | **12** | **23** |
