@@ -1,6 +1,6 @@
 # BTC ↔ Hong Kong Correlation Scanner
 
-**Updated:** 2026-10-27 00:32 UTC
+**Updated:** 2026-10-27 06:23 UTC
 
 Purpose: test whether Bitcoin weakness is associated with Hong Kong market weakness,
 without mixing ordinary intraday co-movement with the overnight period when HKEX is closed.
@@ -11,7 +11,7 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Hang Seng Index | +0.18 | 0m | +0.18 | 25 | 68% | -0.05% | +0.28 | 62% | -0.23% |
 | Hang Seng TECH | +0.19 | 0m | +0.19 | 25 | 84% | -0.09% | +0.40 | 71% | -0.39% |
-| Xiaomi | +0.09 | 0m | +0.09 | 23 | 57% | -0.07% | +0.12 | 48% | -0.11% |
+| Xiaomi | +0.09 | 0m | +0.09 | 23 | 57% | -0.07% | +0.11 | 48% | -0.11% |
 
 ## BTC lead / lag detail
 
@@ -19,21 +19,21 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 
 | Asset | BTC lead | Correlation | Samples |
 |---|---:|---:|---:|
-| Hang Seng Index | 0m | +0.18 | 2652 |
-| Hang Seng Index | 5m | +0.04 | 2652 |
-| Hang Seng Index | 15m | +0.02 | 2652 |
-| Hang Seng Index | 30m | -0.01 | 2652 |
-| Hang Seng Index | 60m | +0.01 | 2652 |
-| Hang Seng TECH | 0m | +0.19 | 2652 |
-| Hang Seng TECH | 5m | +0.04 | 2652 |
-| Hang Seng TECH | 15m | +0.03 | 2652 |
-| Hang Seng TECH | 30m | -0.01 | 2652 |
-| Hang Seng TECH | 60m | +0.00 | 2652 |
-| Xiaomi | 0m | +0.09 | 2493 |
-| Xiaomi | 5m | -0.00 | 2493 |
-| Xiaomi | 15m | +0.03 | 2493 |
-| Xiaomi | 30m | +0.01 | 2493 |
-| Xiaomi | 60m | +0.01 | 2493 |
+| Hang Seng Index | 0m | +0.18 | 2696 |
+| Hang Seng Index | 5m | +0.04 | 2696 |
+| Hang Seng Index | 15m | +0.02 | 2696 |
+| Hang Seng Index | 30m | -0.01 | 2696 |
+| Hang Seng Index | 60m | +0.01 | 2696 |
+| Hang Seng TECH | 0m | +0.19 | 2696 |
+| Hang Seng TECH | 5m | +0.04 | 2696 |
+| Hang Seng TECH | 15m | +0.03 | 2696 |
+| Hang Seng TECH | 30m | -0.01 | 2696 |
+| Hang Seng TECH | 60m | +0.00 | 2696 |
+| Xiaomi | 0m | +0.09 | 2535 |
+| Xiaomi | 5m | -0.00 | 2535 |
+| Xiaomi | 15m | +0.03 | 2535 |
+| Xiaomi | 30m | +0.01 | 2535 |
+| Xiaomi | 60m | +0.01 | 2535 |
 
 ## Method
 
