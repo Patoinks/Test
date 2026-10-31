@@ -1,6 +1,6 @@
 # BTC ↔ Hong Kong Correlation Scanner
 
-**Updated:** 2026-10-31 02:28 UTC
+**Updated:** 2026-10-31 09:45 UTC
 
 Purpose: test whether Bitcoin weakness is associated with Hong Kong market weakness,
 without mixing ordinary intraday co-movement with the overnight period when HKEX is closed.
@@ -9,9 +9,9 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 
 | Asset | Same 5m corr | Best BTC lead | Best corr | BTC -0.25%/5m events | HK down hit-rate | Avg HK return on BTC drop | Overnight corr | BTC-down -> negative open | Avg opening gap when BTC down |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Hang Seng Index | +0.16 | 0m | +0.16 | 27 | 59% | -0.03% | +0.25 | 59% | -0.20% |
-| Hang Seng TECH | +0.18 | 0m | +0.18 | 27 | 74% | -0.07% | +0.42 | 73% | -0.40% |
-| Xiaomi | +0.08 | 0m | +0.08 | 25 | 52% | -0.02% | +0.01 | 41% | -0.03% |
+| Hang Seng Index | +0.16 | 0m | +0.16 | 29 | 55% | -0.03% | +0.24 | 59% | -0.20% |
+| Hang Seng TECH | +0.18 | 0m | +0.18 | 29 | 72% | -0.07% | +0.42 | 73% | -0.40% |
+| Xiaomi | +0.08 | 0m | +0.08 | 27 | 48% | -0.02% | -0.00 | 36% | +0.01% |
 
 ## BTC lead / lag detail
 
@@ -21,18 +21,18 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 |---|---:|---:|---:|
 | Hang Seng Index | 0m | +0.16 | 2788 |
 | Hang Seng Index | 5m | +0.04 | 2788 |
-| Hang Seng Index | 15m | +0.01 | 2788 |
+| Hang Seng Index | 15m | +0.02 | 2788 |
 | Hang Seng Index | 30m | +0.02 | 2788 |
 | Hang Seng Index | 60m | +0.01 | 2788 |
 | Hang Seng TECH | 0m | +0.18 | 2788 |
 | Hang Seng TECH | 5m | +0.04 | 2788 |
 | Hang Seng TECH | 15m | +0.02 | 2788 |
 | Hang Seng TECH | 30m | +0.01 | 2788 |
-| Hang Seng TECH | 60m | -0.00 | 2788 |
+| Hang Seng TECH | 60m | -0.01 | 2788 |
 | Xiaomi | 0m | +0.08 | 2621 |
 | Xiaomi | 5m | -0.01 | 2621 |
 | Xiaomi | 15m | +0.02 | 2621 |
-| Xiaomi | 30m | +0.02 | 2621 |
+| Xiaomi | 30m | +0.01 | 2621 |
 | Xiaomi | 60m | +0.00 | 2621 |
 
 ## Method
