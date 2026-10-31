@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-10-31 20:02 UTC
+**Updated:** 2026-10-31 23:26 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -58,9 +58,9 @@
 | Rank | Company | OKX market | LONG score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
 | 1 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.4 | 2.8 | 58.7% | 17.4 | 37.6% | 57.1% |
-| 2 | Applovin Corporation | `APP-USDT-SWAP` | **90** | **CORE** | 11.2 | 11.3 | 77.7% | 11.4 | 25.1% | 4.2% |
-| 3 | Sandisk Corporation | `SNDK-USDT-SWAP` | **82** | **CORE** | 5.7 | 5.5 | 79.6% | 4.2 | 19.8% | 6.8% |
-| 4 | Corning Incorporated | `GLW-USDT-SWAP` | **77** | **WATCH** | 6.0 | 6.4 | 18.9% | 27.2 | 21.2% | 0.8% |
+| 2 | Applovin Corporation | `APP-USDT-SWAP` | **90** | **CORE** | 11.2 | 11.3 | 77.7% | 11.4 | 24.9% | 4.2% |
+| 3 | Sandisk Corporation | `SNDK-USDT-SWAP` | **82** | **CORE** | 5.7 | 5.5 | 79.6% | 4.0 | 19.8% | 6.8% |
+| 4 | Corning Incorporated | `GLW-USDT-SWAP` | **77** | **WATCH** | 6.0 | 6.4 | 18.9% | 27.2 | 21.1% | 0.8% |
 | 5 | Robinhood Markets, Inc. | `HOOD-USDT-SWAP` | **77** | **WATCH** | 15.1 | 14.6 | 48.1% | 25.1 | 29.0% | — |
 | 6 | Applied Materials, Inc. | `AMAT-USDT-SWAP` | **77** | **WATCH** | 10.0 | 10.0 | 33.7% | 21.0 | 35.4% | 1.0% |
 | 7 | Marvell Technology, Inc. | `MRVL-USDT-SWAP` | **77** | **WATCH** | 18.7 | 18.4 | 16.7% | 26.8 | 63.3% | 1.4% |
@@ -123,7 +123,7 @@
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | SOFTBANK GROUP CORP | `SOFTBANK` | 5.2 | 15.2 | 191.0% | -14.5% | 7.0% | decelerating | **86** | **CORE** |
 | 2 | Hyperliquid Strategies Inc | `PURR` | 3.4 | 29.8 | 767.6% | 51.0% | 31.4% | decelerating | **55** | **WATCH** |
-| 3 | Amazon.com, Inc. | `AMZN` | 19.4 | 22.8 | 17.4% | -17.2% | 14.7% | decelerating | **52** | **WATCH** |
+| 3 | Amazon.com, Inc. | `AMZN` | 19.4 | 22.6 | 16.1% | -17.4% | 14.6% | decelerating | **52** | **WATCH** |
 | 4 | Alphabet Inc. | `GOOGL` | 14.6 | 18.5 | 26.5% | -24.7% | 27.0% | accelerating | **50** | **WATCH** |
 
 ## Analyst consensus (12-month price target) — most upside
@@ -138,10 +138,10 @@
 | 6 | SamsungElec | `SAMSUNG` | 225000.00 | 480102.94 | **113.4%** | 35 | KRW |
 | 7 | IonQ, Inc. | `IONQ` | 30.04 | 64.06 | **113.3%** | 14 | USD |
 | 8 | Hyperliquid Strategies Inc | `PURR` | 11.01 | 22.32 | **102.8%** | 4 | USD |
-| 9 | Applovin Corporation | `APP` | 228.50 | 452.95 | **98.2%** | 31 | USD |
+| 9 | Applovin Corporation | `APP` | 228.50 | 448.43 | **96.3%** | 31 | USD |
 | 10 | Credo Technology Group Holding  | `CRDO` | 150.99 | 284.05 | **88.1%** | 19 | USD |
-| 11 | Coherent Corp. | `COHR` | 210.32 | 394.40 | **87.5%** | 25 | USD |
-| 12 | Rocket Lab Corporation | `RKLB` | 54.73 | 102.15 | **86.6%** | 20 | USD |
+| 11 | Rocket Lab Corporation | `RKLB` | 54.73 | 102.15 | **86.6%** | 20 | USD |
+| 12 | Coherent Corp. | `COHR` | 210.32 | 392.40 | **86.6%** | 25 | USD |
 | 13 | Strategy Inc | `MSTR` | 130.51 | 239.27 | **83.3%** | 15 | USD |
 | 14 | Sandisk Corporation | `SNDK` | 1150.89 | 2105.29 | **82.9%** | 24 | USD |
 | 15 | Nebius Group N.V. | `NBIS` | 154.14 | 281.00 | **82.3%** | 20 | USD |
@@ -161,17 +161,17 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Rocket Lab Corporation | `RKLB` | 45.5 | 39.8 | -24.6% | 952.0 | 66.8% | 38.2% | -0.7% | **0** | **100 CORE** |
 | USA Rare Earth, Inc. | `USAR` | 274.1 | 63.6 | -795.6% | 320.7 | 105.3% | 870.1% | -7.9% | **0** | **100 CORE** |
-| Applovin Corporation | `APP` | 11.2 | 11.3 | 77.7% | 11.4 | 25.9% | 25.1% | 4.2% | **90 CORE** | **10** |
+| Applovin Corporation | `APP` | 11.2 | 11.3 | 77.7% | 11.4 | 25.7% | 24.9% | 4.2% | **90 CORE** | **10** |
 | Taiwan Semiconductor Manufactur | `TSM` | 0.4 | 2.8 | 58.7% | 17.4 | 33.6% | 37.6% | 57.1% | **90 CORE** | **10** |
 | IonQ, Inc. | `IONQ` | 52.3 | 38.1 | -408.2% | -22.3 | 21.3% | 77.6% | -0.7% | **0** | **85 CORE** |
-| Sandisk Corporation | `SNDK` | 5.7 | 5.5 | 79.6% | 4.2 | 22.4% | 19.8% | 6.8% | **82 CORE** | **10** |
+| Sandisk Corporation | `SNDK` | 5.7 | 5.5 | 79.6% | 4.0 | 22.4% | 19.8% | 6.8% | **82 CORE** | **10** |
 | Okta, Inc. | `OKTA` | 11.8 | 11.1 | 13.3% | 47.6 | 11.4% | 10.1% | 2.9% | **8** | **80 CORE** |
 | AST SpaceMobile, Inc. | `ASTS` | 138.3 | 117.0 | -544.6% | -28.2 | 44.3% | 264.2% | -11.3% | **0** | **80 WATCH** |
 | Nebius Group N.V. | `NBIS` | 28.9 | 32.8 | -0.2% | -42.8 | -191.4% | 266.0% | -24.6% | **0** | **80 WATCH** |
 | Tesla, Inc. | `TSLA` | 15.3 | 15.0 | 5.4% | 185.5 | 23.8% | 13.4% | 0.3% | **12** | **78 WATCH** |
 | Marvell Technology, Inc. | `MRVL` | 18.7 | 18.4 | 16.7% | 26.8 | 73.6% | 63.3% | 1.4% | **77 WATCH** | **13** |
 | Robinhood Markets, Inc. | `HOOD` | 15.1 | 14.6 | 48.1% | 25.1 | 41.0% | 29.0% | — | **77 WATCH** | **0** |
-| Corning Incorporated | `GLW` | 6.0 | 6.4 | 18.9% | 27.2 | 34.0% | 21.2% | 0.8% | **77 WATCH** | **13** |
+| Corning Incorporated | `GLW` | 6.0 | 6.4 | 18.9% | 27.2 | 34.1% | 21.1% | 0.8% | **77 WATCH** | **13** |
 | Applied Materials, Inc. | `AMAT` | 10.0 | 10.0 | 33.7% | 21.0 | 45.0% | 35.4% | 1.0% | **77 WATCH** | **3** |
 | NVIDIA Corporation | `NVDA` | 16.3 | 16.2 | 66.2% | 12.9 | 70.9% | 68.2% | 0.8% | **75 WATCH** | **18** |
 | Broadcom Inc. | `AVGO` | 17.5 | 17.9 | 54.3% | 16.8 | 66.9% | 64.4% | 2.0% | **75 WATCH** | **28** |
@@ -197,17 +197,17 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | IREN LIMITED | `IREN` | 13.7 | 16.1 | -102.5% | -6.0 | -16.4% | 164.0% | -43.5% | **0** | **50** |
 | Palantir Technologies Inc. | `PLTR` | 71.9 | 70.4 | 47.1% | 78.8 | 45.6% | 50.8% | 0.5% | **33** | **48** |
 | Bloom Energy Corporation | `BE` | 15.7 | 15.8 | 18.5% | 38.3 | 63.0% | 56.4% | -0.0% | **45** | **35** |
-| SamsungElec | `SAMSUNG` | 2.5 | 2.2 | 55.0% | 3.0 | 61.8% | 39.5% | 5.7% | **45** | **10** |
-| Amazon.com, Inc. | `AMZN` | 3.3 | 3.5 | 13.9% | 22.8 | -17.2% | 14.7% | -0.4% | **0** | **45** |
+| SamsungElec | `SAMSUNG` | 2.5 | 2.2 | 55.0% | 3.0 | 62.6% | 39.6% | 5.7% | **45** | **10** |
+| Amazon.com, Inc. | `AMZN` | 3.3 | 3.5 | 13.9% | 22.6 | -17.4% | 14.6% | -0.4% | **0** | **45** |
 | Arm Holdings plc | `ARM` | 42.7 | 42.0 | 7.6% | 67.2 | 37.5% | 36.4% | 0.6% | **43** | **33** |
 | Circle Internet Group, Inc. | `CRCL` | 6.3 | 5.7 | 4.9% | 49.1 | 27.0% | 27.4% | 1.1% | **43** | **33** |
-| Coinbase Global, Inc. | `COIN` | 7.0 | 6.6 | -1.4% | 49.7 | 274.3% | 29.1% | 9.7% | **20** | **40** |
+| Coinbase Global, Inc. | `COIN` | 7.0 | 6.6 | -1.4% | 49.7 | 693.5% | 27.6% | 9.7% | **20** | **40** |
 | SOFTBANK GROUP CORP | `SOFTBANK` | 3.2 | 6.5 | -11.6% | 15.2 | -14.5% | 7.0% | -8.6% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 4.0 | 10.1 | -1.9% | -27.9 | 9.7% | 105.6% | -30.0% | **0** | **40** |
 | SK hynix | `SKHYNIX` | 3.7 | 3.4 | 79.7% | 2.7 | 47.0% | 58.5% | — | **30** | **5** |
 | SK hynix | `SKHY` | 3.7 | 3.4 | 79.7% | 2.7 | 47.0% | 58.5% | — | **30** | **5** |
 | Alphabet Inc. | `GOOGL` | 7.3 | 7.1 | 31.8% | 18.5 | -24.7% | 27.0% | -0.0% | **5** | **30** |
-| Intel Corporation | `INTC` | 5.8 | 6.0 | 15.6% | 33.0 | 34.4% | 13.7% | 0.2% | **10** | **28** |
+| Intel Corporation | `INTC` | 5.8 | 6.0 | 15.6% | 33.7 | 34.4% | 13.7% | 0.2% | **10** | **28** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -10.8 | 59.3% | 25.4% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 323.9 | 215.7 | 9595.1% | 29.8 | 51.0% | 31.4% | — | **25** | **10** |
 | Strategy Inc | `MSTR` | 111.7 | 139.4 | 16670.9% | 5.5 | 168.0% | 2.7% | — | **25** | **10** |
