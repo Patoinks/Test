@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-01 19:44 UTC
+**Updated:** 2026-11-01 23:40 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -82,8 +82,8 @@
 | 3 | Applovin Corporation | `APP` | 90 | 80 | **87** | **CORE** |
 | 4 | Marvell Technology, Inc. | `MRVL` | 77 | 100 | **84** | **CORE** |
 | 5 | NVIDIA Corporation | `NVDA` | 75 | 100 | **82** | **CORE** |
-| 6 | Broadcom Inc. | `AVGO` | 75 | 100 | **82** | **CORE** |
-| 7 | Credo Technology Group Holding  | `CRDO` | 75 | 100 | **82** | **CORE** |
+| 6 | Credo Technology Group Holding  | `CRDO` | 75 | 100 | **82** | **CORE** |
+| 7 | Broadcom Inc. | `AVGO` | 75 | 100 | **82** | **CORE** |
 | 8 | Applied Materials, Inc. | `AMAT` | 77 | 91 | **81** | **CORE** |
 | 9 | Robinhood Markets, Inc. | `HOOD` | 77 | 86 | **80** | **CORE** |
 | 10 | Corning Incorporated | `GLW` | 77 | 86 | **80** | **CORE** |
@@ -108,8 +108,8 @@
 |---:|---|---|---:|---:|---:|---:|---:|---|---:|---|
 | 1 | Marvell Technology, Inc. | `MRVL` | 64.6 | 26.8 | -58.5% | 73.6% | 63.3% | accelerating | **100** | **CORE** |
 | 2 | NVIDIA Corporation | `NVDA` | 25.9 | 12.9 | -50.3% | 70.9% | 68.2% | decelerating | **100** | **CORE** |
-| 3 | Broadcom Inc. | `AVGO` | 41.6 | 16.8 | -59.8% | 66.9% | 64.4% | decelerating | **100** | **CORE** |
-| 4 | Credo Technology Group Holding  | `CRDO` | 53.5 | 15.5 | -71.0% | 53.9% | 55.0% | decelerating | **100** | **CORE** |
+| 3 | Credo Technology Group Holding  | `CRDO` | 53.5 | 15.5 | -71.0% | 53.9% | 55.0% | decelerating | **100** | **CORE** |
+| 4 | Broadcom Inc. | `AVGO` | 41.6 | 16.8 | -59.8% | 66.9% | 64.4% | decelerating | **100** | **CORE** |
 | 5 | Advanced Micro Devices, Inc. | `AMD` | 128.8 | 31.7 | -75.4% | 109.2% | 75.3% | accelerating | **100** | **CORE** |
 | 6 | AXT Inc | `AXT` | 112.4 | 20.7 | -81.5% | 125.3% | 115.8% | decelerating | **96** | **CORE** |
 | 7 | Oracle Corporation | `ORCL` | 20.5 | 11.8 | -42.2% | 35.6% | 45.7% | accelerating | **95** | **CORE** |
@@ -174,8 +174,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Corning Incorporated | `GLW` | 6.0 | 6.4 | 18.9% | 27.2 | 34.1% | 21.1% | 0.8% | **77 WATCH** | **13** |
 | Applied Materials, Inc. | `AMAT` | 10.0 | 10.0 | 33.7% | 21.0 | 45.0% | 35.4% | 1.0% | **77 WATCH** | **3** |
 | NVIDIA Corporation | `NVDA` | 16.3 | 16.2 | 66.2% | 12.9 | 70.9% | 68.2% | 0.8% | **75 WATCH** | **18** |
-| Broadcom Inc. | `AVGO` | 17.5 | 17.9 | 54.3% | 16.8 | 66.9% | 64.4% | 2.0% | **75 WATCH** | **28** |
 | Credo Technology Group Holding  | `CRDO` | 17.8 | 17.4 | 25.2% | 15.5 | 53.9% | 55.0% | 0.9% | **75 WATCH** | **28** |
+| Broadcom Inc. | `AVGO` | 17.5 | 17.9 | 54.3% | 16.8 | 66.9% | 64.4% | 2.0% | **75 WATCH** | **28** |
 | Micron Technology, Inc. | `MU` | 7.5 | 7.2 | 80.7% | 4.3 | 17.7% | 16.0% | 2.9% | **75 CORE** | **30** |
 | Western Digital Corporation | `WDC` | 9.5 | 9.4 | 47.7% | 9.1 | 63.4% | 40.5% | 2.0% | **75 WATCH** | **18** |
 | Cerebras Systems Inc. | `CBRS` | 38.1 | 28.7 | -265.0% | 85.7 | 371.3% | 232.7% | — | **0** | **75 WATCH** |
@@ -207,11 +207,11 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | SK hynix | `SKHYNIX` | 3.7 | 3.4 | 79.7% | 2.7 | 47.0% | 58.5% | — | **30** | **5** |
 | SK hynix | `SKHY` | 3.7 | 3.4 | 79.7% | 2.7 | 47.0% | 58.5% | — | **30** | **5** |
 | Alphabet Inc. | `GOOGL` | 7.3 | 7.1 | 31.8% | 18.4 | -24.7% | 27.0% | -0.0% | **5** | **30** |
-| Intel Corporation | `INTC` | 5.8 | 6.0 | 15.6% | 36.0 | 24.6% | 12.3% | 0.2% | **5** | **28** |
+| Intel Corporation | `INTC` | 5.8 | 6.0 | 15.6% | 36.3 | 24.6% | 12.3% | 0.2% | **5** | **28** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -8.9% | -10.8 | 59.3% | 25.4% | 0.2% | **5** | **28** |
 | Hyperliquid Strategies Inc | `PURR` | 323.9 | 215.7 | 9595.1% | 29.8 | 51.0% | 31.4% | — | **25** | **10** |
-| BitMine Immersion Technologies, | `BMNR` | 198.9 | 193.4 | 8.4% | 21.5 | 103.2% | 421.8% | -4.3% | **25** | **25** |
 | Strategy Inc | `MSTR` | 111.7 | 139.4 | 16670.9% | 5.5 | 254.5% | 2.7% | — | **25** | **10** |
+| BitMine Immersion Technologies, | `BMNR` | 198.9 | 193.4 | 8.4% | 21.5 | 103.2% | 421.8% | -4.3% | **25** | **25** |
 | QUALCOMM Incorporated | `QCOM` | 4.0 | 4.1 | 18.5% | 16.2 | -3.2% | 4.6% | 5.8% | **25** | **15** |
 | Applied Optoelectronics, Inc. | `AAOI` | 9.8 | 9.5 | -12.9% | 15.0 | 576.8% | 156.5% | -15.1% | **10** | **25** |
 
