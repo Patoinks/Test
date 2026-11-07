@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-11-07 16:53 UTC  
+**Last scan:** 2026-11-07 20:57 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -124,7 +124,7 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 | 2 | USA Rare Earth, Inc. | `USAR-USDT-SWAP` | **100** | **CORE** | 234.4 | 37.6 | -795.6% | 274.2 | 870.1% | -9.2% |
 | 3 | Moderna, Inc. | `MRNA-USDT-SWAP` | **93** | **CORE** | 45.5 | 41.5 | -557.9% | -57.8 | 8.4% | 0.3% |
 | 4 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 109.1 | 94.5 | -544.6% | -22.3 | 264.2% | -14.3% |
-| 5 | IonQ, Inc. | `IONQ-USDT-SWAP` | **79** | **WATCH** | 39.8 | 34.7 | -249.1% | -27.6 | 77.7% | -2.8% |
+| 5 | IonQ, Inc. | `IONQ-USDT-SWAP` | **79** | **WATCH** | 39.8 | 34.7 | -249.1% | -26.4 | 77.7% | -2.8% |
 | 6 | Circle Internet Group, Inc. | `CRCL-USDT-SWAP` | **73** | **CORE** | 5.7 | 5.2 | 24.1% | 47.1 | 26.0% | 1.4% |
 | 7 | Nebius Group N.V. | `NBIS-USDT-SWAP` | **72** | **WATCH** | 24.3 | 27.8 | -0.2% | -36.0 | 266.0% | -29.2% |
 | 8 | Cerebras Systems Inc. | `CBRS-USDT-SWAP` | **71** | **WATCH** | 31.3 | 21.8 | -265.0% | 70.1 | 233.1% | — |
@@ -188,7 +188,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Western Digital Corporation | `WDC` | 6.8 | 6.8 | 47.7% | 6.5 | 63.4% | 40.5% | 2.8% | **83 CORE** | **10** |
 | Applovin Corporation | `APP` | 17.0 | 17.1 | 78.2% | 18.9 | 26.1% | 25.1% | 2.9% | **83 CORE** | **10** |
 | AST SpaceMobile, Inc. | `ASTS` | 109.1 | 94.5 | -544.6% | -22.3 | 44.3% | 264.2% | -14.3% | **0** | **80 WATCH** |
-| IonQ, Inc. | `IONQ` | 39.8 | 34.7 | -249.1% | -27.6 | 23.7% | 77.7% | -2.8% | **0** | **79 WATCH** |
+| IonQ, Inc. | `IONQ` | 39.8 | 34.7 | -249.1% | -26.4 | 23.7% | 77.7% | -2.8% | **0** | **79 WATCH** |
 | Tesla, Inc. | `TSLA` | 13.7 | 13.4 | 5.4% | 165.9 | 25.2% | 13.5% | 0.4% | **20** | **78** |
 | Advanced Micro Devices, Inc. | `AMD` | 16.2 | 16.1 | 21.2% | 25.5 | 118.2% | 83.2% | 1.0% | **77 WATCH** | **13** |
 | Corning Incorporated | `GLW` | 5.2 | 5.6 | 18.9% | 23.5 | 34.1% | 21.1% | 1.0% | **77 WATCH** | **13** |
