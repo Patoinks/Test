@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-08 15:20 UTC
+**Updated:** 2026-11-08 20:33 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -13,7 +13,7 @@
 | 3 | Moderna, Inc. | MRNA | -0.0% | 14.6% | 7.3% | 85 | +6 | **91** | **CORE** | yes |
 | 4 | IonQ, Inc. | IONQ | 0.0% | 8.6% | 4.3% | 79 | +3 | **82** | **CORE** | yes |
 | 5 | AST SpaceMobile, Inc. | ASTS | -0.0% | -21.1% | -10.5% | 80 | -8 | **72** | **WATCH** | yes |
-| 6 | Nebius Group N.V. | NBIS | -0.0% | -16.0% | -8.0% | 72 | -6 | **66** | **WATCH** | yes |
+| 6 | Nebius Group N.V. | NBIS | -0.0% | -16.0% | -8.0% | 76 | -6 | **70** | **WATCH** | yes |
 | 7 | Cerebras Systems Inc. | CBRS | -0.0% | -17.9% | -8.9% | 71 | -7 | **64** | **WATCH** | yes |
 | 8 | Circle Internet Group, Inc. | CRCL | 0.0% | -6.4% | -3.2% | 61 | -3 | **58** | **WATCH** | yes |
 | 9 | Tesla, Inc. | TSLA | -0.0% | -10.4% | -5.2% | 59 | -4 | **55** | **WATCH** | yes |
@@ -44,11 +44,11 @@
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
 | 1 | Rocket Lab Corporation | `RKLB-USDT-SWAP` | **100** | **CORE** | 44.1 | 38.5 | -24.6% | 923.1 | 38.7% | -0.7% |
 | 2 | USA Rare Earth, Inc. | `USAR-USDT-SWAP` | **100** | **CORE** | 234.4 | 37.6 | -795.6% | 274.2 | 870.1% | -9.2% |
-| 3 | Moderna, Inc. | `MRNA-USDT-SWAP` | **85** | **CORE** | 40.7 | 40.4 | 10.4% | -57.8 | 10.4% | -0.6% |
+| 3 | Moderna, Inc. | `MRNA-USDT-SWAP` | **85** | **CORE** | 40.7 | 40.4 | 10.4% | -57.8 | 9.4% | -0.6% |
 | 4 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 109.1 | 94.5 | -544.6% | -22.3 | 264.2% | -14.3% |
 | 5 | IonQ, Inc. | `IONQ-USDT-SWAP` | **79** | **WATCH** | 39.8 | 34.8 | -226.5% | -26.4 | 68.0% | -0.8% |
-| 6 | Circle Internet Group, Inc. | `CRCL-USDT-SWAP` | **73** | **CORE** | 5.7 | 5.2 | 24.1% | 47.1 | 25.7% | 1.4% |
-| 7 | Nebius Group N.V. | `NBIS-USDT-SWAP` | **72** | **WATCH** | 24.3 | 27.8 | -0.2% | -36.0 | 266.0% | -29.2% |
+| 6 | Nebius Group N.V. | `NBIS-USDT-SWAP` | **76** | **WATCH** | 26.0 | 27.8 | -0.2% | -36.0 | 266.0% | -27.3% |
+| 7 | Circle Internet Group, Inc. | `CRCL-USDT-SWAP` | **73** | **CORE** | 5.7 | 5.2 | 24.1% | 47.1 | 25.7% | 1.4% |
 | 8 | Cerebras Systems Inc. | `CBRS-USDT-SWAP` | **71** | **WATCH** | 31.3 | 21.8 | -265.0% | 70.1 | 233.1% | — |
 
 ## Top LONG candidates — fundamentals only
@@ -95,7 +95,7 @@
 | 3 | Moderna, Inc. | `MRNA` | 85 | 0 | **85** | **CORE** |
 | 4 | AST SpaceMobile, Inc. | `ASTS` | 80 | 0 | **80** | **WATCH** |
 | 5 | IonQ, Inc. | `IONQ` | 79 | 0 | **79** | **WATCH** |
-| 6 | Nebius Group N.V. | `NBIS` | 72 | 0 | **72** | **WATCH** |
+| 6 | Nebius Group N.V. | `NBIS` | 76 | 0 | **76** | **WATCH** |
 | 7 | Cerebras Systems Inc. | `CBRS` | 71 | 0 | **71** | **WATCH** |
 | 8 | Circle Internet Group, Inc. | `CRCL` | 73 | 32 | **61** | **WATCH** |
 | 9 | Tesla, Inc. | `TSLA` | 78 | 15 | **59** | **WATCH** |
@@ -163,7 +163,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Taiwan Semiconductor Manufactur | `TSM` | 0.4 | 2.5 | 58.7% | 16.1 | 33.6% | 37.8% | 61.8% | **90 CORE** | **10** |
 | Marvell Technology, Inc. | `MRVL` | 13.4 | 13.2 | 16.7% | 19.2 | 74.0% | 63.7% | 1.9% | **85 WATCH** | **13** |
 | Applied Materials, Inc. | `AMAT` | 8.6 | 8.5 | 33.7% | 17.9 | 45.0% | 35.4% | 1.2% | **85 WATCH** | **3** |
-| Moderna, Inc. | `MRNA` | 40.7 | 40.4 | 10.4% | -57.8 | 42.6% | 10.4% | -0.6% | **0** | **85 CORE** |
+| Moderna, Inc. | `MRNA` | 40.7 | 40.4 | 10.4% | -57.8 | 42.3% | 9.4% | -0.6% | **0** | **85 CORE** |
 | Western Digital Corporation | `WDC` | 6.8 | 6.8 | 47.7% | 6.5 | 63.4% | 40.5% | 2.8% | **83 CORE** | **10** |
 | Applovin Corporation | `APP` | 17.0 | 17.1 | 78.2% | 18.9 | 26.1% | 25.1% | 2.9% | **83 CORE** | **10** |
 | AST SpaceMobile, Inc. | `ASTS` | 109.1 | 94.5 | -544.6% | -22.3 | 44.3% | 264.2% | -14.3% | **0** | **80 WATCH** |
@@ -172,6 +172,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Advanced Micro Devices, Inc. | `AMD` | 16.2 | 16.1 | 21.2% | 25.5 | 118.2% | 83.2% | 1.0% | **77 WATCH** | **13** |
 | Corning Incorporated | `GLW` | 5.2 | 5.6 | 18.9% | 23.5 | 34.1% | 21.1% | 1.0% | **77 WATCH** | **13** |
 | Robinhood Markets, Inc. | `HOOD` | 14.3 | 13.9 | 48.1% | 23.7 | 39.7% | 29.2% | — | **77 WATCH** | **0** |
+| Nebius Group N.V. | `NBIS` | 26.0 | 27.8 | -0.2% | -36.0 | -191.4% | 266.0% | -27.3% | **0** | **76 WATCH** |
 | AXT Inc | `AXT` | 14.9 | 12.6 | 38.7% | 15.3 | 116.3% | 115.9% | — | **75 WATCH** | **20** |
 | Credo Technology Group Holding  | `CRDO` | 14.2 | 13.8 | 25.2% | 12.4 | 53.9% | 55.0% | 1.1% | **75 WATCH** | **28** |
 | Micron Technology, Inc. | `MU` | 5.9 | 5.6 | 80.7% | 3.3 | 17.7% | 16.0% | 3.7% | **75 CORE** | **30** |
@@ -179,7 +180,6 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Broadcom Inc. | `AVGO` | 15.7 | 16.1 | 54.3% | 15.1 | 66.9% | 64.4% | 2.2% | **75 WATCH** | **18** |
 | Dell Technologies Inc. | `DELL` | 1.4 | 1.5 | 12.0% | 10.8 | 16.8% | 19.5% | 2.9% | **75 CORE** | **30** |
 | Circle Internet Group, Inc. | `CRCL` | 5.7 | 5.2 | 24.1% | 47.1 | 8.2% | 25.7% | 1.4% | **15** | **73 CORE** |
-| Nebius Group N.V. | `NBIS` | 24.3 | 27.8 | -0.2% | -36.0 | -191.4% | 266.0% | -29.2% | **0** | **72 WATCH** |
 | Cerebras Systems Inc. | `CBRS` | 31.3 | 21.8 | -265.0% | 70.1 | 372.9% | 233.1% | — | **0** | **71 WATCH** |
 | Oracle Corporation | `ORCL` | 5.0 | 6.8 | 35.6% | 10.5 | 35.7% | 45.7% | -12.7% | **70 WATCH** | **10** |
 | Adobe Inc. | `ADBE` | 3.6 | 3.6 | 34.8% | 8.7 | 12.0% | 9.1% | 10.0% | **65 WATCH** | **30** |
@@ -210,6 +210,6 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Hyperliquid Strategies Inc | `PURR` | 113.0 | 100.7 | 6593.3% | 23.8 | 51.0% | 31.4% | — | **25** | **10** |
 | BitMine Immersion Technologies, | `BMNR` | 184.9 | 179.4 | 8.4% | 20.0 | 103.2% | 421.8% | -4.6% | **25** | **25** |
 | Strategy Inc | `MSTR` | 110.2 | 138.1 | -2.1% | 7.5 | 451.5% | 3.2% | -5.9% | **25** | **25** |
-| Applied Optoelectronics, Inc. | `AAOI` | 6.1 | 5.7 | -0.5% | 10.9 | 576.8% | 163.2% | -28.8% | **10** | **25** |
+| Applied Optoelectronics, Inc. | `AAOI` | 6.1 | 5.7 | -0.5% | 12.8 | 576.8% | 163.2% | -28.8% | **10** | **25** |
 
 The scanner is a research ranking, not a trade instruction. Speculative-growth names are scored primarily on sales valuation, margins and cash generation rather than PEG.
