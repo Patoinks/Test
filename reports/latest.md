@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-07 20:57 UTC
+**Updated:** 2026-11-08 00:44 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -55,7 +55,7 @@
 
 | Rank | Company | OKX market | LONG score | Signal | P/S | EV/S | Op margin | Fwd P/E | Rev +1y | FCF yield |
 |---:|---|---|---:|---|---:|---:|---:|---:|---:|---:|
-| 1 | QUALCOMM Incorporated | `QCOM-USDT-SWAP` | **100** | **CORE** | 4.1 | 4.3 | 15.4% | 13.2 | 16.4% | 5.1% |
+| 1 | QUALCOMM Incorporated | `QCOM-USDT-SWAP` | **100** | **CORE** | 4.1 | 4.3 | 15.4% | 13.5 | 16.4% | 5.1% |
 | 2 | Taiwan Semiconductor Manufactur | `TSM-USDT-SWAP` | **90** | **CORE** | 0.4 | 2.5 | 58.7% | 16.1 | 37.8% | 61.8% |
 | 3 | Sandisk Corporation | `SNDK-USDT-SWAP` | **90** | **CORE** | 4.1 | 3.9 | 79.6% | 2.9 | 23.7% | 9.5% |
 | 4 | Applied Materials, Inc. | `AMAT-USDT-SWAP` | **85** | **WATCH** | 8.6 | 8.5 | 33.7% | 17.9 | 35.4% | 1.2% |
@@ -156,7 +156,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 
 | Company | OKX | P/S | EV/S | Op margin | Fwd P/E | EPS +1y | Rev +1y | FCF yield | LONG | SHORT |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| QUALCOMM Incorporated | `QCOM` | 4.1 | 4.3 | 15.4% | 13.2 | 26.0% | 16.4% | 5.1% | **100 CORE** | **0** |
+| QUALCOMM Incorporated | `QCOM` | 4.1 | 4.3 | 15.4% | 13.5 | 26.0% | 16.4% | 5.1% | **100 CORE** | **0** |
 | Rocket Lab Corporation | `RKLB` | 44.1 | 38.5 | -24.6% | 923.1 | 66.8% | 38.7% | -0.7% | **0** | **100 CORE** |
 | USA Rare Earth, Inc. | `USAR` | 234.4 | 37.6 | -795.6% | 274.2 | 105.3% | 870.1% | -9.2% | **0** | **100 CORE** |
 | Moderna, Inc. | `MRNA` | 45.5 | 41.5 | -557.9% | -57.8 | 44.9% | 8.4% | 0.3% | **0** | **93 CORE** |
@@ -189,14 +189,14 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Microsoft Corporation | `MSFT` | 11.4 | 11.6 | 49.8% | 21.9 | 20.9% | 20.3% | 0.1% | **59 WATCH** | **3** |
 | Coca-Cola Company (The) | `KO` | 8.1 | 8.6 | 33.4% | 27.1 | 5.6% | -3.1% | 1.1% | **0** | **58** |
 | Meta Platforms, Inc. | `META` | 6.5 | 6.6 | 35.4% | 17.1 | 16.7% | 21.7% | 1.1% | **57 WATCH** | **38** |
-| IREN LIMITED | `IREN` | 13.2 | 22.8 | -82.5% | -5.4 | -16.5% | 197.8% | -95.6% | **0** | **54** |
+| IREN LIMITED | `IREN` | 13.2 | 22.8 | -82.5% | -3.9 | -16.5% | 197.8% | -95.6% | **0** | **54** |
 | Netflix, Inc. | `NFLX` | 5.2 | 5.4 | 34.6% | 16.8 | 5.1% | 10.7% | 9.8% | **35** | **50** |
 | Palantir Technologies Inc. | `PLTR` | 53.0 | 51.6 | 46.9% | 63.3 | 49.0% | 53.3% | 0.7% | **45** | **48** |
 | Bloom Energy Corporation | `BE` | 13.4 | 13.5 | 18.5% | 32.5 | 62.7% | 56.4% | -0.0% | **45** | **35** |
 | SamsungElec | `SAMSUNG` | 2.1 | 1.8 | 55.0% | 2.4 | 62.3% | 40.9% | 6.8% | **45** | **10** |
 | Super Micro Computer, Inc. | `SMCI` | 0.4 | 0.5 | 10.3% | 4.3 | 6.4% | 11.7% | -42.5% | **35** | **45** |
 | Arm Holdings plc | `ARM` | 34.2 | 33.6 | 13.9% | 56.7 | 36.0% | 37.6% | 0.6% | **43** | **33** |
-| Coinbase Global, Inc. | `COIN` | 6.6 | 6.2 | -1.4% | 54.6 | 819.3% | 27.1% | 10.3% | **20** | **40** |
+| Coinbase Global, Inc. | `COIN` | 6.6 | 6.2 | -1.4% | 55.2 | 819.3% | 27.1% | 10.3% | **20** | **40** |
 | SOFTBANK GROUP CORP | `SOFTBANK` | 2.5 | 5.9 | -11.6% | 12.0 | -14.5% | 7.0% | -10.8% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 3.4 | 9.4 | -1.9% | -22.6 | 8.6% | 105.4% | -35.5% | **0** | **40** |
 | Apple Inc. | `AAPL` | 10.4 | 10.5 | 31.1% | 32.4 | 19.2% | 8.0% | 2.1% | **20** | **38** |
