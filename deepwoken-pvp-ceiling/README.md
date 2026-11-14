@@ -54,7 +54,7 @@ A soma acima é **hipótese de categoria comum e de sobreposição temporal**, n
 ## Executar
 ```bash
 python deepwoken-pvp-ceiling/src/ceiling.py --show-buffs --compare --item-theory
-python deepwoken-pvp-ceiling/src/item_theory.py --no-ceaseless --top 6 --proven-only --target-armor 35
+python deepwoken-pvp-ceiling/src/item_theory.py --no-ceaseless --top 6 --proven-only --with-extras --target-armor 35
 python deepwoken-pvp-ceiling/src/item_theory.py --no-ceaseless --by-attunement --target-armor 35
 python deepwoken-pvp-ceiling/src/ceiling.py --songchant-rate 0.065 --compare
 python deepwoken-pvp-ceiling/src/buff_scenarios.py
@@ -63,8 +63,8 @@ python -m unittest discover -s deepwoken-pvp-ceiling/tests -v
 *(Em Linux/macOS pode ser `python3`.)*
 
 ## Ficheiros
-- `src/ceiling.py`: fórmulas, tabelas (`--songchant-rate` 0.075 atual vs 0.065 legado), PEN/Armor e candidatos (`data/mantras.json` com 52 entradas, Top 6+ por Attunement).
-- `src/item_theory.py` e `data/items.json`: teoria máxima de itens PvP (`Prophet's Cloak`, `Specialist Set +15% base`, `Ring of Casters + Isshin's Ring`, `Nocturnal Gem + Brain Food (+15)`, `Sear (+40% Cauterize -> 100% PEN)`, `Grim` debuff, `--top N` / `--proven-only`, PEN contra armadura real e quarentena de `Vow of Iron` / PvE).
+- `src/ceiling.py`: fórmulas, tabelas (`--songchant-rate` 0.075 atual vs 0.065 legado), PEN/Armor e candidatos (`data/mantras.json` com 70 entradas, Top 6+ por Attunement + Oath mantras).
+- `src/item_theory.py` e `data/items.json`: teoria máxima de itens PvP (`Prophet's Cloak`, `Specialist Set +15% base`, `Ring of Casters + Isshin's Ring`, `Deepfire Ring`, `Nocturnal Gem + Brain Food (+15)`, `Sear (+40% Cauterize -> 100% PEN)`, `Grim` debuff, `--top N` / `--proven-only` / `--with-extras` / `--no-oath-mantras`, Bleed `+15%`, After Cut `2.5%/5%`, Storm Strike `+15`, Everchanging Aegis `-20%`, Dawnwalker `Blinding Dawn` híbrido e quarentena de `Vow of Iron` / `Belief` / PvE).
 - `src/buff_scenarios.py`: auditoria combinatória de buffs lida diretamente de `data/buffs.json`, com filtros de HP, elemento e orçamento de 330 pontos.
 - `tests/test_ceiling.py`: testes regressivos, exemplos resolvidos da Wiki (`70,63` / `25,19` a `0.065` e `0.075`), validação de `buff_scenarios.py` e `item_theory.py`.
 - `docs/RESEARCH.md`: evidências, nuances e restrições.

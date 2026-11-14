@@ -287,17 +287,121 @@
       "condition": "entire Specialist set equipped",
       "provenance": "documented base damage bypass",
       "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
-      "comment": "Specialist Helmet ALONE does not confer this 15% boost. Storm Strike conditional proc separate."
+      "comment": "Specialist Helmet ALONE does not confer this 15% boost. Storm Strike conditional proc (15 dmg) separate."
+    },
+    {
+      "id": "rush_hour",
+      "name": "Rush Hour",
+      "percent": 15,
+      "applies_to": "all damage (subject to damage modifier cap)",
+      "model_in_common_pool": true,
+      "attunements": [
+        "Bloodrend"
+      ],
+      "required_stats": {
+        "Bloodrend": 50
+      },
+      "condition": "50 Bloodrend, triggering Rush Hour proc",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend"
+    },
+    {
+      "id": "matador",
+      "name": "Matador",
+      "percent": 20,
+      "applies_to": "damage vs enemies in hyperarmor",
+      "model_in_common_pool": false,
+      "required_stats": {
+        "Strength": 20,
+        "Agility": 5
+      },
+      "condition": "target actively using hyperarmor",
+      "provenance": "documented conditional",
+      "source": "https://deepwoken.fandom.com/wiki/Talents"
+    },
+    {
+      "id": "blast_furnace",
+      "name": "Blast Furnace (Flame + Ironsing)",
+      "percent_tiers": [
+        10,
+        15,
+        20
+      ],
+      "applies_to": "next Ironsing mantra after cancelling Flamecharm mantra charges (1/2/3)",
+      "model_in_common_pool": false,
+      "required_stats": {
+        "Flamecharm": 30,
+        "Ironsing": 30
+      },
+      "condition": "hybrid Flamecharm + Ironsing mantra setup; adds Burn + explosion",
+      "provenance": "documented hybrid passive",
+      "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities"
+    },
+    {
+      "id": "saintsworn_storm_link",
+      "name": "Saintsworn Storm Link",
+      "scaled_damage_percent": 10,
+      "applies_to": "secondary Thundercall damage instance on mantras hitting a Static-Linked target",
+      "model_in_common_pool": false,
+      "condition": "Saintsworn Hero's Blade (unenchantable, forfeits Sear +40% PEN) + Static Link (40 Thundercall, 15 INT)",
+      "provenance": "documented secondary instance",
+      "source": "https://deepwoken.fandom.com/wiki/Saintsworn"
+    },
+    {
+      "id": "ardour_scream",
+      "name": "Ardour Scream",
+      "percent": 12.5,
+      "applies_to": "all damage and posture against affected enemies (+50% self damage taken)",
+      "model_in_common_pool": false,
+      "condition": "Soulbreaker Oath (40% Ether min) or 100% Ether cast; Oct 19 patch added stacking cooldown",
+      "provenance": "documented modifier (subject to cap)",
+      "source": "https://deepwoken.fandom.com/wiki/Soulbreaker"
+    },
+    {
+      "id": "dawnwalker_protagonist_syndrome",
+      "name": "Protagonist Syndrome (Dawnwalker)",
+      "percent": 30,
+      "applies_to": "Dawnwalker mantras (Blinding Dawn / Radiant Kick) for 9s after taking Shadowcast damage",
+      "model_in_common_pool": false,
+      "condition": "hit by opponent Shadowcast damage",
+      "provenance": "documented Oath empowerment (cap placement unverified)",
+      "source": "https://deepwoken.fandom.com/wiki/Dawnwalker"
+    },
+    {
+      "id": "bleed_dot",
+      "name": "Bleed Status Effect (Innate Ironsing)",
+      "scaled_damage_percent_total": 15,
+      "applies_to": "innate Ironsing Bleed mantras (Metal Rain, Oxidizing Rush, Iron Slam, Rocket Lance, Iron Hug, Caltrops; NOT Metal Gatling)",
+      "model_in_common_pool": false,
+      "condition": "5% of scaled attack damage per tick x 3 ticks = +15% total DoT (nerfed 30%->15% in Nov 15 2025 patch)",
+      "provenance": "documented status DoT",
+      "source": "https://deepwoken.fandom.com/wiki/Status_Effects"
+    },
+    {
+      "id": "everchanging_aegis",
+      "name": "Everchanging Aegis (Defender Talent, 25 INT)",
+      "repeat_element_percent": -20,
+      "different_element_percent": 10,
+      "applies_to": "target damage reduction (-20% repeated element hits, +10% different element hit)",
+      "model_in_common_pool": false,
+      "condition": "defender possesses 25 INT Everchanging Aegis; penalizes multi-hit mono-element casts unless element-broken by Nocturnal/weapon/hybrid",
+      "provenance": "documented defender mitigation",
+      "source": "https://deepwoken.fandom.com/wiki/Intelligence"
+    },
+    {
+      "id": "belief_vow_weapon_only",
+      "name": "Belief (Vow of Iron Medium Weapon Mantras Only)",
+      "applies_to": "0.15 true damage per WIL (max +15) on Medium weapon mantras in Vow of Iron",
+      "model_in_common_pool": false,
+      "condition": "Vow of Iron / Medium weapon mantras only; excluded from standard PvP attunement mantra ceiling",
+      "provenance": "documented excluded mode/weapon-mantra",
+      "source": "https://deepwoken.fandom.com/wiki/Deepwoken_Wiki"
     }
   ],
   "not_yet_modelled": [
     "Drowned / Yun'Shul-upgraded Wind-Up Resonance (Bell) up to level 10 on mantras (exact % unverified on Wiki)",
-    "Mantra PEN stack (Prophet's Cloak +20%, All Oaths +5% PEN, Songchant +15% on Traits vs +18% at 3%/pt on Uncollapsed May 31 2026, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive +5% & uncapped PEN vs 50% cap) — see data/items.json & src/item_theory.py",
-    "Equipment / Ring / Enchant / Deep Gem theory (Isshin's Ring +15%, Grim +25% debuff, Specialist Full Set +15% base) — modelled separately in src/item_theory.py",
-    "Everchanging Aegis (-20% damage on hits 2..N of the same elemental mantra)",
-    "Specific mantra talent procs (After Cut 2.5%/5%, Ironsing/Bleed post-Nov 15 2025 15% DoT rebalance, Burn, Heretic's Sutra timing)",
-    "Gear/ring duplicate restrictions (ring stacking exploit patched May 2026) and Chime vs Overworld consumable rules",
-    "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt / Grim)",
-    "Mantra Spark & Stone interactions on per-hit base damage and tick counts"
+    "Chime vs Overworld consumable & buff availability checks for specific potions/food",
+    "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt / Grim / Ardour Scream / Protagonist Syndrome)",
+    "Exact PvE-vs-PvP Blood Poison / Flamecharm Burn roll-extinguish timing during extended combos"
   ]
 }

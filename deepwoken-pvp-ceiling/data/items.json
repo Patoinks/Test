@@ -140,6 +140,81 @@
       "legal_standard_pvp": true,
       "source": "https://deepwoken.fandom.com/wiki/Enchants",
       "notes": "Cauterize stacks via M1s (+5.45%/hit LHT, +8%/hit MED, +10%/hit HVY up to +40% incoming PEN for 15s) apply to ALL damage sources including Mantras; still respects 50% PEN cap unless uncapped by Ether Overdrive or Million Ton Piercer. Exclusive with Grim weapon enchant."
+    },
+    {
+      "id": "deepfire_ring",
+      "name": "Deepfire Ring",
+      "slot": "ring_flame_dot_utility",
+      "channel": "burn_tickrate_modifier",
+      "percent": 0.0,
+      "burn_tickrate_bonus_percent": 25.0,
+      "burn_duration_reduction_percent": 17.5,
+      "burn_dps_at_100_flame": 14.4,
+      "burn_dps_azure_at_100_flame": 16.25,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Rings",
+      "notes": "Increases Burn tickrate +25% and shortens duration -17.5% (14.4 DPS base / 16.25 DPS Azure at 100 Flame); useful on Flamecharm ONLY if common pool x1.50 is already saturated without Ring of Casters (+5%)."
+    },
+    {
+      "id": "zero_stat_sear_weapons",
+      "name": "Zero-Stat Enchantable Sear Weapons (Battleaxe / Sword / Iron Spear)",
+      "slot": "weapon_base",
+      "channel": "enables_sear_cauterize_at_zero_stat_cost",
+      "attribute_requirement": 0,
+      "m1s_to_max_cauterize_40_pen": {
+        "Battleaxe_0_HVY": 4,
+        "Sword_or_Iron_Spear_0_MED": 5
+      },
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Enchants",
+      "notes": "Curved Blade of Winds and all Hero's Blades are unenchantable and thus CANNOT run Sear (+40% PEN). Zero-requirement enchantable weapons preserve all 330 attribute points for 100 Attunement + 90 INT + 80 WIL pre-Shrine."
+    },
+    {
+      "id": "oath_comparison_for_mantra_ceiling",
+      "name": "Oath Slot / PEN / Offensive Mantra Breakdown",
+      "slot": "oath",
+      "channel": "slots_and_oath_mantra",
+      "oaths": {
+        "Dawnwalker": {
+          "stat_req": "None (30 Kyrsan Medallions)",
+          "combat_slots": 3,
+          "wildcard_slots": 0,
+          "pen_fraction": 0.05,
+          "ceiling_gain": "Blinding Dawn (167.94 base -> 297.14 SEAR100% w/ 6 SC) + Radiant Kick + Protagonist Syndrome (+30% vs Shadowcast)"
+        },
+        "Oathless": {
+          "stat_req": "None",
+          "combat_slots": 0,
+          "wildcard_slots": 3,
+          "pen_fraction": 0.05,
+          "ceiling_gain": "Fits all Top-6 pure attunement mantras (+3 Wildcards) with zero extra damage mantras"
+        },
+        "Saltchemist": {
+          "stat_req": "75 INT (Chime legal)",
+          "combat_slots": 0,
+          "wildcard_slots": 0,
+          "autobrew_slots": 3,
+          "pen_fraction": 0.05,
+          "ceiling_gain": "Perpetual Distillery (infinite potions in Chime) & Lethal Injection (1/3 direct potion dmg); 0 extra mantra slots"
+        },
+        "Saintsworn": {
+          "stat_req": "Multi-attunement + Hero's Blade (75 att)",
+          "combat_slots": 2,
+          "support_slots": 2,
+          "wildcard_slots": 1,
+          "pen_fraction": 0.05,
+          "ceiling_gain": "Storm Link (+10% scaled secondary Thundercall instance), BUT Hero's Blades are unenchantable -> loses Sear (+40% PEN), dropping from 100% PEN to 60% PEN (-14% to -20% net vs 35%-50% armor)."
+        },
+        "Starkindred": {
+          "stat_req": "40 STR",
+          "combat_slots": 2,
+          "wildcard_slots": 1,
+          "pen_fraction": 0.05,
+          "ceiling_gain": "Modified Fire Blade (4 x 0.6x = 72.0 base at 2.75 Flamecharm scaling)."
+        }
+      },
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Oaths"
     }
   ],
   "pen_sources": {
@@ -226,6 +301,24 @@
       "mantra_pvp_bonus": null,
       "reason": "Exact PvP mantra percentage is undocumented on Fandom Wiki; flagged as unquantified ceiling lead.",
       "source": "https://deepwoken.fandom.com/wiki/Resonance"
+    },
+    {
+      "id": "races_and_aspects",
+      "name": "Playable Races / Aspects (Capra, Etrean, Vesperian, Khan, Adret, Gremor, Kiron, etc.)",
+      "effect": "Innate stat shifts (+2/+3) and passives (-15% status duration, Carapace, etc.)",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": 0,
+      "reason": "No playable race grants direct PvP Mantra Damage% or Mantra PEN%; optimal Boons/Flaws for ceiling are Manic (sanity drain for Lose Your Mind / Piercing Will) and Gourmet (+50% food duration).",
+      "source": "https://deepwoken.fandom.com/wiki/Aspects"
+    },
+    {
+      "id": "other_weapon_enchants",
+      "name": "Other Weapon Enchants (Heroism, Detonation, Edenkite, Bloodthirsty, Unbidden)",
+      "effect": "M1/crit-only scaling, proc explosions, or conditional combat utilities",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": 0,
+      "reason": "Curse of the Bloodthirsty (+10% M1 dmg only) and other non-Sear/non-Grim weapon enchants do not amplify PvP mantra damage.",
+      "source": "https://deepwoken.fandom.com/wiki/Enchants"
     }
   ]
 }

@@ -26,6 +26,10 @@ from ceiling import (
 )
 
 ITEMS_PATH = Path(__file__).resolve().parent.parent / "data" / "items.json"
+AFTER_CUT_RATE_TALENTS = 0.025
+AFTER_CUT_RATE_LEGACY = 0.05
+BLEED_DOT_RATE = 0.15
+STORM_STRIKE_FLAT = 15.0
 
 SHOWCASE_MANTRA_IDS = (
     "ceaseless",
@@ -100,6 +104,7 @@ def evaluate_mantra_with_items(
     songchant: float = 6,
     songchant_rate: float = SONGCHANT_SCALING_RATE,
     songchant_pen_mode: str = "traits_wiki",
+    after_cut_rate: float = AFTER_CUT_RATE_TALENTS,
 ) -> dict:
     """Compute PvP item-theory ceilings across gross and armored scenarios for one mantra."""
     if not 0 <= target_armor <= 1:
@@ -172,13 +177,12 @@ def evaluate_mantra_with_items(
         )
         + nocturnal_enchant_flat * (1.0 - max_item_res)
     )
-    sear_brain_vs_armor = (
-        damage(
-            mantra, attribute, songchant, raw_bonus=0.75, target_resistance=sear_res,
-            songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
-        )
-        + nocturnal_brain_flat * (1.0 - sear_res)
+    cast_sear_vs_armor = damage(
+        mantra, attribute, songchant, raw_bonus=0.75, target_resistance=sear_res,
+        songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
     )
+    nocturnal_sear_flat = nocturnal_brain_flat * (1.0 - sear_res)
+    sear_brain_vs_armor = cast_sear_vs_armor + nocturnal_sear_flat
     hypothetical_grim_sep_gross = (
         damage(
             mantra, attribute, songchant, raw_bonus=0.75, target_resistance=0.0,
@@ -196,12 +200,22 @@ def evaluate_mantra_with_items(
         + nocturnal_brain_flat * (1.0 - max_item_res)
     )
 
+    # Secondary passive/DoT channels evaluated against post-Sear resistance (0 at 100% PEN).
+    scaled_sear_base = unbuffed_gross * specialist_mult * (1.0 - sear_res)
+    after_cut_bonus = scaled_sear_base * after_cut_rate if mantra.get("after_cut_eligible", False) else 0.0
+    bleed_dot_bonus = (unbuffed_gross * (1.0 - sear_res) * BLEED_DOT_RATE) if mantra.get("innate_dot") == "bleed_15" else 0.0
+    exhaustive_sear_vs_armor = sear_brain_vs_armor + after_cut_bonus + bleed_dot_bonus
+
     return {
         "id": mantra["id"],
         "skill_group": mantra.get("skill_group", mantra["id"]),
         "name": mantra["name"],
         "type": mantra["type"],
         "status": mantra.get("status", ""),
+        "is_oath_mantra": bool(mantra.get("is_oath_mantra", False)),
+        "specialist_eligible": bool(mantra.get("specialist_eligible", False)),
+        "after_cut_eligible": bool(mantra.get("after_cut_eligible", False)),
+        "innate_dot": mantra.get("innate_dot"),
         "specialist_mult": specialist_mult,
         "passive_raw_bonus": passive_raw,
         "effective_pen": max_gear_pen,
@@ -214,7 +228,12 @@ def evaluate_mantra_with_items(
         "brain_max_gross": brain_max_gross,
         "unbuffed_vs_armor": unbuffed_vs_armor,
         "max_item_vs_armor": max_item_vs_armor,
+        "cast_sear_vs_armor": cast_sear_vs_armor,
+        "nocturnal_sear_flat": nocturnal_sear_flat,
         "sear_brain_vs_armor": sear_brain_vs_armor,
+        "after_cut_bonus": after_cut_bonus,
+        "bleed_dot_bonus": bleed_dot_bonus,
+        "exhaustive_sear_vs_armor": exhaustive_sear_vs_armor,
         "hypothetical_grim_sep_gross": hypothetical_grim_sep_gross,
         "hypothetical_grim_brain_vs_armor": hypothetical_grim_brain_vs_armor,
     }
@@ -250,17 +269,31 @@ def top_n_by_attunement(
     for att_name, grp in grouped.items():
         grp.sort(key=lambda r: r[sort_key], reverse=True)
         picked = grp[:top_n]
+        storm_strike = STORM_STRIKE_FLAT if any(r.get("specialist_eligible") for r in picked) else 0.0
+        after_cut_sum = sum(r.get("after_cut_bonus", 0.0) for r in picked)
+        bleed_dot_sum = sum(r.get("bleed_dot_bonus", 0.0) for r in picked)
+        sear_brain_sum = sum(r["sear_brain_vs_armor"] for r in picked)
+        aegis_mono_sum = sum(
+            0.80 * r["cast_sear_vs_armor"] + r["nocturnal_sear_flat"] for r in picked
+        )
         summaries.append({
             "attunement": att_name,
             "skills": picked,
             "count": len(picked),
             "no_item_sum": sum(r["unbuffed_gross"] for r in picked),
             "passive_sum": sum(r["passive_item_gross"] for r in picked),
-            "sear_brain_sum": sum(r["sear_brain_vs_armor"] for r in picked),
+            "sear_brain_sum": sear_brain_sum,
             "max_item_vs_armor_sum": sum(r["max_item_vs_armor"] for r in picked),
             "grim_brain_vs_armor_sum": sum(r["hypothetical_grim_brain_vs_armor"] for r in picked),
+            "after_cut_sum": after_cut_sum,
+            "bleed_dot_sum": bleed_dot_sum,
+            "specialist_storm_strike": storm_strike,
+            "has_burn": any(r.get("innate_dot") == "burn" for r in picked),
+            "exhaustive_sear_sum": sear_brain_sum + after_cut_sum + bleed_dot_sum + storm_strike,
+            "aegis_mono_sear_sum": aegis_mono_sum + after_cut_sum + bleed_dot_sum + storm_strike,
         })
-    summaries.sort(key=lambda s: (s["count"], s["sear_brain_sum"]), reverse=True)
+    sum_key = "exhaustive_sear_sum" if "exhaustive" in sort_key else "sear_brain_sum"
+    summaries.sort(key=lambda s: (s["count"], s[sum_key]), reverse=True)
     return summaries
 
 
@@ -272,6 +305,46 @@ def _format_row(r: dict) -> str:
         f"{r['full_cap_plus_nocturnal_gross']:8.2f} {r['brain_max_gross']:8.2f} {vs_pair:>17} "
         f"{r['effective_pen']*100:4.0f}% {r['sear_brain_vs_armor']:9.2f} {r['hypothetical_grim_brain_vs_armor']:11.2f}"
     )
+
+
+def _format_exhaustive_top_sections(kits: list[dict], rows: list[dict], top_n: int, after_cut_rate: float) -> list[str]:
+    """Build exhaustive secondary-channel (Bleed/After Cut/Storm Strike) and Dawnwalker hybrid summaries."""
+    lines = [
+        f"EXHAUSTIVE SECONDARY-CHANNEL KIT SUMMARY (Bleed +15%, After Cut +{after_cut_rate*100:.1f}%, Specialist Storm Strike +15, Aegis -20%):",
+        f"{'ATTUNEMENT':<26} {'DIRECT SEAR':>11} {'AFTER-CUT':>9} {'BLEED15%':>9} {'STORM+15':>8} {'EXH+DOT':>10} {'AEGIS-20%':>10}  NOTES",
+    ]
+    for k in sorted(kits, key=lambda x: (x["count"], x["exhaustive_sear_sum"]), reverse=True):
+        notes = []
+        if k["has_burn"]:
+            notes.append("+1x Burn (~14.4-16.25 DPS Deepfire)")
+        if k["attunement"] == "Oath Mantra":
+            notes.append("Oath slot fits alongside 5-6 attunement mantras")
+        lines.append(
+            f"{k['attunement']:<26} {k['sear_brain_sum']:11.2f} {k['after_cut_sum']:9.2f} "
+            f"{k['bleed_dot_sum']:9.2f} {k['specialist_storm_strike']:8.2f} "
+            f"{k['exhaustive_sear_sum']:10.2f} {k['aegis_mono_sear_sum']:10.2f}  {', '.join(notes) or '-'}"
+        )
+
+    blinding_dawn = next((r for r in rows if r["id"] == "blinding_dawn"), None)
+    if blinding_dawn and top_n >= 2:
+        bd_val = blinding_dawn["sear_brain_vs_armor"]
+        lines.extend([
+            "",
+            f"OATH SLOT HYBRID (Best {top_n-1} Attunement + Dawnwalker Blinding Dawn [{bd_val:.2f}], +3 Combat Slots & 0 stat req):",
+            f"{'BUILD HYBRID':<40} {'PURE TOP-6':>11} {'EXH TOP-6':>11} {'5 ATT + BLINDING DAWN':>22}  GAIN vs PURE EXH",
+        ])
+        hybrid_rows = []
+        for k in kits:
+            if k["count"] < top_n or k["attunement"] in ("Oath Mantra", "Flamecharm (Starkindred)"):
+                continue
+            top_n_minus_1 = sum(r["exhaustive_sear_vs_armor"] for r in sorted(k["skills"], key=lambda x: x["exhaustive_sear_vs_armor"], reverse=True)[:top_n - 1])
+            hybrid_total = top_n_minus_1 + k["specialist_storm_strike"] + bd_val
+            hybrid_rows.append((hybrid_total, k["attunement"], k["sear_brain_sum"], k["exhaustive_sear_sum"]))
+        for hybrid_total, att, pure_s, exh_s in sorted(hybrid_rows, reverse=True):
+            lines.append(
+                f"{att + ' + Dawnwalker':<40} {pure_s:11.2f} {exh_s:11.2f} {hybrid_total:22.2f}  {hybrid_total - exh_s:+11.2f}"
+            )
+    return lines
 
 
 def format_report(
@@ -287,6 +360,9 @@ def format_report(
     top_n: int | None = None,
     proven_only: bool = False,
     showcase_only: bool = False,
+    with_extras: bool = False,
+    after_cut_rate: float = AFTER_CUT_RATE_TALENTS,
+    exclude_oath_mantras: bool = False,
 ) -> str:
     """Format a complete human-readable report of PvP item theory + mantra ceiling."""
     items = load_items()
@@ -297,6 +373,8 @@ def format_report(
     else:
         selected = all_mantras
     selected = filter_mantras(selected, attunement=attunement, exclude_ids=exclude_ids)
+    if exclude_oath_mantras:
+        selected = [m for m in selected if not m.get("is_oath_mantra", False)]
     if proven_only:
         selected = [m for m in selected if not _is_unproven_or_stale(m.get("status", ""))]
 
@@ -309,15 +387,15 @@ def format_report(
         "=== MAX PVP ITEM THEORY + MANTRA CEILING ===",
         f"Loadout (Legal Standard PvP): Prophet's Cloak (+20% PEN Outfit)"
         f" + Ring of Casters (+5%) + Isshin's Ring (+15%) + Enchant Food (+5%) = +{passive_pct:.0f}% passive (exact 1.25x soft cap!)",
-        "Everything-Goes Cap Saturation (x1.50): Perfect Flash (+25%) + Taunt (+20%) + Strengthening Potion (+27.5%/13.75%) + Isshin's (+15%) + Casters (+5%) + Lose Your Mind (+15%) [+ Vow Fight +20% / Inhale +10% / Dark Hours +15%] -> all cap at x1.50; swap Enchant Food for Brain Food (+15 Nocturnal Gem!).",
+        "Everything-Goes Cap Saturation (x1.50): Perfect Flash (+25%) + Taunt (+20%) + Strengthening Potion (+27.5%/13.75%) + Isshin's (+15%) + Casters (+5%) + Lose Your Mind (+15%) [+ Rush Hour +15% / Inhale +10% / Dark Hours +15%] -> all cap at x1.50; swap Enchant Food for Brain Food (+15 Nocturnal Gem!).",
         "Optional Gear Bypass: Shock Trooper Specialist Full Set (Head/Arms/Legs -> +15% base on 6 Thundercall/Gale mantras; coexists w/ Prophet's Cloak)",
-        "PEN Ceiling vs Target Armor: Passive (60%, Ironsing 90% via Oath +5%, Prophet +20%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap) vs Sear Cauterize (+40% -> 100% PEN = SEAR100%!) vs Grim? (+25% uncapped hypothesis).",
-        f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}), Target Pre-PEN Armor={target_armor*100:.0f}%",
+        "PEN Ceiling vs Target Armor: Passive (60%, Ironsing 90% via Oath +5%, Prophet +20%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap) vs Sear Cauterize (+40% -> 100% PEN = SEAR100%) vs Grim? (+25% uncapped hypothesis).",
+        f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}, After Cut={after_cut_rate*100:.1f}%), Target Pre-PEN Armor={target_armor*100:.0f}%",
     ]
-    if attunement or exclude_ids or proven_only or top_n:
+    if attunement or exclude_ids or proven_only or exclude_oath_mantras or top_n or with_extras:
         lines.append(
             f"Filters: attunement={attunement or 'ALL'}, excluded={','.join(exclude_ids) or 'none'}, "
-            f"proven_only={proven_only}, top={top_n or 'ALL'}"
+            f"proven_only={proven_only}, no_oath_mantras={exclude_oath_mantras}, top={top_n or 'ALL'}, with_extras={with_extras}"
         )
     lines.append("")
 
@@ -330,13 +408,19 @@ def format_report(
             songchant=songchant,
             songchant_rate=songchant_rate,
             songchant_pen_mode=songchant_pen_mode,
+            after_cut_rate=after_cut_rate,
         )
         for m in selected
     ]
     rows.sort(key=lambda r: r["full_cap_plus_nocturnal_gross"], reverse=True)
 
     if top_n is not None:
-        kits = top_n_by_attunement(rows, top_n=top_n)
+        sort_field = "exhaustive_sear_sum" if with_extras else "sear_brain_vs_armor"
+        kits = top_n_by_attunement(
+            rows,
+            top_n=top_n,
+            sort_key=("exhaustive_sear_vs_armor" if with_extras else "sear_brain_vs_armor"),
+        )
         lines.append(f"TOP-{top_n} UNIQUE-SKILL KIT COMPARISON BY ATTUNEMENT (deduped by skill_group; 1-proc Nocturnal+Brain per cast):")
         lines.append(
             f"{'ATTUNEMENT':<26} {'SKILLS':>6} {'NO-ITEM SUM':>11} {'PASSIVE SUM':>11} "
@@ -349,6 +433,9 @@ def format_report(
                 f"{k['attunement']:<26} {k['count']:>3}/{top_n:<2} {k['no_item_sum']:11.2f} {k['passive_sum']:11.2f} "
                 f"{k['max_item_vs_armor_sum']:11.2f} {k['sear_brain_sum']:12.2f} {k['grim_brain_vs_armor_sum']:12.2f}  {rng_txt}"
             )
+        if with_extras:
+            lines.append("")
+            lines.extend(_format_exhaustive_top_sections(kits, rows, top_n, after_cut_rate))
         lines.append("")
         lines.append(f"TOP {top_n} SKILLS PER ATTUNEMENT:")
         for k in kits:
@@ -380,11 +467,12 @@ def format_report(
         "NOTES & EXCLUSIONS:",
         "- [*1.15] marks Shock Trooper Specialist Full Set +15% base bypass (cannot use 3 Armor Enchants, which already give 0 PvP mantra dmg).",
         "- +BRAIN swaps redundant Enchant Food (+5% already saturated by Potion+Flash+Taunt+Rings) for Brain Food (+15 Nocturnal Gem instead of +10).",
-        "- SEAR100% = +BRAIN with Sear Cauterize (+40% incoming PEN via M1 stacks + Ether Overdrive = 100% PEN, bypassing 100% of target armor).",
+        "- SEAR100% = +BRAIN with Sear Cauterize (+40% incoming PEN via M1 stacks + Ether Overdrive = 100% PEN, bypassing 100% of target armor). Hero's Blades & Curved Blade are unenchantable and thus lose Sear.",
         "- GRIM?ARMOR shows *hypothetical* upper bound vs target armor if Grim (+25% dmg taken, 6s) sits outside the x1.50 cap; if inside, SEAR100% wins on every armored target.",
-        "- NO PvP Mantra Damage comes from Equipment Pips, Armor Enchants (Drowned is PvE-only), Scaling Rings, Chain of Perfection (PvE), or Ardour (M1 posture/guardbreak).",
-        "- QUARANTINED: Divine Cast Ring (3x mantra) is Vow of Iron Relic ONLY (illegal in standard PvP).",
-        "- EXTRAS / UNQUANTIFIED: Galebreathe After Cut (+2.5% Talents / +5% legacy secondary hit) sits outside cap; Vow of Mastery 'Fight' (+20%) saturates the same x1.50 cap; Yun'Shul Wind-Up Lv10 Bell % is undocumented on Wiki.",
+        "- EXHAUSTIVE CHANNELS (--with-extras): Bleed (+15% scaled on 5 Ironsing skills), After Cut (+2.5% Talents / +5% Gale wiki), Specialist Storm Strike (+15/kit), Everchanging Aegis (-20% repeated mono-element hits vs 25 INT defenders), and Dawnwalker Blinding Dawn hybrid.",
+        "- ZERO PvP Mantra Damage comes from Equipment Pips, Armor Enchants (Drowned is PvE-only), Scaling Rings, Races/Aspects, Chain of Perfection (PvE), Ardour (M1 posture), or non-Sear/Grim Weapon Enchants.",
+        "- QUARANTINED: Divine Cast Ring (3x mantra) & Belief (+0.15 true dmg/WIL Med) belong to Vow of Iron Relic / Weapon-Mantra modes only (illegal/inapplicable to standard PvP attunement mantras).",
+        "- UNQUANTIFIED: Yun'Shul Wind-Up Lv10 Bell exact PvP % and post-Nov 1 Hallowtide hybrid Lv5 cast tables (Alloyblood / Exotherm Sanguine Blaze).",
     ])
     return "\n".join(lines)
 
@@ -409,7 +497,13 @@ def main() -> None:
     parser.add_argument("--top", type=int, default=None,
                         help="Rank unique skills and summarize Top-N kit ceiling per attunement (e.g. --top 6)")
     parser.add_argument("--proven-only", action="store_true",
-                        help="Exclude unproven hypotheses (Scarlet Cyclone x3) and stale nerfed baselines (Shadow Meteor)")
+                        help="Exclude unproven hypotheses (Scarlet Cyclone x3) and stale nerfed baselines (Shadow Meteor / Sightless Beam)")
+    parser.add_argument("--no-oath-mantras", action="store_true",
+                        help="Exclude Oath mantras (Blinding Dawn, Sightless Beam, Starkindred Fire Blade)")
+    parser.add_argument("--with-extras", action="store_true",
+                        help="Include exhaustive DoT/After-Cut/Storm-Strike/Aegis & Dawnwalker hybrid tables under --top N")
+    parser.add_argument("--after-cut-rate", type=float, default=AFTER_CUT_RATE_TALENTS,
+                        help="After Cut secondary hit rate (0.025 Talents wiki default vs 0.05 legacy Gale wiki)")
     parser.add_argument("--showcase", action="store_true",
                         help="Restrict output to original 9 showcase mantras")
     args = parser.parse_args()
@@ -428,6 +522,9 @@ def main() -> None:
         top_n=args.top,
         proven_only=args.proven_only,
         showcase_only=args.showcase,
+        with_extras=args.with_extras,
+        after_cut_rate=args.after_cut_rate,
+        exclude_oath_mantras=args.no_oath_mantras,
     ))
 
 

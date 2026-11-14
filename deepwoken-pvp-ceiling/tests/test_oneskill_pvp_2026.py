@@ -47,7 +47,7 @@ class TestOneCast(unittest.TestCase):
         self.assertAlmostEqual(module.illustrative_post_pen(module.gross(e,.75)),199.059609375)
 
     def test_invalid_inputs(self):
-        with self.assertRaises(ValueError):module.mantra_scale(-1)
+        with self.assertRaises(ValueError):module.mantra_scale(-1, 2.75)
         with self.assertRaises(ValueError):module.common_damage_multiplier(-.2)
         with self.assertRaises(ValueError):module.illustrative_post_pen(100,1.1,.5)
 

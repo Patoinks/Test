@@ -52,7 +52,7 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertAlmostEqual(module.damage(MANTRAS["ice_flock"]), 221.562)
         self.assertAlmostEqual(module.damage(MANTRAS["flame_ballista"]), 201.42)
         self.assertAlmostEqual(module.damage(MANTRAS["crimson_rain"]), 195.125625)
-        self.assertAlmostEqual(module.damage(MANTRAS["eclipse_kick"]), 193.0275)
+        self.assertAlmostEqual(module.damage(MANTRAS["eclipse_kick"]), 241.284375)
         self.assertAlmostEqual(module.damage(MANTRAS["scarlet_cyclone_triple"]), 327.3075)
 
     def test_unbuffed_and_capped_are_distinct(self):
@@ -94,7 +94,13 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertAlmostEqual(halved["strengthening_potion"]["effective_percent"], 13.75)
         no_pot = buff_scenarios.load_common_buffs(potion_mode="exclude")
         self.assertNotIn("strengthening_potion", no_pot)
-        self.assertEqual(len(RAW_BUFFS), 23)
+        self.assertEqual(len(RAW_BUFFS), 32)
+        self.assertIn("rush_hour", common)
+        for non_common in ("matador", "blast_furnace", "ardour_scream",
+                           "saintsworn_storm_link", "bleed_dot",
+                           "everchanging_aegis", "belief_vow_weapon_only",
+                           "dawnwalker_protagonist_syndrome"):
+            self.assertNotIn(non_common, common)
 
     def test_buff_scenarios_constraints(self):
         self.assertFalse(buff_scenarios.valid(["perfect_flash", "last_resort"], "Light Weapon", 100))
@@ -209,7 +215,10 @@ class TestPvPCeiling(unittest.TestCase):
         gale_only = module.filter_mantras(all_mantras, attunement="galebreathe", exclude_ids=module.CEASELESS_IDS)
         self.assertEqual(
             {m["id"] for m in gale_only},
-            {"tornado", "tornado_kick", "champions_whirlthrow", "twister_kicks", "wind_carve", "astral_wind", "heavenly_wind"},
+            {
+                "tornado", "tornado_kick", "champions_whirlthrow", "twister_kicks",
+                "wind_carve", "astral_wind", "heavenly_wind", "gale_punch", "wind_gun",
+            },
         )
 
         report = item_theory.format_report(exclude_ids=module.CEASELESS_IDS, by_attunement=True)
@@ -223,7 +232,7 @@ class TestPvPCeiling(unittest.TestCase):
         top6_report = item_theory.format_report(exclude_ids=module.CEASELESS_IDS, top_n=6, proven_only=True)
         self.assertIn("TOP-6 UNIQUE-SKILL KIT COMPARISON", top6_report)
         self.assertNotIn("Scarlet Cyclone + Multiplying Spark", top6_report)
-        self.assertNotIn("Shadow Meteor", top6_report)
+        self.assertNotIn("Sightless Beam", top6_report)
         self.assertNotIn("Eclipse Kick\n", top6_report)
 
         items = item_theory.load_items()
@@ -234,6 +243,46 @@ class TestPvPCeiling(unittest.TestCase):
         deduped = item_theory.deduplicate_skill_groups(blood_rows)
         sc_variants = [r for r in deduped if r["skill_group"] == "scarlet_cyclone"]
         self.assertEqual(len(sc_variants), 1)
+        bc_variants = [r for r in deduped if r["skill_group"] == "bloodcurdle"]
+        self.assertEqual(len(bc_variants), 1)
+        self.assertEqual(bc_variants[0]["id"], "bloodcurdle_4vibrant")
+
+    def test_exhaustive_channels_new_mantras_and_oath_hybrid(self):
+        items = item_theory.load_items()
+        vb = item_theory.evaluate_mantra_with_items(MANTRAS["veinbreaker"], items, target_armor=0.35)
+        bc4 = item_theory.evaluate_mantra_with_items(MANTRAS["bloodcurdle_4vibrant"], items, target_armor=0.35)
+        bd = item_theory.evaluate_mantra_with_items(MANTRAS["blinding_dawn"], items, target_armor=0.35)
+        mr = item_theory.evaluate_mantra_with_items(MANTRAS["metal_rain"], items, target_armor=0.35)
+        mg = item_theory.evaluate_mantra_with_items(MANTRAS["metal_gatling"], items, target_armor=0.35)
+        torn_t = item_theory.evaluate_mantra_with_items(MANTRAS["tornado"], items, after_cut_rate=0.025)
+        torn_l = item_theory.evaluate_mantra_with_items(MANTRAS["tornado"], items, after_cut_rate=0.05)
+
+        self.assertAlmostEqual(module.base_damage(MANTRAS["veinbreaker"])[0], 110.0)
+        self.assertAlmostEqual(module.base_damage(MANTRAS["bloodcurdle_4vibrant"])[0], 88.2)
+        self.assertAlmostEqual(vb["sear_brain_vs_armor"], 110.0 * 1.39875 * 1.50 + 15.0)
+        self.assertAlmostEqual(bc4["sear_brain_vs_armor"], 88.2 * 1.39875 * 1.50 + 15.0)
+        self.assertAlmostEqual(bd["sear_brain_vs_armor"], (18 * 9.33) * 1.12 * 1.50 + 15.0)
+
+        # Bleed +15% on scaled damage applies to innate Bleed mantras only.
+        self.assertAlmostEqual(mr["bleed_dot_bonus"], mr["unbuffed_gross"] * 0.15)
+        self.assertEqual(mg["bleed_dot_bonus"], 0.0)
+
+        # After Cut scales outside cap between 2.5% (Talents) and 5% (legacy Gale/Builder).
+        self.assertAlmostEqual(torn_l["after_cut_bonus"], torn_t["after_cut_bonus"] * 2.0)
+
+        exh_report = item_theory.format_report(
+            exclude_ids=module.CEASELESS_IDS, top_n=6, proven_only=True, with_extras=True,
+        )
+        self.assertIn("EXHAUSTIVE SECONDARY-CHANNEL KIT SUMMARY", exh_report)
+        self.assertIn("OATH SLOT HYBRID", exh_report)
+        self.assertIn("Bloodrend + Dawnwalker", exh_report)
+
+        no_oath_report = item_theory.format_report(
+            exclude_ids=module.CEASELESS_IDS, proven_only=True, exclude_oath_mantras=True,
+        )
+        self.assertNotIn("Blinding Dawn (Dawnwalker Oath)", no_oath_report)
+        self.assertNotIn("Oath Mantra", no_oath_report)
+        self.assertNotIn("Fire Blade (Starkindred", no_oath_report)
 
 
 if __name__ == "__main__":
