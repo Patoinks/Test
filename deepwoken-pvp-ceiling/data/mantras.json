@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-14",
+  "as_of": "2026-11-14 / refreshed single-cast samples",
   "description": "Mantra Lv5 single-cast FULL HIT theoretical data. Values are community wiki estimates; candidate list NOT exhaustive. All segments summed assuming same target hit. No target resist, no proc damage.",
   "mantras": [
     {
@@ -65,11 +65,12 @@
       ],
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
       "status": "divergent baseline (177.6 Fandom vs 186.48 Builder)",
-      "warning": "CONFLICTING SOURCE: Fandom documents 12x14.8=177.6 base (After Cut +5% omitted); Deepwoken Builder reports 186.48 Lv5 base (=177.6x1.05).",
+      "warning": "Builder aggregate 186.48 vs older 12×14.8=177.6; difference equals +5% and might reflect After Cut already. Do NOT add another After Cut without verifying the server. Older per-tick data is retained rather than implicitly overwriting per-tick counts.",
       "oath_or_monster": false,
       "other_current_source_base_level_5": 186.48,
-      "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
-      "caveat": "Builder 186.48 matches 177.6x1.05 (15.54/tick or After Cut baked in), not independently confirmed in Fandom Version History."
+      "other_current_source": "https://deepwoken.co/wiki/mantra/Tornado",
+      "caveat": "Builder 186.48 matches 177.6x1.05 (15.54/tick or After Cut baked in), not independently confirmed in Fandom Version History.",
+      "current_builder_aggregate_base_lv5": 186.48
     },
     {
       "id": "tornado_kick",
@@ -100,8 +101,10 @@
       ],
       "source": "https://deepwoken.fandom.com/wiki/Ironsing",
       "status": "approximate",
-      "warning": "~23 hits, exact ticks may vary; innate Bleed omitted. Duration mods need testing.",
-      "oath_or_monster": false
+      "warning": "Builder shows 6.24 Lv5 vs Fandom 4.8 per tick. Counts ~23 uncertain, old base retained; do not call old value a proven 2026 ceiling.",
+      "oath_or_monster": false,
+      "builder_base_per_tick_lv5": 6.24,
+      "builder_source": "https://deepwoken.co/wiki/mantra/Metal%20Rain"
     },
     {
       "id": "shadow_meteor",
@@ -111,15 +114,15 @@
       "segments": [
         {
           "count": 3,
-          "damage": 35
+          "damage": 32
         }
       ],
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
-      "status": "potentially stale (May 2026 nerf reported)",
-      "warning": "3 meteors must hit same target. Builder/audit flags May-2026 damage nerf vs legacy 3x35=105 and Version_History notes cancel on Death from Above / Critical; new Lv5 numeric unverified.",
+      "status": "conditional triple-meteor model using Builder L5 tick of 32; 3 hits requires verification",
+      "warning": "Builder L5 shows 32, interpreted as per meteor from 3-meteor skill description. Three impacts on same player not guaranteed. May-2026 Shadow Meteor nerf corroborated.",
       "oath_or_monster": false,
       "other_current_source_base_level_5": null,
-      "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
+      "other_current_source": "https://deepwoken.co/wiki/mantra/Shadow%20Meteors",
       "caveat": "Exact post-nerf Lv5 damage value not exposed numerically on Builder or Fandom patch table."
     },
     {
@@ -248,12 +251,12 @@
       "segments": [
         {
           "count": 1,
-          "damage": 92
+          "damage": 115
         }
       ],
-      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
-      "status": "documented single-hit",
-      "warning": "Requires 50 Shadowcast + 30 Strength; eligible for +15% Dark Hours at night/Depths.",
+      "source": "https://deepwoken.co/wiki/mantra/Eclipse%20Kick",
+      "status": "builder 2026 baseline — Lv5 single-cast",
+      "warning": "Eclipse Kick: 50 Shadowcast + 15 Strength. Nerfs to damage vs stunned targets in 2026; single-hit assumption, no stun setup. Multiplying Spark changes to 2 activations and lowers base to 101, excluded from strict one cast.",
       "oath_or_monster": false,
       "skill_group": "eclipse_kick"
     },
@@ -286,8 +289,10 @@
       ],
       "source": "https://deepwoken.fandom.com/wiki/Ironsing",
       "status": "documented single-hit",
-      "warning": "Innate +30% Ironsing Armor PEN and Bleed omitted.",
-      "oath_or_monster": false
+      "warning": "Builder Lv5 45.5, older dataset lists 47. Refresh needed. Innate PEN/bleed separate.",
+      "oath_or_monster": false,
+      "builder_base_lv5": 45.5,
+      "builder_source": "https://deepwoken.co/wiki/mantra/Rocket%20Lance"
     },
     {
       "id": "grand_javelin",
@@ -483,7 +488,7 @@
       "id": "vicious_descent",
       "name": "Vicious Descent",
       "type": "Bloodrend",
-      "scaling": 2.0,
+      "scaling": 2,
       "segments": [
         {
           "count": 1,
@@ -905,6 +910,39 @@
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
       "status": "documented baseline",
       "warning": "2 hits (26 Lv5 base each); eligible for +15% Dark Hours.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "ice_carve_round",
+      "name": "Ice Carve (Round Spark) — 20 ticks",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 20,
+          "damage": 5
+        }
+      ],
+      "source": "https://deepwoken.co/wiki/mantra/Ice%20Carve",
+      "status": "L5 base 100 full 20-hit conditional, parry cancels early",
+      "warning": "20 ticks ×5 = 100 base, max all-hit conditional, NOT single-hit. January 2026 Spring Spark multihit exploit excluded.",
+      "oath_or_monster": false,
+      "skill_group": "ice_carve"
+    },
+    {
+      "id": "skyshatter_default",
+      "name": "Skyshatter Kick (two kicks)",
+      "type": "Strength",
+      "scaling": 1.65,
+      "segments": [
+        {
+          "count": 2,
+          "damage": 60
+        }
+      ],
+      "source": "https://deepwoken.co/wiki/mantra/Skyshatter%20Kick",
+      "status": "L5 aggregate 120 base, 2 kicks assumed land",
+      "warning": "Builder Lv5 base aggregate 120, two attacks rather than a literal one hit; requirements 80 Strength.",
       "oath_or_monster": false
     }
   ]
