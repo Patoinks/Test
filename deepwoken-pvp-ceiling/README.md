@@ -5,6 +5,9 @@
 ## Âmbito
 Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs e buffs possíveis legalmente. Distinguir dano bruto (sem resistência), dano efetivo contra jogador, burst de rotação, Chime e Overworld. A wiki consultada pode estar desatualizada.
 
+
+> **ALERTA DE FONTES:** o Deepwoken Builder apresenta Ceaseless Slashes L5 com **290 de base**, enquanto a decomposição antiga por ticks da Fandom usada aqui dá **310,05**. Logo, **576,34 NÃO está confirmado na versão atual**. Ver [cenários PvP fiáveis](docs/RELIABLE_PVP.md) para valores mais defensáveis e o plano de verificação.
+
 ## Resultados documentados
 - Hard cap PvP para a categoria dos damage modifiers: **1,50×**; soft cap **1,25×**. Segundo a calculadora Deepwoken Builder, o excesso após +25% conta a metade até +50%. Assim, +75% nominal basta para saturar essa categoria (fontes: Version History 2025; deepwoken.co/builder).
 - **Comida Enchant:** Candied Fruit/Fish Omelette, **+5% dano de mantras**. Buffs alimentares de tipos diferentes substituem-se, não somar Enchant e Brain.
