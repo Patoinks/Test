@@ -18,14 +18,17 @@ Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs 
 
 ## Resultados documentados
 - Hard cap PvP para a categoria dos damage modifiers: **1,50×**; soft cap **1,25×**. Segundo a calculadora Deepwoken Builder, o excesso após +25% conta a metade até +50%. Assim, +75% nominal basta para saturar essa categoria (fontes: Version History 2025; deepwoken.co/builder).
-- **Comida Enchant:** Candied Fruit/Fish Omelette, **+5% dano de mantras**. Buffs alimentares de tipos diferentes substituem-se, não somar Enchant e Brain.
+- **Comida Enchant:** Candied Fruit / Fish Omelette, **+5% dano de mantras** (builds com `Carnivore` têm de usar Fish Omelette). Buffs alimentares de tipos diferentes substituem-se, não somar Enchant e Brain.
 - **Ring of Casters:** **+5% dano de mantras**, -5% dano de arma.
-- **Perfect Flash:** **+25% dano de mantras** acima de 95% de HP, reduz com distância (10% a longa distância). Confirmar se entra no pool geral de modifiers em todos os modos.
-- **Poção Strengthening:** 3 Plumfruits + 2 Browncaps, ingredientes +2% dano cada: **10% base**, com 100 INT no FABRICANTE + Apothecary soma potência 50%+125%, ou seja **27,5%**. Só pode existir um efeito de poção de cada vez no alvo; há efeitos secundários, incluindo dano ao beber e perda de regen.
-- **Taunt:** alvo recebe +20% de dano, mas é tratado como modificador e está sujeito ao cap. Ele causa +10% de dano ao caster.
-- **Tough Love:** a versão para mantras é **+5%** (e não +10%).
-- **Reinforce** e **Overflowing Dam:** aumentam **ataques de arma**, NÃO mantras. Não incluí-los erradamente.
-- **Ceaseless Slashes** nível 5: 5 cortes iniciais [20,25,30,35,40] + 15 ticks de 10,67 = 310,05 base no cenário de 20 hits. Com 100 Light e 6 Songchant: 310,05×1,23925×1,5 ≈ **576,34** dano bruto. Maior número de cortes pode acontecer com recuperação de Ether; sem limite certificado, não declarar ceiling absoluto.
+- **Perfect Flash:** **+25% dano de mantras** acima de 95% de HP (25 INT), reduz com distância (10% a longa distância). Confirmar se entra no pool geral de modifiers em todos os modos.
+- **Poção Strengthening:** 3 Plumfruits + 2 Browncaps, ingredientes +2% dano cada: **10% base**, com 100 INT no FABRICANTE + Apothecary soma potência 50%+125%, ou seja **27,5%**. Só pode existir um efeito de poção de cada vez no alvo; Browncap inflige dano instantâneo ao beber e Plumfruit reduz regen.
+- **Taunt:** alvo recebe +20% de dano (25 CHA), tratado como modificador e sujeito ao cap. Ele causa +10% de dano ao caster.
+- **Tough Love:** a versão para mantras é **+5%** (e não +10%, 25 CHA).
+- **Lose Your Mind** (30 STR + 30 FTD): escala abaixo de 70% sanidade até **+15% dano** a 0% sanidade (ativável via *Heretic's Sutra* a 80 WIL).
+- **Dark Hours** (35 Shadowcast): **+15% dano** em mantras Shadowcast à noite ou nas Depths.
+- **Exclusões confirmadas (não afetam mantras):** **Reinforce**, **Overflowing Dam**, **Shade Devour**, **Nullifying Clarity** (M1s only) e **Charged Return** (M1s/Criticals only).
+- **Mantra PEN (não incluído no dano bruto):** **Prophet's Cloak** (+20% Mantra PEN), **6 Songchant** (+15% PEN), **Ironsing** (+30% inato) e **Piercing Will** (+15%); cap base de 50% PEN sem `Ether Overdrive`.
+- **Ceaseless Slashes** nível 5: 5 cortes iniciais [20,25,30,35,40] + 15 ticks de 10,67 = 310,05 base no cenário Fandom de 20 hits (`576,34`), vs **290 base** no Deepwoken Builder (`539,07`). Ambos constam agora em `data/mantras.json` com aviso de divergência.
 
 ## Cenário de saturação condicional
 | Item | +Dano |
@@ -38,19 +41,23 @@ Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs 
 | Total nominal se acumularem | **82,5%** |
 | Resultado da categoria sob cap | **+50% (1,50×)** |
 
-A soma acima é **hipótese de categoria comum e de sobreposição temporal**, não garante que todos os buffs sejam calculados da mesma forma pelo servidor. Se Perfect Flash for aplicado num canal separado, o resultado muda. Exigir teste no jogo.
+A soma acima é **hipótese de categoria comum e de sobreposição temporal**, não garante que todos os buffs sejam calculados da mesma forma pelo servidor. Em alternativa sustentável a >95% HP (sem *self-damage* de Browncap nem *self-burn* de Flame Within), combinações com `Lose Your Mind` (+15%) e `Dark Hours` (+15% Shadowcast) também atingem **1,50×** em `src/buff_scenarios.py`.
 
 ## Executar
 ```bash
-python3 deepwoken-pvp-ceiling/src/ceiling.py
-python3 -m unittest discover -s deepwoken-pvp-ceiling/tests -v
+python deepwoken-pvp-ceiling/src/ceiling.py --show-buffs
+python deepwoken-pvp-ceiling/src/buff_scenarios.py
+python -m unittest discover -s deepwoken-pvp-ceiling/tests -v
 ```
+*(Em Linux/macOS pode ser `python3`.)*
 
 ## Ficheiros
-- `src/ceiling.py`: fórmulas, tabelas e candidatos.
-- `tests/test_ceiling.py`: testes regressivos.
+- `src/ceiling.py`: fórmulas, tabelas e candidatos (`data/mantras.json` com 18 entradas).
+- `src/buff_scenarios.py`: auditoria combinatória de buffs lida diretamente de `data/buffs.json`, com filtros de HP, elemento e orçamento de 330 pontos.
+- `tests/test_ceiling.py`: testes regressivos e validação das regras de `buff_scenarios.py`.
 - `docs/RESEARCH.md`: evidências, nuances e restrições.
-- `docs/TEST_PLAN.md`: ensaios que faltam.
+- `docs/RELIABLE_PVP.md`: cenários defensáveis e comparativo de single-hits.
+- `docs/TEST_PLAN.md`: ensaios in-game que faltam.
 - `SOURCES.md`: fontes diretas.
 
 **Limitação:** não foi feita auditoria exaustiva dos mantras e patches de novembro de 2026; um valor de calculadora não prova maximum matematicamente alcançável.

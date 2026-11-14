@@ -37,6 +37,10 @@ Wiki: 60 base damage, 1.65 Strength scaling. Admitir 100 Strength, 6 Songchant, 
 
 Este valor pressupõe que o golpe **acerta sem defesa**. Dano em barra de vida é imprevisível sem resistência, armadura e mecânicas do alvo.
 
+**Comparação com single-hits elementais mais altos (100 att / 6 Songchant / `2.75` scaling ⇒ `×1.39875`):**
+- **Eclipse Kick** (`92` base, 50 Shadowcast + 30 Strength): saturando cap (`×1.50`) dá **193,03 bruto** (**144,77** após 25% resistência líquida); ainda elegível a **Dark Hours** (+15% à noite/Depths).
+- **Flame Ballista (Full Charge)** (`96` base, Flamecharm): saturando cap (`×1.50`) dá **201,42 bruto** (**151,07** após 25% resistência líquida), omitindo Burn.
+
 ## Correcção de confiança do projeto
 
 Há **divergência de fontes** no dano base de Ceaseless Slashes L5:

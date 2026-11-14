@@ -20,17 +20,25 @@
 - [Rare Talents — Overflowing Dam é basic attack only](https://deepwoken.fandom.com/wiki/Rare_Talents)
 - [Strange Merchant — Tough Love só +5% em mantras](https://deepwoken.fandom.com/wiki/Strange_Merchant)
 - [Flame Worshipper — Flame Within e geral damage modifier](https://deepwoken.fandom.com/wiki/Flame_Worshipper)
+- [Lose Your Mind — 30 STR + 30 FTD, escala até +15% a 0% sanity](https://deepwoken.fandom.com/wiki/Lose_Your_Mind)
+- [Dark Hours — +15% mantras Shadowcast à noite / nas Depths](https://deepwoken.fandom.com/wiki/Dark_Hours)
+- [Prophet's Cloak — +20% Armor PEN em mantras](https://deepwoken.fandom.com/wiki/Prophet%27s_Cloak)
+- [Intelligence / Ether Overdrive / Nullifying Clarity](https://deepwoken.fandom.com/wiki/Intelligence)
 - [Nocturnal Gem — 10 fixo, 15 com Brain, ignora modifiers](https://deepwoken.fandom.com/wiki/Nocturnal_Gem)
 
-## Mantras
+## Mantras e Resonances
 - [Galebreathe — Tornado 12 ticks, Tornado Kick 4, After Cut 5% mantra, Inhale até 10%](https://deepwoken.fandom.com/wiki/Galebreathe)
-- [Ironsing — Metal Rain ~23 ticks Lv5 4.8](https://deepwoken.fandom.com/wiki/Ironsing)
-- [Bloodrend — Scarlet Cyclone normal vs Multiplying (13→5.2 por tick), Scarlet Cannon 17](https://deepwoken.fandom.com/wiki/Bloodrend)
-- [Shadowcast — Shadow Meteor, Shadow Assault Blast HP<=40%, Shade Devour buff weapon only](https://deepwoken.fandom.com/wiki/Shadowcast)
+- [Ironsing — Metal Rain ~23 ticks Lv5 4.8, Rocket Lance 47](https://deepwoken.fandom.com/wiki/Ironsing)
+- [Frostdraw — Ice Flock 8×13.2](https://deepwoken.fandom.com/wiki/Frostdraw)
+- [Flamecharm — Flame Ballista 96, Fire Forge 3×12.33](https://deepwoken.fandom.com/wiki/Flamecharm)
+- [Thundercall — Grand Javelin 44.2, Charged Return M1/Crit only](https://deepwoken.fandom.com/wiki/Thundercall)
+- [Bloodrend — Scarlet Cyclone normal vs Multiplying (13→5.2 por tick), Scarlet Cannon 17, Crimson Rain 6×2×7.75](https://deepwoken.fandom.com/wiki/Bloodrend)
+- [Shadowcast — Eclipse Kick 92, Shadow Meteor, Shadow Assault Blast HP<=40%, Shade Devour buff weapon only](https://deepwoken.fandom.com/wiki/Shadowcast)
+- [Resonances — Yun'Shul Wind-Up Lv10 ativa em Mantras](https://deepwoken.fandom.com/wiki/Resonance)
 - [Deepwoken 2026 Version History — alterações contínuas, até onde indexado](https://deepwoken.fandom.com/wiki/Version_History/2026)
 
 ## Alertas contra fontes enganosas
-- Nem todos os itens no menu «Damage Modifiers» da calculadora se aplicam a mantras: wiki restringe Reinforce e Overflowing Dam a ataques de arma/básicos.
+- Nem todos os itens no menu «Damage Modifiers» da calculadora se aplicam a mantras: wiki restringe Reinforce, Overflowing Dam, Shade Devour, Nullifying Clarity e Charged Return a arma/M1/critical.
 - O cálculo de Scarlet Cyclone modificado tem dano por projétil **reduzido**; multiplicar o dano da versão normal por três seria incorreto.
 - A wiki menciona que Ceaseless pode exceder cinco cortes mas não declara o limite absoluto por cast.
 - Efeitos pós-cap, efeitos de alvo e procs só podem ser combinados depois de verificar a ordem de aplicação.

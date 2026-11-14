@@ -103,11 +103,14 @@ def main():
     args = parser.parse_args()
     data = json.loads(DATA.read_text(encoding="utf-8"))
     if args.show_buffs:
-        print("Enchant food: 5% mantra; Ring of Casters: 5% mantra")
-        print(f"Strengthening potion RECIPE MODEL: {potion_damage_buff()*100:.2f}% (2025 damage-potion nerf; live value unverified)")
-        print("Perfect Flash: 25% near target only >95% HP (cap channel requires testing)")
+        print("Enchant food: +5% mantra (Carnivore must use Fish Omelette); Ring of Casters: +5% mantra")
+        print(f"Strengthening potion RECIPE MODEL: +{potion_damage_buff()*100:.2f}% (Nov-2025 50% potion nerf unverified; Browncap hurts caster)")
+        print("Perfect Flash: +25% near target only >95% HP (cap channel requires testing)")
         print("Taunt target: +20%, explicitly subject to damage modifier cap")
-        print("Tough Love: +5% mantras; Reinforce & Overflowing Dam: NOT for mantras")
+        print("Tough Love: +5% mantras; Lose Your Mind: up to +15% at 0% sanity; Dark Hours: +15% Shadowcast at night/Depths")
+        print("Base-dmg bypasses (outside cap): Arcwarder Enhance (Arc Beam +50%, Arc Wave +25%); Specialist Full Set (+15% 6 mantras)")
+        print("Reinforce, Overflowing Dam, Shade Devour, Nullifying Clarity & Charged Return: NOT for mantras")
+        print("Mantra PEN (effective dmg vs armor): Prophet's Cloak +20%, 6 Songchant +15%, Ironsing +30%; PEN caps at 50% without Ether Overdrive")
         print("Food buffs replace each other. One potion effect active at a time.")
     rows = []
     for m in data["mantras"]:
@@ -116,7 +119,8 @@ def main():
                    args.net_resistance / 100, args.extra_final_multiplier)
         raw = damage(m, args.attribute, args.songchant, 0,
                      args.net_resistance / 100, args.extra_final_multiplier)
-        rows.append((d, raw, m["name"], hits, b, m["status"]))
+        hits_str = "?" if m.get("unverified_ticks") else str(hits)
+        rows.append((d, raw, m["name"], hits_str, b, m["status"]))
     print("MODEL: PvP single-cast all-hit potential; NOT a proven absolute ceiling")
     print(f"Attribute={args.attribute:g} Songchant={args.songchant:g} raw_bonus={args.raw_bonus:g}% "
           f"effective_common_x{pvp_damage_modifier(args.raw_bonus/100):.3f}")
@@ -124,12 +128,13 @@ def main():
         print(f"{'NO BUFFS':>10}  {'WITH BUFFS':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
     else:
         print(f"{'DAMAGE':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
-    for d, raw, name, hits, b, status in sorted(rows, reverse=True):
+    for d, raw, name, hits_str, b, status in sorted(rows, reverse=True):
         if args.compare:
-            print(f"{raw:10.2f}  {d:10.2f}  {hits:4d}  {b:8.2f}  {name:<42}  {status}")
+            print(f"{raw:10.2f}  {d:10.2f}  {hits_str:>4}  {b:8.2f}  {name:<42}  {status}")
         else:
-            print(f"{d:10.2f}  {hits:4d}  {b:8.2f}  {name:<42}  {status}")
-    print("\nWARNINGS: all hits assumed to land, pre-resistance default, procs excluded.")
+            print(f"{d:10.2f}  {hits_str:>4}  {b:8.2f}  {name:<42}  {status}")
+    print("\nWARNINGS: all hits assumed to land, pre-resistance default, procs/Everchanging Aegis excluded.")
+    print("DISPUTED CEASELESS: 310.05 Fandom ticks (576.34) vs 290 Deepwoken Builder Lv5 (539.07); verify on current patch.")
     print("Incompatible >95% HP Perfect Flash with <=40% HP Shadow Assault Blast.")
     print("Scarlet Cyclone triple projectiles same-target overlap is UNPROVEN.")
 

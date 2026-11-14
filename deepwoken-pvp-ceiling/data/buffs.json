@@ -9,15 +9,18 @@
       "name": "Enchant Reinforced Hunger",
       "percent": 5,
       "applies_to": "mantra",
+      "model_in_common_pool": true,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Food",
-      "exclusive_group": "food"
+      "exclusive_group": "food",
+      "comment": "Candied Fruit is plant-based (blocked by Carnivore; Carnivore builds must use Fish Omelette)."
     },
     {
       "id": "food_brain",
       "name": "Brain Reinforced Hunger",
       "value": "Nocturnal Gem proc 10→15 (not mantra +5%)",
       "applies_to": "separate proc",
+      "model_in_common_pool": false,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Food",
       "exclusive_group": "food"
@@ -27,6 +30,7 @@
       "name": "Ring of Casters",
       "percent": 5,
       "applies_to": "mantra",
+      "model_in_common_pool": true,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Ring_of_Casters",
       "comment": "Also -5% melee. Ring-duplicate stacking not assumed."
@@ -36,7 +40,12 @@
       "name": "Perfect Flash",
       "percent": 25,
       "applies_to": "mantra",
-      "condition": "caster HP >95%; near target (falls to +10% far away)",
+      "model_in_common_pool": true,
+      "min_hp_gt": 95,
+      "required_stats": {
+        "Intelligence": 25
+      },
+      "condition": "caster HP >95%; near target (falls to +10% far away); 25 Intelligence",
       "provenance": "documented amount; cap placement unverified",
       "source": "https://deepwoken.fandom.com/wiki/Attribute_Trees",
       "incompatible_with": [
@@ -48,11 +57,13 @@
       "id": "strengthening_potion",
       "name": "Strengthening Potion 3 Plumfruit 2 Browncap",
       "applies_to": "general damage",
-      "condition": "brewed at 100 Intelligence with Apothecary, consumed within 15 sec effect",
-      "provenance": "Recipe arithmetic verified in Alchemy; 2025 patch nerfed damage potion effect 50%, wiki ingredient figures may already reflect patch; CURRENT PVP BUFF UNVERIFIED",
+      "model_in_common_pool": true,
+      "breaks_full_hp_without_heal": true,
+      "condition": "brewed at 100 Intelligence with Apothecary (by crafter), consumed within 15 sec effect",
+      "provenance": "Recipe arithmetic verified in Alchemy; Nov-2025 patch nerfed damage potion effect 50%, wiki ingredient figures may already reflect patch; CURRENT PVP BUFF UNVERIFIED",
       "source": "https://deepwoken.fandom.com/wiki/Alchemy",
       "exclusive_group": "potion",
-      "comment": "Do not interpret 27.5% as live 2026 bonus without confirming whether wiki's +2% per ingredient reflects Nov-2025 nerf.",
+      "comment": "Do not interpret 27.5% as live 2026 bonus without confirming whether wiki's +2% per ingredient reflects Nov-2025 nerf. Drinking Browncap inflicts instant self-damage and Plumfruit reduces regen; threatens Perfect Flash (>95% HP) without Biotic Salts or heal.",
       "model_recipe_percent_before_patch_adjustment": 27.5,
       "live_pvp_percent": null,
       "source_patch": "https://deepwoken.fandom.com/wiki/Version_History/2025"
@@ -62,7 +73,11 @@
       "name": "Taunt",
       "percent": 20,
       "applies_to": "damage vs taunted target",
-      "condition": "target affected; buff counted under damage modifier cap",
+      "model_in_common_pool": true,
+      "required_stats": {
+        "Charisma": 25
+      },
+      "condition": "target affected; 25 Charisma; buff counted under damage modifier cap",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Attunement-less"
     },
@@ -71,7 +86,11 @@
       "name": "Tough Love",
       "percent": 5,
       "applies_to": "mantra vs charmed target",
-      "condition": "target charmed",
+      "model_in_common_pool": true,
+      "required_stats": {
+        "Charisma": 25
+      },
+      "condition": "target charmed; 25 Charisma",
       "provenance": "documented specific mantra effect",
       "source": "https://deepwoken.fandom.com/wiki/Strange_Merchant",
       "comment": "10% is NOT mantra bonus."
@@ -81,7 +100,12 @@
       "name": "Flame Within",
       "percent": 10,
       "applies_to": "general modifier-eligible damage",
-      "condition": "burning self; check HP for Perfect Flash",
+      "model_in_common_pool": true,
+      "breaks_full_hp_without_heal": true,
+      "required_stats": {
+        "Flamecharm": 25
+      },
+      "condition": "burning self (25 Flamecharm); continuous self-burn threatens >95% HP for Perfect Flash",
       "provenance": "documented general buff",
       "source": "https://deepwoken.fandom.com/wiki/Flame_Worshipper"
     },
@@ -90,7 +114,15 @@
       "name": "Inhale",
       "percent": 10,
       "applies_to": "next Galebreathe mantra OR next Flamecharm mantra with Fan the Flames",
-      "condition": "Inhale Galebreathe mantra, next eligible cast within 5s; potency +2% per inhaled mantra level",
+      "model_in_common_pool": true,
+      "exclusive_group": "inhale_buff",
+      "attunements": [
+        "Galebreathe"
+      ],
+      "required_stats": {
+        "Galebreathe": 80
+      },
+      "condition": "Inhale Galebreathe mantra (Lv5 = 80 Galebreathe for +10%), next eligible cast within 5s; potency +2% per inhaled mantra level",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
     },
@@ -99,7 +131,12 @@
       "name": "Last Resort",
       "percent": 5,
       "applies_to": "general damage",
-      "condition": "caster HP <25%",
+      "model_in_common_pool": true,
+      "max_hp_lt": 25,
+      "required_stats": {
+        "Willpower": 35
+      },
+      "condition": "caster HP <25%; 35 Willpower",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Status_Effects",
       "incompatible_with": [
@@ -107,10 +144,41 @@
       ]
     },
     {
+      "id": "lose_your_mind",
+      "name": "Lose Your Mind",
+      "percent": 15,
+      "applies_to": "general damage (scales below 70% sanity, caps at +15% at 0% sanity)",
+      "model_in_common_pool": true,
+      "required_stats": {
+        "Strength": 30,
+        "Fortitude": 30
+      },
+      "condition": "0% sanity (Tier 3 Insanity) for full +15%; 30 Strength + 30 Fortitude (Heretic's Sutra needs 80 Willpower and drops sanity while activating Piercing Will)",
+      "provenance": "documented amount; cap channel assumed common pending in-game test",
+      "source": "https://deepwoken.fandom.com/wiki/Lose_Your_Mind"
+    },
+    {
+      "id": "dark_hours",
+      "name": "Dark Hours",
+      "percent": 15,
+      "applies_to": "Shadowcast mantras only",
+      "model_in_common_pool": true,
+      "attunements": [
+        "Shadowcast"
+      ],
+      "required_stats": {
+        "Shadowcast": 35
+      },
+      "condition": "at night (XX:50-XX:10 IRL) or in realms without sun (always active in the Depths); 35 Shadowcast",
+      "provenance": "documented amount; cap channel assumed common pending in-game test",
+      "source": "https://deepwoken.fandom.com/wiki/Dark_Hours"
+    },
+    {
       "id": "reinforce",
       "name": "Reinforce",
       "percent": 5,
       "applies_to": "weapon only; NOT mantra",
+      "model_in_common_pool": false,
       "condition": "2.5% if no ally hit",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Attunement-less"
@@ -120,6 +188,7 @@
       "name": "Overflowing Dam",
       "percent": 10,
       "applies_to": "basic attacks only; NOT mantra",
+      "model_in_common_pool": false,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Rare_Talents"
     },
@@ -128,8 +197,27 @@
       "name": "Shade Devour",
       "percent": 20,
       "applies_to": "weapon only; NOT mantra",
+      "model_in_common_pool": false,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast"
+    },
+    {
+      "id": "nullifying_clarity",
+      "name": "Nullifying Clarity",
+      "percent": 10,
+      "applies_to": "basic attacks (M1s) only; NOT mantra",
+      "model_in_common_pool": false,
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Intelligence"
+    },
+    {
+      "id": "charged_return",
+      "name": "Charged Return",
+      "percent": 10,
+      "applies_to": "basic attacks and criticals only; NOT mantra",
+      "model_in_common_pool": false,
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall"
     },
     {
       "id": "nocturnal_gem",
@@ -137,6 +225,7 @@
       "flat_damage": 10,
       "flat_damage_with_brain": 15,
       "applies_to": "separate fixed damage proc, does NOT scale with common damage modifiers",
+      "model_in_common_pool": false,
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Nocturnal_Gem"
     },
@@ -144,7 +233,8 @@
       "id": "after_cut",
       "name": "After Cut",
       "percent": 5,
-      "applies_to": "extra proc on applicable Galebreathe mantras",
+      "applies_to": "extra proc on applicable Galebreathe mantras (10% on wind/physical M1s)",
+      "model_in_common_pool": false,
       "provenance": "documented conditional proc; excluded from common core",
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
     },
@@ -153,6 +243,15 @@
       "name": "Fan the Flames",
       "percent_max": 10,
       "applies_to": "Flamecharm mantra (via Inhale)",
+      "model_in_common_pool": true,
+      "exclusive_group": "inhale_buff",
+      "attunements": [
+        "Flamecharm"
+      ],
+      "required_stats": {
+        "Flamecharm": 40,
+        "Galebreathe": 80
+      },
       "condition": "40 Flamecharm, Inhale, stored level 5 wind mantra; stored wind modifiers transfer",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
@@ -163,6 +262,7 @@
       "name": "Arc Module: Enhance (Arc Beam)",
       "base_damage_multiplier": 1.5,
       "applies_to": "Arc Beam only",
+      "model_in_common_pool": false,
       "condition": "Arcwarder oath, Arc Suit active, Enhance talent",
       "provenance": "documented base damage bypass",
       "source": "https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder"
@@ -172,6 +272,7 @@
       "name": "Arc Module: Enhance (Arc Wave)",
       "base_damage_multiplier": 1.25,
       "applies_to": "Arc Wave only",
+      "model_in_common_pool": false,
       "condition": "Arcwarder oath, Arc Suit active, Enhance talent",
       "provenance": "documented base damage bypass",
       "source": "https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder"
@@ -181,6 +282,7 @@
       "name": "Shock Trooper Specialist Full Set",
       "base_damage_multiplier": 1.15,
       "applies_to": "Grand Javelin, Thunder Kick, Electro Carve, Astral Wind, Champion's Whirlthrow, Gale Lunge ONLY",
+      "model_in_common_pool": false,
       "condition": "entire Specialist set equipped",
       "provenance": "documented base damage bypass",
       "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
@@ -188,13 +290,12 @@
     }
   ],
   "not_yet_modelled": [
-    "Songchant specialty effects on oath mantras",
-    "gear damage/pen and ring duplicate restrictions",
-    "specific mantra talent procs",
-    "target vulnerability resist interactions",
-    "additional rare 2026 content",
-    "cross-player commands or party prebuffs",
-    "damage caps on bell and miscellaneous proc",
-    "spell modification per-hit behavior"
+    "Drowned / Yun'Shul-upgraded Wind-Up Resonance (Bell) up to level 10 on mantras",
+    "Mantra PEN stack (Prophet's Cloak +20%, Songchant +15%, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive uncapped PEN vs 50% cap)",
+    "Everchanging Aegis (-20% damage on hits 2..N of the same elemental mantra)",
+    "Specific mantra talent procs (After Cut, Ironsing Bleed, Burn, Heretic's Sutra timing)",
+    "Gear/ring duplicate restrictions and Chime vs Overworld consumable rules",
+    "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt)",
+    "Mantra Spark & Stone interactions on per-hit base damage and tick counts"
   ]
 }

@@ -23,7 +23,7 @@ Uma sequência de vários casts exige tempo, animação, cooldown, Ether, tempo 
 
 Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para elementais, com exceções por mantra. Necessário verificar as exceções caso a caso. Nivelamento muda a base individual e alguns efeitos, não apenas um multiplicador universal.
 
-**Oath Mantras:** a fórmula geral de oath tem fator Songchant adicional **(1 + 0.02 × Songchant)**. Os mantras específicos podem ter scaling zero. NÃO usar este fator em Ceaseless/Tornado.
+**Oath Mantras:** segundo [Mantras](https://deepwoken.fandom.com/wiki/Mantras) e [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md), a fórmula geral de Oath/Monster mantras inclui fator Songchant adicional **`(1 + 0.02 × Songchant)`** (`+12%` a 6 Songchant), já implementado em `ceiling.py` via `"oath_or_monster": true`. Mantras específicos podem ter exceções (ex.: `Sightless Beam` ~150 base sem songchant), e mantras comuns como `Ceaseless Slashes` e `Tornado` **não** usam este fator (`"oath_or_monster": false`).
 
 **Cap PvP da categoria de dano:** valor compatível com o Deepwoken Builder:
 - Até +25% bruto: contribuição integral.
@@ -39,23 +39,31 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 
 | Mecanismo | Efeito de interesse | Aplica mantras? | Nota |
 |---|---|---|---|
-| Enchant food | +5% | Sim | Candied Fruit / Fish Omelette, por Reinforced Hunger |
+| Enchant food | +5% | Sim | Candied Fruit / Fish Omelette (`Carnivore` obriga a usar Fish Omelette) |
 | Power food | +5% M1 | **Não** | Outro tipo de comida |
 | Brain food | Nocturnal proc 10→15 | Apenas proc da gema | Substitui Enchant, não simultâneo |
 | Ring of Casters | +5% mantra / -5% melee | Sim | Não presumir stack de vários anéis iguais |
-| Perfect Flash | +25% mantra perto e acima de 95% HP | Sim | Confirmar canal do cap e distância |
-| Taunt | Alvo recebe +20% | Sim | Explicitamente sujeito ao cap, alvo revida +10% |
-| Strengthening potion | Até +27.5% condicional | Geral, a confirmar prática | 3 Plumfruit + 2 Browncap; 100 INT + Apothecary **no fabricante** |
-| Tough Love | +5% mantra em Charmed | Sim | +10% para outras formas de dano; requer Charm |
-| Flame Within | +10% geral | Potencialmente | Dá self-burn; testar compatibilidade com Perfect Flash |
-| Inhale / Fan the Flames | até +10% no próximo Gale **ou Flamecharm se tiver Fan the Flames** | Gale ou Fire condicional | Requer armazenar mantra Gale (nível 5 para +10%); verificar cap |
-| Last Resort | +5% abaixo de 25% HP | Condicional | **Incompatível** com Perfect Flash >95% HP |
+| Perfect Flash | +25% mantra perto e acima de 95% HP | Sim | 25 INT; confirmar canal do cap e distância |
+| Taunt | Alvo recebe +20% | Sim | 25 CHA; explicitamente sujeito ao cap, alvo revida +10% |
+| Strengthening potion | Até +27.5% modelo receita (**não confirmado pós-nerf 2025**) | Geral, a confirmar prática | 3 Plumfruit + 2 Browncap; 100 INT + Apothecary **no fabricante**; Browncap dá dano ao beber |
+| Tough Love | +5% mantra em Charmed | Sim | 25 CHA; +10% para outras formas de dano; requer Charm |
+| Flame Within | +10% geral | Sim (self-burn) | 25 Flamecharm; self-burn contínuo ameaça Perfect Flash >95% HP |
+| Inhale / Fan the Flames | até +10% no próximo Gale **ou Flamecharm se tiver Fan the Flames** | Gale ou Fire condicional | 80 Galebreathe (Lv5) + 40 Flamecharm p/ Fan the Flames; janela de 5s |
+| Last Resort | +5% abaixo de 25% HP | Condicional | 35 Willpower; **incompatível** com Perfect Flash >95% HP |
+| Lose Your Mind | até +15% a 0% sanidade | Sim (assume pool comum) | 30 STR + 30 FTD; escala abaixo de 70% sanity (ativável com Heretic's Sutra a 80 WIL) |
+| Dark Hours | +15% Shadowcast noite/Depths | Só Shadowcast | 35 Shadowcast; ativo XX:50–XX:10 IRL ou nas Depths |
 | Reinforce | +5% ou +2.5% weapon | **Não** | Wiki declara weapon attacks only |
 | Overflowing Dam | até +10% basic | **Não** | Wiki declara basic attacks only |
 | Shade Devour | +20 a 25% **weapon** | **Não** | Não atribuir aos mantras seguintes |
+| Nullifying Clarity | +10% basic attacks | **Não** | Wiki restringe a basic attacks (M1s) |
+| Charged Return | +10% M1/Critical | **Não** | Wiki restringe a basic attacks e criticals |
 | Nocturnal Gem | +10 damage fixo, ou +15 com Brain food | Proc separado | NÃO afetado por damage modifiers normais, tem counterplay |
 
-Possíveis talentos/sinergias que exigem verificação de canal, condições ou patch: Charged Return, Lose Your Mind, Nullifying Clarity, Matador, Rush Hour, Spinning Swordsman, After Cut, Galebreathe Inhale, Charismatic Cast, Inspiration, status elemental, PEN específico, Flame Within. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
+**Mantra PEN e mecânicas ainda fora da fórmula de dano bruto:**
+- **Fontes de PEN:** `6 Songchant` (+15% Mantra PEN), `Prophet's Cloak` (+20% Mantra PEN), `Ironsing` (+30% PEN inata), `Piercing Will` (+15% PEN, via Heretic's Sutra). A PEN base tem cap de **50%**, só removível por talentos como `Ether Overdrive` (90 INT) / `Million Ton Piercer`.
+- **Drowned / Yun'Shul Wind-Up Resonance (Bell):** a versão base só aplica em ataques físicos, mas a versão upgraded via Yun'Shul sobe até nível 10 e **passa a ativar em mantras** (percentagem exata sem número fixo documentado na Wiki).
+
+Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: `After Cut` (5% em mantras Gale), `Matador`, `Rush Hour`, `Spinning Swordsman`, `Blast Furnace`, `Crystallization`, `Emperor Flame`, `Blood Loss` PvP vs PvE. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
 
 ### Poções (método completo; **modelo de receita, eficácia após o patch NÃO CONFIRMADA**)
 - Uma única poção ativa por jogador; outra substitui. Buff dura 15s por defeito.
@@ -77,15 +85,24 @@ Possíveis talentos/sinergias que exigem verificação de canal, condições ou 
 
 | Nível 5 | Hits | Base total | Dano bruto a 100 atributo, 6 Songchant, ×1.5 | Grau de confiança |
 |---|---:|---:|---:|---|
-| Ceaseless Slashes | 20 | 310,05 | **576,34** | 5 cortes base documentados; mais cortes não auditados |
+| Ceaseless Slashes (Fandom) | 20 | 310,05 | **576,34** | **DISPUTADO** vs 290 no Builder; 5+ cortes não auditados |
+| Ceaseless Slashes (Builder) | ? | 290,00 | **539,07** | Base agregada no Deepwoken Builder pós-nerf 2025 |
 | Tornado | 12 | 177,60 | **372,63** | 12 ticks documentados; After Cut não incluído |
 | Scarlet Cyclone + Multiplying | 30? | 156,00 | **327,31** | **NÃO CONFIRMADO** 3 projéteis atingirem o MESMO alvo |
 | Scarlet Cyclone padrão | 10 | 130,00 | **272,76** | Contagem documentada |
 | Tornado Kick | 4 | 112,00 | **234,99** | Abertura tem de acertar |
 | Metal Rain | ~23 | 110,40 | **231,63** | Estimativa, Bleed adicional não incluído |
+| Ice Flock | 8 | 105,60 | **221,56** | Documentado; Everchanging Aegis corta hits seguintes |
 | Shadow Meteor | 3 | 105,00 | **220,30** | Acertar os três |
-| Scarlet Cannon | 17 | 51,00 | **107,00** | 17 ticks |
+| Flame Ballista (Full Charge) | 1 | 96,00 | **201,42** | Requer carga máxima; single hit (Burn omitido) |
+| Crimson Rain (Initial + Recall) | 12 | 93,00 | **195,13** | 6 adagas na ida + 6 no recall |
+| Eclipse Kick | 1 | 92,00 | **193,03** | Single hit (50 SHD + 30 STR; elegível a Dark Hours) |
 | Shadow Assault Blast | 20 | 62,80 | **131,76** | Somente <=40% HP, NÃO com Perfect Flash |
+| Table Flip | 1 | 60,00 | **111,53** | Exemplo Strength de referência |
+| Scarlet Cannon | 17 | 51,00 | **107,00** | 17 ticks |
+| Rocket Lance | 1 | 47,00 | **98,61** | Single hit Ironsing (+30% PEN inato não incluído) |
+| Grand Javelin | 1 | 44,20 | **92,74** | Single hit Thundercall |
+| Fire Forge | 3 | 36,99 | **77,61** | 3 adagas Flamecharm (Burn omitido) |
 
 Para Scarlet Cyclone + Multiplying Spark cada projétil passa a **5,2** de base por tick em vez de 13. Mesmo se TODOS acertarem, 3×10×5,2=156; não são 3× o dano da versão normal (390).
 
@@ -116,5 +133,5 @@ O mantra Ceaseless Slashes pode superar 5 cortes quando se recupera Ether durant
 4. Medir se Ceaseless com Ether regen consegue >5 cortes quantas vezes; limites internos de casts.
 5. Testar os três cyclones sobre um jogador; retorno Reversal (hit novo ou ignora mesmo alvo?).
 6. Medir procs de After Cut e da gema, incluindo cooldown por mantra e por hit.
-7. Integrar subset de builds legais para filtros de oath, element requirements e mantras equipáveis.
+7. Expandir a validação de builds legais em `buff_scenarios.py` (já lê `buffs.json` e verifica soma <= 330 em fase única) para incluir Oath, slots de mantras e rotas com *Shrine of Order*.
 8. Definir resistência do alvo e PEN com fórmula real; só depois comparar dano HP de uma rotação e DPS.

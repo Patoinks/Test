@@ -25,12 +25,30 @@
         }
       ],
       "source": "https://deepwoken.fandom.com/wiki/Attunement-less",
-      "status": "documented baseline",
-      "warning": "Additional slashes possible with ether/timing; not proven max. Slash damage type.",
+      "status": "disputed baseline (310.05 Fandom vs 290 Builder)",
+      "warning": "CONFLICTING SOURCE: Deepwoken Builder reports 290 Lv5 base after 2025 nerfs; 310.05 Fandom tick breakdown is unverified on current patch. Additional slashes possible with ether/timing.",
       "oath_or_monster": false,
       "other_current_source_base_level_5": 290,
       "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
       "caveat": "Wiki detailed 20-hit sum 310.05 conflicts with builder Lv5 base 290; do not call this verified maximum."
+    },
+    {
+      "id": "ceaseless_builder",
+      "name": "Ceaseless Slashes (Deepwoken Builder Lv5)",
+      "type": "Light Weapon",
+      "scaling": 1.65,
+      "unverified_ticks": true,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 290,
+          "label": "builder Lv5 aggregate base (tick breakdown not exposed)"
+        }
+      ],
+      "source": "https://deepwoken.co/builder?id=j6Ot2RWw",
+      "status": "builder baseline (unverified ticks)",
+      "warning": "Represents the 290 aggregate Lv5 base shown by Deepwoken Builder; actual multi-hit tick count is 20+ in-game, not 1.",
+      "oath_or_monster": false
     },
     {
       "id": "tornado",
@@ -158,6 +176,135 @@
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
       "status": "conditional full-hit",
       "warning": "ONLY at <=40% HP; cannot combine with Perfect Flash (>95% HP).",
+      "oath_or_monster": false
+    },
+    {
+      "id": "ice_flock",
+      "name": "Ice Flock",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 8,
+          "damage": 13.2
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "documented baseline",
+      "warning": "8 projectiles; Everchanging Aegis reduces hits 2..8 by 20%.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "flame_ballista",
+      "name": "Flame Ballista (Full Charge)",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 96
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "conditional full-charge",
+      "warning": "Requires full charge; single hit, innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "crimson_rain",
+      "name": "Crimson Rain (Initial + Recall)",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 12,
+          "damage": 7.75,
+          "label": "6 Lv5 daggers on impact + 6 on recall"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "conditional full-hit",
+      "warning": "Requires all 6 daggers to land both on throw and recall; Blood Loss omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "eclipse_kick",
+      "name": "Eclipse Kick",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 92
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "documented single-hit",
+      "warning": "Requires 50 Shadowcast + 30 Strength; eligible for +15% Dark Hours at night/Depths.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "table_flip",
+      "name": "Table Flip",
+      "type": "Attunement-less (Strength)",
+      "scaling": 1.65,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 60
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Attunement-less",
+      "status": "documented single-hit",
+      "warning": "Strength scaling baseline example referenced in docs/RELIABLE_PVP.md.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "rocket_lance",
+      "name": "Rocket Lance",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 47
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "documented single-hit",
+      "warning": "Innate +30% Ironsing Armor PEN and Bleed omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "grand_javelin",
+      "name": "Grand Javelin",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 44.2
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "documented single-hit",
+      "warning": "Long-range single hit; Shock Trooper Specialist Full Set grants 1.15x base_damage_multiplier.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "fire_forge",
+      "name": "Fire Forge",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 3,
+          "damage": 12.33
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "documented baseline",
+      "warning": "3 daggers must connect; innate Burn omitted.",
       "oath_or_monster": false
     }
   ]
