@@ -28,6 +28,7 @@
       "status": "disputed baseline (310.05 Fandom vs 290 Builder)",
       "warning": "CONFLICTING SOURCE: Deepwoken Builder reports 290 Lv5 base after 2025 nerfs; 310.05 Fandom tick breakdown is unverified on current patch. Additional slashes possible with ether/timing.",
       "oath_or_monster": false,
+      "skill_group": "ceaseless",
       "other_current_source_base_level_5": 290,
       "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
       "caveat": "Wiki detailed 20-hit sum 310.05 conflicts with builder Lv5 base 290; do not call this verified maximum."
@@ -48,7 +49,8 @@
       "source": "https://deepwoken.co/builder?id=j6Ot2RWw",
       "status": "builder baseline (unverified ticks)",
       "warning": "Represents the 290 aggregate Lv5 base shown by Deepwoken Builder; actual multi-hit tick count is 20+ in-game, not 1.",
-      "oath_or_monster": false
+      "oath_or_monster": false,
+      "skill_group": "ceaseless"
     },
     {
       "id": "tornado",
@@ -134,7 +136,8 @@
       "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
       "status": "documented baseline",
       "warning": "Base one-cyclone form.",
-      "oath_or_monster": false
+      "oath_or_monster": false,
+      "skill_group": "scarlet_cyclone"
     },
     {
       "id": "scarlet_cyclone_triple",
@@ -150,7 +153,8 @@
       "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
       "status": "unproven per-target hypothesis",
       "warning": "Three cyclones×10 ticks, each ONLY 5.2 base: MUST TEST whether all three can hit same player.",
-      "oath_or_monster": false
+      "oath_or_monster": false,
+      "skill_group": "scarlet_cyclone"
     },
     {
       "id": "scarlet_cannon",
@@ -250,7 +254,8 @@
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
       "status": "documented single-hit",
       "warning": "Requires 50 Shadowcast + 30 Strength; eligible for +15% Dark Hours at night/Depths.",
-      "oath_or_monster": false
+      "oath_or_monster": false,
+      "skill_group": "eclipse_kick"
     },
     {
       "id": "table_flip",
@@ -352,6 +357,554 @@
       "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
       "status": "documented baseline",
       "warning": "3 daggers must connect; innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "twister_kicks",
+      "name": "Twister Kicks",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 4,
+          "damage": 12.2
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "documented baseline",
+      "warning": "4 spinning kicks (12.2 Lv5 base each); all hits assumed to land.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "wind_carve",
+      "name": "Wind Carve",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 12,
+          "damage": 3.7
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "documented baseline",
+      "warning": "12 ticks (3.7 Lv5 base each); controllable tempest full-tick assumption.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "astral_wind",
+      "name": "Astral Wind",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 5,
+          "damage": 8.65
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "documented baseline (Specialist-eligible)",
+      "warning": "5 rapid slashes (8.65 Lv5 base each); eligible for +15% base bypass with Shock Trooper Specialist Full Set.",
+      "oath_or_monster": false,
+      "specialist_eligible": true
+    },
+    {
+      "id": "heavenly_wind",
+      "name": "Heavenly Wind",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 43
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "documented single-hit",
+      "warning": "Aerial dive strike (43 Lv5 base).",
+      "oath_or_monster": false
+    },
+    {
+      "id": "bloodtide_ritual",
+      "name": "Bloodtide Ritual (Max Charge)",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 7,
+          "damage": 2
+        },
+        {
+          "count": 1,
+          "damage": 62
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "conditional full-charge",
+      "warning": "Requires standing inside 7 conjuration ticks (2 each) + max-charge Lv5 trident strike (62).",
+      "oath_or_monster": false
+    },
+    {
+      "id": "razor_blitz",
+      "name": "Razor Blitz",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            35,
+            17.5
+          ],
+          "label": "Lv5 initial uppercut (35) + mid-air return strike (17.5)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "conditional full-hit",
+      "warning": "Cancels entirely if initial hit is blocked.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "crimson_surge",
+      "name": "Crimson Surge",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 3,
+          "damage": 16
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "documented baseline",
+      "warning": "3 blood slashes (16 Lv5 base each); all 3 must connect.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "vicious_descent",
+      "name": "Vicious Descent",
+      "type": "Bloodrend",
+      "scaling": 2.0,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 48.5
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "documented single-hit",
+      "warning": "2.0 Bloodrend scaling per Fandom Wiki (48.5 Lv5 base slam).",
+      "oath_or_monster": false
+    },
+    {
+      "id": "bolt_piercer",
+      "name": "Bolt Piercer",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 7,
+          "damage": 19
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "conditional full-hit",
+      "warning": "7 lightning drops (19 Lv5 base each); assumes all 7 drops strike the same target.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "rising_thunder",
+      "name": "Rising Thunder",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            17.2,
+            43
+          ],
+          "label": "Lv5 rush phase (17.2) + crash phase (43)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "documented baseline",
+      "warning": "Requires both rush and crash phases to land.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "lightning_impact_static",
+      "name": "Lightning Impact (+ Rain of Static)",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            6.5,
+            6.5,
+            6.5,
+            6.5,
+            29
+          ],
+          "label": "4 Rain of Static ticks (6.5 each) + main Lv5 impact (29)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "conditional full-hit",
+      "warning": "Requires Rain of Static talent for the 4 extra 6.5 opener hits (29 base without talent).",
+      "oath_or_monster": false
+    },
+    {
+      "id": "thunder_kick",
+      "name": "Thunder Kick",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 37
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "documented single-hit (Specialist-eligible)",
+      "warning": "Guardbreaks at Lv5; eligible for +15% base bypass with Shock Trooper Specialist Full Set.",
+      "oath_or_monster": false,
+      "specialist_eligible": true
+    },
+    {
+      "id": "lightning_beam",
+      "name": "Lightning Beam",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 36
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "documented single-hit",
+      "warning": "Instant flourish combo option with Shocking Finish talent.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "oxidizing_rush",
+      "name": "Oxidizing Rush",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 10,
+          "damage": 7
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "conditional full-hit",
+      "warning": "10 hits (7 Lv5 base each); innate Bleed omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "metal_gatling",
+      "name": "Metal Gatling",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 7,
+          "damage": 9.5
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "documented baseline",
+      "warning": "7 hits (9.5 Lv5 base each); applies Metal Rods.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "iron_slam",
+      "name": "Iron Slam",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 49
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "documented single-hit",
+      "warning": "Guardbreaks at Lv5; innate Bleed omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "iron_hug",
+      "name": "Iron Hug",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            8,
+            8,
+            8,
+            8,
+            13.34
+          ],
+          "label": "4 Lv5 hug ticks (8 each) + throw (13.34)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "conditional full-hit",
+      "warning": "Cancels entirely if blocked; innate Bleed omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "wardens_blades",
+      "name": "Warden's Blades (4 Projectiles)",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 4,
+          "damage": 19
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "documented baseline",
+      "warning": "Counts 4 Lv5 projectile blades (19 each); extra 3-dmg spin ticks excluded conservatively; Everchanging Aegis caveated.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "ice_carve",
+      "name": "Ice Carve",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 9,
+          "damage": 7
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "conditional full-hit",
+      "warning": "9 hits (7 Lv5 base each); Everchanging Aegis caveated.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "ice_fissure",
+      "name": "Ice Fissure",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 51.75
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "documented single-hit",
+      "warning": "51.75 Lv5 base hit.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "ice_smash",
+      "name": "Ice Smash",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 47
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "documented single-hit",
+      "warning": "47 Lv5 base slam; auto-guardbreaks at Lv5.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "glacial_arc",
+      "name": "Glacial Arc",
+      "type": "Frostdraw",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 40.8
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Frostdraw",
+      "status": "documented single-hit",
+      "warning": "40.8 Lv5 base hit.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "relentless_flames",
+      "name": "Relentless Flames",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            28,
+            28,
+            19.6,
+            11.2,
+            5.6,
+            5.6,
+            5.6
+          ],
+          "label": "7 Lv5 declining flurry slashes"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "conditional full-hit",
+      "warning": "7 hits (103.6 total base); cancels if parried; innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "flare_volley",
+      "name": "Flare Volley (3 Fireballs)",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 3,
+          "damage": 30
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "conditional full-hit",
+      "warning": "Requires all 3 Lv5 fireballs (30 each) via recasts to hit the same target; innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "fire_eruption",
+      "name": "Fire Eruption (2 Explosions)",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 2,
+          "damage": 32
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "conditional full-hit",
+      "warning": "Requires both Lv5 explosions (32 each) to connect; innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "flame_grab",
+      "name": "Flame Grab",
+      "type": "Flamecharm",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 1,
+          "damage": 35
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Flamecharm",
+      "status": "documented single-hit",
+      "warning": "35 Lv5 base grab; innate Burn omitted.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "eclipse_kick_multiplying",
+      "name": "Eclipse Kick (Multiplying Spark)",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            9,
+            92
+          ],
+          "label": "Lv5 Multiplying Spark opener kick (9) + main axe kick (92)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "conditional full-hit",
+      "warning": "Requires both Multiplying Spark kicks + 50 Shadowcast / 30 Strength; eligible for +15% Dark Hours.",
+      "oath_or_monster": false,
+      "skill_group": "eclipse_kick"
+    },
+    {
+      "id": "shadow_roar",
+      "name": "Shadow Roar",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 8,
+          "damage": 9
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "conditional full-hit",
+      "warning": "8 hits (9 Lv5 base each); eligible for +15% Dark Hours.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "shadow_seekers",
+      "name": "Shadow Seekers",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 5,
+          "damage": 14
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "documented baseline",
+      "warning": "5 standard Lv5 seekers (14 each); eligible for +15% Dark Hours.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "shadow_gun_blast",
+      "name": "Shadow Gun (Blast Spark)",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 3,
+          "damage": 19.8
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "conditional full-hit",
+      "warning": "3 Blast Spark barrage hits (19.8 Lv5 base each); eligible for +15% Dark Hours.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "shadow_chains",
+      "name": "Shadow Chains",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 4,
+          "damage": 14.42
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "documented baseline",
+      "warning": "4 hits at Lv5 (14.42 base each); eligible for +15% Dark Hours.",
+      "oath_or_monster": false
+    },
+    {
+      "id": "shadow_eruption",
+      "name": "Shadow Eruption",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 2,
+          "damage": 26
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "documented baseline",
+      "warning": "2 hits (26 Lv5 base each); eligible for +15% Dark Hours.",
       "oath_or_monster": false
     }
   ]

@@ -198,6 +198,7 @@ def evaluate_mantra_with_items(
 
     return {
         "id": mantra["id"],
+        "skill_group": mantra.get("skill_group", mantra["id"]),
         "name": mantra["name"],
         "type": mantra["type"],
         "status": mantra.get("status", ""),
@@ -217,6 +218,50 @@ def evaluate_mantra_with_items(
         "hypothetical_grim_sep_gross": hypothetical_grim_sep_gross,
         "hypothetical_grim_brain_vs_armor": hypothetical_grim_brain_vs_armor,
     }
+
+
+def _is_unproven_or_stale(status: str) -> bool:
+    low = status.lower()
+    return ("unproven" in low) or ("stale" in low)
+
+
+def deduplicate_skill_groups(rows: list[dict], *, sort_key: str = "sear_brain_vs_armor") -> list[dict]:
+    """Keep the highest-damage variant per canonical skill_group so one mantra cannot take two slots."""
+    best_by_group: dict[tuple[str, str], dict] = {}
+    for r in sorted(rows, key=lambda x: x[sort_key], reverse=True):
+        key = (r["type"], r.get("skill_group", r["id"]))
+        if key not in best_by_group:
+            best_by_group[key] = r
+    return list(best_by_group.values())
+
+
+def top_n_by_attunement(
+    rows: list[dict],
+    top_n: int = 6,
+    *,
+    sort_key: str = "sear_brain_vs_armor",
+) -> list[dict]:
+    """Group deduplicated mantras by attunement and summarize top-N kit ceilings."""
+    grouped: dict[str, list[dict]] = {}
+    for r in deduplicate_skill_groups(rows, sort_key=sort_key):
+        grouped.setdefault(r["type"], []).append(r)
+
+    summaries = []
+    for att_name, grp in grouped.items():
+        grp.sort(key=lambda r: r[sort_key], reverse=True)
+        picked = grp[:top_n]
+        summaries.append({
+            "attunement": att_name,
+            "skills": picked,
+            "count": len(picked),
+            "no_item_sum": sum(r["unbuffed_gross"] for r in picked),
+            "passive_sum": sum(r["passive_item_gross"] for r in picked),
+            "sear_brain_sum": sum(r["sear_brain_vs_armor"] for r in picked),
+            "max_item_vs_armor_sum": sum(r["max_item_vs_armor"] for r in picked),
+            "grim_brain_vs_armor_sum": sum(r["hypothetical_grim_brain_vs_armor"] for r in picked),
+        })
+    summaries.sort(key=lambda s: (s["count"], s["sear_brain_sum"]), reverse=True)
+    return summaries
 
 
 def _format_row(r: dict) -> str:
@@ -239,6 +284,8 @@ def format_report(
     attunement: str | None = None,
     exclude_ids: tuple[str, ...] | list[str] | set[str] = (),
     by_attunement: bool = False,
+    top_n: int | None = None,
+    proven_only: bool = False,
     showcase_only: bool = False,
 ) -> str:
     """Format a complete human-readable report of PvP item theory + mantra ceiling."""
@@ -250,6 +297,8 @@ def format_report(
     else:
         selected = all_mantras
     selected = filter_mantras(selected, attunement=attunement, exclude_ids=exclude_ids)
+    if proven_only:
+        selected = [m for m in selected if not _is_unproven_or_stale(m.get("status", ""))]
 
     passive_pct = passive_item_common_bonus(items, include_food=True) * 100.0
     header = (
@@ -265,9 +314,10 @@ def format_report(
         "PEN Ceiling vs Target Armor: Passive (60%, Ironsing 90% via Oath +5%, Prophet +20%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap) vs Sear Cauterize (+40% -> 100% PEN = SEAR100%!) vs Grim? (+25% uncapped hypothesis).",
         f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}), Target Pre-PEN Armor={target_armor*100:.0f}%",
     ]
-    if attunement or exclude_ids:
+    if attunement or exclude_ids or proven_only or top_n:
         lines.append(
-            f"Filters: attunement={attunement or 'ALL'}, excluded={','.join(exclude_ids) or 'none'}"
+            f"Filters: attunement={attunement or 'ALL'}, excluded={','.join(exclude_ids) or 'none'}, "
+            f"proven_only={proven_only}, top={top_n or 'ALL'}"
         )
     lines.append("")
 
@@ -285,7 +335,27 @@ def format_report(
     ]
     rows.sort(key=lambda r: r["full_cap_plus_nocturnal_gross"], reverse=True)
 
-    if by_attunement:
+    if top_n is not None:
+        kits = top_n_by_attunement(rows, top_n=top_n)
+        lines.append(f"TOP-{top_n} UNIQUE-SKILL KIT COMPARISON BY ATTUNEMENT (deduped by skill_group; 1-proc Nocturnal+Brain per cast):")
+        lines.append(
+            f"{'ATTUNEMENT':<26} {'SKILLS':>6} {'NO-ITEM SUM':>11} {'PASSIVE SUM':>11} "
+            f"{'60/90% ARM':>11} {'SEAR100% SUM':>12} {'GRIM?ARM SUM':>12}  TOP SKILL (#1 -> #{top_n})"
+        )
+        for k in kits:
+            sk = k["skills"]
+            rng_txt = f"{sk[0]['name']} ({sk[0]['sear_brain_vs_armor']:.1f}) -> {sk[-1]['name']} ({sk[-1]['sear_brain_vs_armor']:.1f})"
+            lines.append(
+                f"{k['attunement']:<26} {k['count']:>3}/{top_n:<2} {k['no_item_sum']:11.2f} {k['passive_sum']:11.2f} "
+                f"{k['max_item_vs_armor_sum']:11.2f} {k['sear_brain_sum']:12.2f} {k['grim_brain_vs_armor_sum']:12.2f}  {rng_txt}"
+            )
+        lines.append("")
+        lines.append(f"TOP {top_n} SKILLS PER ATTUNEMENT:")
+        for k in kits:
+            lines.append(f"\n[{k['attunement']}] ({k['count']} unique skills shown)")
+            lines.append(header)
+            lines.extend(_format_row(r) for r in k["skills"])
+    elif by_attunement:
         grouped: dict[str, list[dict]] = {}
         for r in rows:
             grouped.setdefault(r["type"], []).append(r)
@@ -336,6 +406,10 @@ def main() -> None:
                         help="Exclude Ceaseless Slashes entries from output")
     parser.add_argument("--by-attunement", action="store_true",
                         help="Show best-per-attunement summary plus grouped tables")
+    parser.add_argument("--top", type=int, default=None,
+                        help="Rank unique skills and summarize Top-N kit ceiling per attunement (e.g. --top 6)")
+    parser.add_argument("--proven-only", action="store_true",
+                        help="Exclude unproven hypotheses (Scarlet Cyclone x3) and stale nerfed baselines (Shadow Meteor)")
     parser.add_argument("--showcase", action="store_true",
                         help="Restrict output to original 9 showcase mantras")
     args = parser.parse_args()
@@ -351,6 +425,8 @@ def main() -> None:
         attunement=args.attunement,
         exclude_ids=exclude_ids,
         by_attunement=args.by_attunement,
+        top_n=args.top,
+        proven_only=args.proven_only,
         showcase_only=args.showcase,
     ))
 

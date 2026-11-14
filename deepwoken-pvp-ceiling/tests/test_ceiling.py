@@ -207,14 +207,33 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertTrue(all(m["id"] not in module.CEASELESS_IDS for m in no_ceaseless))
 
         gale_only = module.filter_mantras(all_mantras, attunement="galebreathe", exclude_ids=module.CEASELESS_IDS)
-        self.assertEqual({m["id"] for m in gale_only}, {"tornado", "tornado_kick", "champions_whirlthrow"})
+        self.assertEqual(
+            {m["id"] for m in gale_only},
+            {"tornado", "tornado_kick", "champions_whirlthrow", "twister_kicks", "wind_carve", "astral_wind", "heavenly_wind"},
+        )
 
         report = item_theory.format_report(exclude_ids=module.CEASELESS_IDS, by_attunement=True)
         self.assertNotIn("Ceaseless Slashes", report)
         self.assertIn("BEST PER ATTUNEMENT", report)
         self.assertIn("Scarlet Cyclone", report)
         self.assertIn("Ice Flock", report)
-        self.assertIn("Tornado Kick", report)
+        self.assertIn("Bolt Piercer", report)
+
+        # Verify Top-6 unique-skill kit deduplicates same-skill variants & supports proven-only.
+        top6_report = item_theory.format_report(exclude_ids=module.CEASELESS_IDS, top_n=6, proven_only=True)
+        self.assertIn("TOP-6 UNIQUE-SKILL KIT COMPARISON", top6_report)
+        self.assertNotIn("Scarlet Cyclone + Multiplying Spark", top6_report)
+        self.assertNotIn("Shadow Meteor", top6_report)
+        self.assertNotIn("Eclipse Kick\n", top6_report)
+
+        items = item_theory.load_items()
+        blood_rows = [
+            item_theory.evaluate_mantra_with_items(m, items)
+            for m in module.filter_mantras(all_mantras, attunement="Bloodrend")
+        ]
+        deduped = item_theory.deduplicate_skill_groups(blood_rows)
+        sc_variants = [r for r in deduped if r["skill_group"] == "scarlet_cyclone"]
+        self.assertEqual(len(sc_variants), 1)
 
 
 if __name__ == "__main__":
