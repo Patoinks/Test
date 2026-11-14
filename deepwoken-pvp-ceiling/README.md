@@ -1,3 +1,5 @@
+> **POÇÕES NO ONE-SKILL (14/11/2026):** [Strengthening +13,75% vs +27,5%, nerf de 2025, autodano Browncap e conflito Perfect Flash](docs/POTION_ONECAST_2026-11-14.md). Com o cap saturado ×1,5, a poção deixa de aumentar o dano do mantra.
+
 > **ONE-TAP / ONE-SKILL PvP (14/11/2026):** [comparação matemática de golpes únicos e casts, excluindo Ceaseless](docs/ONESKILL_PVP_2026-11-14.md). [Calculadora independente](src/oneskill_pvp_2026.py) e [testes](tests/test_oneskill_pvp_2026.py). O Eclipse Kick Lv5 foi corrigido de 92 para **115 de base**, conforme Builder; qualquer “recorde” continua condicionado à compatibilidade dos buffs e às resistências reais.
 
 > **FONTE PRIMÁRIA DO JOGO:** [Patch Log oficial, 19 outubro–1 novembro de 2026](docs/PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md), transcrito de capturas reais enviadas pelo utilizador. **Alloyblood e Cauterize foram nerfados em 1/11 (dano e scaling)**, portanto não utilizar valores do lançamento. **Flashpoint** está escrito em 31/10 e **Flashfusion** em 1/11 — identidade por confirmar.
