@@ -1218,7 +1218,7 @@
       "id": "blinding_dawn",
       "name": "Blinding Dawn (Dawnwalker Oath)",
       "type": "Oath Mantra",
-      "scaling": 0.0,
+      "scaling": 0,
       "segments": [
         {
           "count": 18,
@@ -1255,7 +1255,7 @@
       "id": "sightless_beam",
       "name": "Sightless Beam (Blindseer Oath)",
       "type": "Oath Mantra",
-      "scaling": 0.0,
+      "scaling": 0,
       "segments": [
         {
           "count": 1,
@@ -1268,6 +1268,28 @@
       "oath_or_monster": true,
       "is_oath_mantra": true,
       "oath": "Blindseer"
+    },
+    {
+      "id": "ether_barrage",
+      "name": "Ether Barrage",
+      "type": "Intelligence",
+      "scaling": 1.65,
+      "segments": [
+        {
+          "count": 6,
+          "damage": 8
+        }
+      ],
+      "source": "https://deepwoken.co/wiki/mantra/Ether%20Barrage",
+      "status": "L5 base 48 = 6 × 8, Builder + Fandom cross-check; 6 hits only if full cast connects",
+      "warning": "Wiki describes FOUR orbs but SIX damage instances total; do not multiply 4 × 6 × 8. 0.65s windup, 10s cooldown, 0 posture, close-range auto-track. Crystal/Perfect Lens improves autotrack range. It is not a single-impact skill, and 6 ticks on one player require testing.",
+      "oath_or_monster": false,
+      "skill_group": "ether_barrage",
+      "builder_lv5_base": 48,
+      "requirements": {
+        "Intelligence": 30
+      },
+      "autotrack": true
     }
   ]
 }
