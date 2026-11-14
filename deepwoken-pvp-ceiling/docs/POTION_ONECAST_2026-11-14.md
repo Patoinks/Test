@@ -42,7 +42,7 @@ Partindo de 400 HP em cheio: `(400−22)/400=94.5%`; **Perfect Flash (>95%) fica
 | Anteriores + Perfect Flash, sem poção | +50% | ×1.37500 | 221,18 | 81,79 |
 | Anteriores + Perfect Flash + Potion B | +63,75% | ×1.44375 | 232,24 | 85,88 |
 | Anteriores + Perfect Flash + Potion A | +77,5% | ×1.50000 | **241,28** | **89,23** |
-| Anteriores + Perfect Flash + Dark Hours + Potion B | +78,75% | ×1.50000 | **241,28** | **89,23** |
+| Anteriores + Perfect Flash + Dark Hours + Potion B | +78,75% | ×1.50000 | **241,28** | **— (Dark Hours só Shadowcast)** |
 
 **Avisos:** (a) combiná-los exige simultaneidade e legalidade dos buffs; (b) aplicação de cada modificador ao pool comum é hipótese modelada; (c) se a poção te deixar a <=95% HP, o cenário de Perfect Flash não é aplicável; (d) Dark Hours requer noite/Depths e Shadowcast — **não funciona no Ether Barrage**, logo a última linha é exclusiva de Eclipse Kick; (e) Ether Barrage tem 6 ticks, não é single-impact.
 
