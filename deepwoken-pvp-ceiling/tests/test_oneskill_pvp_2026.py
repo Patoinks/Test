@@ -28,6 +28,15 @@ class TestOneCast(unittest.TestCase):
         self.assertAlmostEqual(module.gross(c,.65),233.2415625)
         self.assertAlmostEqual(module.gross(c,.75),241.284375)
 
+    def test_ether_barrage_full_cast_not_one_hit(self):
+        c=self.c("Ether Barrage")
+        self.assertEqual(c.hits,6)
+        self.assertEqual(c.level5_base,48)
+        self.assertAlmostEqual(module.gross(c),59.484)
+        self.assertAlmostEqual(module.gross(c,.25),74.355)
+        self.assertAlmostEqual(module.gross(c,.75),89.226)
+        self.assertGreater(module.gross(self.c("Eclipse Kick"),.75),module.gross(c,.75))
+
     def test_quick_hit_comparators(self):
         self.assertAlmostEqual(module.gross(self.c("Flame Ballista"),.75),201.42)
         self.assertAlmostEqual(module.gross(self.c("Skyshatter Kick"),.75),223.065)
