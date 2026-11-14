@@ -1,3 +1,5 @@
+> **FONTE PRIMÁRIA DO JOGO:** [Patch Log oficial, 19 outubro–1 novembro de 2026](docs/PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md), transcrito de capturas reais enviadas pelo utilizador. **Alloyblood e Cauterize foram nerfados em 1/11 (dano e scaling)**, portanto não utilizar valores do lançamento. **Flashpoint** está escrito em 31/10 e **Flashfusion** em 1/11 — identidade por confirmar.
+
 # Deepwoken PvP — teto matemático de dano de Mantras
 
 **Status:** auditoria reprodutível, NÃO uma prova de recorde global. Atualizado em 2026-11-14.
