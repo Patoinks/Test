@@ -57,3 +57,14 @@ Download/copy **the actual official patch posts** from June 1 through Nov 14 202
 Then diff against the builder files and rerun damage tests. Specifically check channel `#updates`, `#patch-notes` or equivalent in the **official** server — exact channel name unconfirmed because the public landing page hides the messages. Do not invent the channel URL.
 
 Until then, keep overall status as **PARTIAL** and remove any impression that the late-2026 meta is fully known.
+
+## August 13–14: further patch-specific numeric leads (secondary source)
+
+A dated [Aug 16 weapon audit](https://earnaldo.com/blog/deepwoken-tier-list-2026) explicitly attributes its entries to **Aug 13 `pv_AUG_13_04:19a`** and **Aug 14 hotpatch `3.2.18a`**:
+- **Alloyed Falchion buff** (magnitude omitted).
+- **Bloodedge** posture scaling cut by half; base posture 7→6 and **+0.1s endlag**.
+- **Bloodfouler** running crit made **jumpable** (weaker in PvP, not a mantra hit-count nerf).
+- **Ghost** from Aug 13 blocks enemy lock-on during its invisibility window, which affects projectile/mantra hit probability; not a raw damage multiplier.
+- **Steelscale Dusters** listed 14 base / Light scaling 10 at 55 Light, swing 1.12x (secondary stat table, not directly a mantra ceiling).
+
+These statements are **not from an official patch transcript**. Treat as dated verification leads, not patch-certified truth.
