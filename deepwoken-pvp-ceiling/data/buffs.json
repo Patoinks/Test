@@ -47,13 +47,15 @@
     {
       "id": "strengthening_potion",
       "name": "Strengthening Potion 3 Plumfruit 2 Browncap",
-      "percent": 27.5,
       "applies_to": "general damage",
       "condition": "brewed at 100 Intelligence with Apothecary, consumed within 15 sec effect",
-      "provenance": "derived from documented recipe, potency and ingredient values",
+      "provenance": "Recipe arithmetic verified in Alchemy; 2025 patch nerfed damage potion effect 50%, wiki ingredient figures may already reflect patch; CURRENT PVP BUFF UNVERIFIED",
       "source": "https://deepwoken.fandom.com/wiki/Alchemy",
       "exclusive_group": "potion",
-      "comment": "Drinking may lower HP and negate Perfect Flash without heal or Biotic Salts."
+      "comment": "Do not interpret 27.5% as live 2026 bonus without confirming whether wiki's +2% per ingredient reflects Nov-2025 nerf.",
+      "model_recipe_percent_before_patch_adjustment": 27.5,
+      "live_pvp_percent": null,
+      "source_patch": "https://deepwoken.fandom.com/wiki/Version_History/2025"
     },
     {
       "id": "taunt",
@@ -87,8 +89,8 @@
       "id": "inhale",
       "name": "Inhale",
       "percent": 10,
-      "applies_to": "next Galebreathe mantra",
-      "condition": "Inhale a level-5 Gale mantra; only applicable for Gale",
+      "applies_to": "next Galebreathe mantra OR next Flamecharm mantra with Fan the Flames",
+      "condition": "Inhale Galebreathe mantra, next eligible cast within 5s; potency +2% per inhaled mantra level",
       "provenance": "documented",
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
     },
@@ -145,6 +147,44 @@
       "applies_to": "extra proc on applicable Galebreathe mantras",
       "provenance": "documented conditional proc; excluded from common core",
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
+    },
+    {
+      "id": "fan_the_flames",
+      "name": "Fan the Flames",
+      "percent_max": 10,
+      "applies_to": "Flamecharm mantra (via Inhale)",
+      "condition": "40 Flamecharm, Inhale, stored level 5 wind mantra; stored wind modifiers transfer",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
+      "comment": "Unlike normal Inhale this allows stored wind mana modifiers to empower Flamecharm; cap category needs test"
+    },
+    {
+      "id": "arcwarder_enhance_beam",
+      "name": "Arc Module: Enhance (Arc Beam)",
+      "base_damage_multiplier": 1.5,
+      "applies_to": "Arc Beam only",
+      "condition": "Arcwarder oath, Arc Suit active, Enhance talent",
+      "provenance": "documented base damage bypass",
+      "source": "https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder"
+    },
+    {
+      "id": "arcwarder_enhance_wave",
+      "name": "Arc Module: Enhance (Arc Wave)",
+      "base_damage_multiplier": 1.25,
+      "applies_to": "Arc Wave only",
+      "condition": "Arcwarder oath, Arc Suit active, Enhance talent",
+      "provenance": "documented base damage bypass",
+      "source": "https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder"
+    },
+    {
+      "id": "specialist_full_set",
+      "name": "Shock Trooper Specialist Full Set",
+      "base_damage_multiplier": 1.15,
+      "applies_to": "Grand Javelin, Thunder Kick, Electro Carve, Astral Wind, Champion's Whirlthrow, Gale Lunge ONLY",
+      "condition": "entire Specialist set equipped",
+      "provenance": "documented base damage bypass",
+      "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
+      "comment": "Specialist Helmet ALONE does not confer this 15% boost. Storm Strike conditional proc separate."
     }
   ],
   "not_yet_modelled": [
