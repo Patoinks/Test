@@ -1,0 +1,160 @@
+{
+  "as_of": "2026-11-14",
+  "units": "percent nominal unless described",
+  "important": "Do not sum all entries blindly: different sources target weapon vs mantra and conflict by health thresholds, food category, or potion overwrite.",
+  "source_channel_semantics": "unknown unless explicitly documented",
+  "buffs": [
+    {
+      "id": "food_enchant",
+      "name": "Enchant Reinforced Hunger",
+      "percent": 5,
+      "applies_to": "mantra",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Food",
+      "exclusive_group": "food"
+    },
+    {
+      "id": "food_brain",
+      "name": "Brain Reinforced Hunger",
+      "value": "Nocturnal Gem proc 10→15 (not mantra +5%)",
+      "applies_to": "separate proc",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Food",
+      "exclusive_group": "food"
+    },
+    {
+      "id": "ring_casters",
+      "name": "Ring of Casters",
+      "percent": 5,
+      "applies_to": "mantra",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Ring_of_Casters",
+      "comment": "Also -5% melee. Ring-duplicate stacking not assumed."
+    },
+    {
+      "id": "perfect_flash",
+      "name": "Perfect Flash",
+      "percent": 25,
+      "applies_to": "mantra",
+      "condition": "caster HP >95%; near target (falls to +10% far away)",
+      "provenance": "documented amount; cap placement unverified",
+      "source": "https://deepwoken.fandom.com/wiki/Attribute_Trees",
+      "incompatible_with": [
+        "last_resort",
+        "shadow_assault_blast_at_low_hp"
+      ]
+    },
+    {
+      "id": "strengthening_potion",
+      "name": "Strengthening Potion 3 Plumfruit 2 Browncap",
+      "percent": 27.5,
+      "applies_to": "general damage",
+      "condition": "brewed at 100 Intelligence with Apothecary, consumed within 15 sec effect",
+      "provenance": "derived from documented recipe, potency and ingredient values",
+      "source": "https://deepwoken.fandom.com/wiki/Alchemy",
+      "exclusive_group": "potion",
+      "comment": "Drinking may lower HP and negate Perfect Flash without heal or Biotic Salts."
+    },
+    {
+      "id": "taunt",
+      "name": "Taunt",
+      "percent": 20,
+      "applies_to": "damage vs taunted target",
+      "condition": "target affected; buff counted under damage modifier cap",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Attunement-less"
+    },
+    {
+      "id": "tough_love",
+      "name": "Tough Love",
+      "percent": 5,
+      "applies_to": "mantra vs charmed target",
+      "condition": "target charmed",
+      "provenance": "documented specific mantra effect",
+      "source": "https://deepwoken.fandom.com/wiki/Strange_Merchant",
+      "comment": "10% is NOT mantra bonus."
+    },
+    {
+      "id": "flame_within",
+      "name": "Flame Within",
+      "percent": 10,
+      "applies_to": "general modifier-eligible damage",
+      "condition": "burning self; check HP for Perfect Flash",
+      "provenance": "documented general buff",
+      "source": "https://deepwoken.fandom.com/wiki/Flame_Worshipper"
+    },
+    {
+      "id": "inhale",
+      "name": "Inhale",
+      "percent": 10,
+      "applies_to": "next Galebreathe mantra",
+      "condition": "Inhale a level-5 Gale mantra; only applicable for Gale",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
+    },
+    {
+      "id": "last_resort",
+      "name": "Last Resort",
+      "percent": 5,
+      "applies_to": "general damage",
+      "condition": "caster HP <25%",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Status_Effects",
+      "incompatible_with": [
+        "perfect_flash"
+      ]
+    },
+    {
+      "id": "reinforce",
+      "name": "Reinforce",
+      "percent": 5,
+      "applies_to": "weapon only; NOT mantra",
+      "condition": "2.5% if no ally hit",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Attunement-less"
+    },
+    {
+      "id": "overflowing_dam",
+      "name": "Overflowing Dam",
+      "percent": 10,
+      "applies_to": "basic attacks only; NOT mantra",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Rare_Talents"
+    },
+    {
+      "id": "shade_devour",
+      "name": "Shade Devour",
+      "percent": 20,
+      "applies_to": "weapon only; NOT mantra",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast"
+    },
+    {
+      "id": "nocturnal_gem",
+      "name": "Nocturnal Gem",
+      "flat_damage": 10,
+      "flat_damage_with_brain": 15,
+      "applies_to": "separate fixed damage proc, does NOT scale with common damage modifiers",
+      "provenance": "documented",
+      "source": "https://deepwoken.fandom.com/wiki/Nocturnal_Gem"
+    },
+    {
+      "id": "after_cut",
+      "name": "After Cut",
+      "percent": 5,
+      "applies_to": "extra proc on applicable Galebreathe mantras",
+      "provenance": "documented conditional proc; excluded from common core",
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
+    }
+  ],
+  "not_yet_modelled": [
+    "Songchant specialty effects on oath mantras",
+    "gear damage/pen and ring duplicate restrictions",
+    "specific mantra talent procs",
+    "target vulnerability resist interactions",
+    "additional rare 2026 content",
+    "cross-player commands or party prebuffs",
+    "damage caps on bell and miscellaneous proc",
+    "spell modification per-hit behavior"
+  ]
+}
