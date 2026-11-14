@@ -83,7 +83,7 @@ Possíveis talentos/sinergias que exigem verificação de canal, condições ou 
 | Metal Rain | ~23 | 110,40 | **231,63** | Estimativa, Bleed adicional não incluído |
 | Shadow Meteor | 3 | 105,00 | **220,30** | Acertar os três |
 | Scarlet Cannon | 17 | 51,00 | **107,00** | 17 ticks |
-| Shadow Assault Blast | 20 | 62,80 | **131,77** | Somente <=40% HP, NÃO com Perfect Flash |
+| Shadow Assault Blast | 20 | 62,80 | **131,76** | Somente <=40% HP, NÃO com Perfect Flash |
 
 Para Scarlet Cyclone + Multiplying Spark cada projétil passa a **5,2** de base por tick em vez de 13. Mesmo se TODOS acertarem, 3×10×5,2=156; não são 3× o dano da versão normal (390).
 
