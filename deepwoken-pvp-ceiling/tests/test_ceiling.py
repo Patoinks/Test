@@ -35,6 +35,32 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertAlmostEqual(module.damage(MANTRAS["metal_rain"]), 231.633)
         self.assertAlmostEqual(module.damage(MANTRAS["scarlet_cyclone_triple"]), 327.3075)
 
+    def test_unbuffed_and_capped_are_distinct(self):
+        m = MANTRAS["ceaseless"]
+        self.assertAlmostEqual(module.damage(m, raw_bonus=0.0), 384.2294625)
+        self.assertAlmostEqual(module.damage(m, raw_bonus=0.75), 576.34419375)
+
+    def test_songchant_75_percent_and_not_proficiency_65(self):
+        # Wiki Traits / Mantras: Songchant +7.5% investment scaling
+        self.assertAlmostEqual(module.scaling_multiplier(100, 6, 2.75), 1.39875)
+        self.assertNotAlmostEqual(module.scaling_multiplier(100, 6, 2.75), 1.38225)
+
+    def test_oath_factor_is_separate_and_not_on_regular_mantras(self):
+        m = MANTRAS["tornado"]
+        self.assertFalse(m.get("oath_or_monster", False))
+        fake_oath = {**m, "oath_or_monster": True}
+        self.assertAlmostEqual(module.damage(fake_oath, raw_bonus=0),
+                               module.damage(m, raw_bonus=0) * 1.12)
+
+    def test_base_damage_mult_bypasses_common_damage_cap(self):
+        m = MANTRAS["tornado"]
+        hypothetical_base = {**m, "base_damage_multiplier": 1.15}
+        self.assertAlmostEqual(module.damage(hypothetical_base),
+                               module.damage(m) * 1.15)
+        # Even when the *common* bonus is already capped, base damage rises.
+        self.assertAlmostEqual(module.damage(hypothetical_base, raw_bonus=5),
+                               module.damage(m, raw_bonus=5) * 1.15)
+
     def test_potion_100_int_apothecary(self):
         self.assertAlmostEqual(module.potion_damage_buff(), 0.275)
         self.assertAlmostEqual(module.potion_damage_buff(brewer_int=0, apothecary=False), 0.10)
