@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-14",
+  "purpose": "Data snapshots for autumn-2026 PvP mantra ceiling research; not merged into tested baseline until hit/collision/scaling verified",
+  "patches": {
+    "2026-05-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/2026",
+      "level": "wiki changelog, crawled before autumn",
+      "effects": [
+        "All Oaths now grant +5% penetration to all damage; Thresher Claws penetration moved to Oaths",
+        "Gourmet boon extends food buff duration by +50%",
+        "Shadow Meteor damage reduced (new numeric value not supplied)",
+        "Scarlet Cyclone changed to 2-star mantra",
+        "Ring stacking exploit fixed",
+        "Arcwarder general suit damage buff removed; still affects Arcwarder mantras",
+        "Rending Impact was erroneously applying to mantras; fixed",
+        "Songchant scaling slightly increased, detailed current trait formula separately sourced",
+        "Ceaseless Slashes movement bug fixed",
+        "Equipment enchants: unenchantable equipment uses enchant slots, relevant for Specialist full set"
+      ]
+    },
+    "2026-10-31-secondary": {
+      "source": "https://deepwokengame.wiki/updates/hallowtide-2026/",
+      "level": "secondary report; Oct31 release date uncorroborated by accessible official patch notes",
+      "effects": [
+        "Sanguine Blaze (Bloodrend + Flamecharm) black-blood detonation path and 3 hybrid mantras",
+        "Alloyblood (Bloodrend + Ironsing) plasma path and 3 hybrid mantras",
+        "New seasonal weapons/equipment; exact PvP damage impact not quantified"
+      ]
+    },
+    "2026-11-roblox-publish": {
+      "source": "https://bloxstatus.com/games/deepwoken/updates/",
+      "level": "platform publish timestamps only; NOT patch notes",
+      "published_utc": [
+        "2026-11-02T00:17:00Z",
+        "2026-11-06T12:46:00Z",
+        "2026-11-09T13:17:00Z"
+      ],
+      "note": "Tracker begins Nov 1 and may lag; do not infer patch content from dates"
+    }
+  },
+  "candidate_mantras": [
+    {
+      "id": "cauterize",
+      "name": "Cauterize",
+      "attunements": [
+        "Bloodrend",
+        "Flamecharm"
+      ],
+      "effect": "Lunge/grab, ignites Black Blood if present; applies otherwise",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "state": "mechanic corroborated; numerical ceiling unknown",
+      "priority": "high"
+    },
+    {
+      "id": "combustion_tide",
+      "name": "Combustion Tide",
+      "attunements": [
+        "Bloodrend",
+        "Flamecharm"
+      ],
+      "effect": "Blood tide drags targets, then erupts and ignites Black Blood",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "state": "mechanic corroborated; numerical ceiling unknown",
+      "priority": "high"
+    },
+    {
+      "id": "flashfusion",
+      "name": "Flashfusion",
+      "attunements": [
+        "Bloodrend",
+        "Flamecharm"
+      ],
+      "effect": "Hybrid Bloodrend/Flamecharm. Needs live trigger/detonation audit.",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "state": "listed in builder; numerical behavior unknown",
+      "priority": "high"
+    },
+    {
+      "id": "infused_slash",
+      "name": "Infused Slash",
+      "attunements": [
+        "Bloodrend",
+        "Ironsing"
+      ],
+      "effect": "Summons two composite plasma daggers to slash opponent",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/builder?id=Go6hOJma",
+      "state": "mechanic corroborated; numerical ceiling unknown",
+      "priority": "high"
+    },
+    {
+      "id": "spinning_serum",
+      "name": "Spinning Serum",
+      "attunements": [
+        "Bloodrend",
+        "Ironsing"
+      ],
+      "effect": "Summons plasma spear and spins; potential multi-hit",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/wiki/mantra/Spinning%20Serum",
+      "state": "mechanic corroborated; numerical ceiling unknown",
+      "priority": "high"
+    },
+    {
+      "id": "rising_plasma",
+      "name": "Rising Plasma",
+      "attunements": [
+        "Bloodrend",
+        "Ironsing"
+      ],
+      "effect": "Summons plasma greataxe upward slash",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "https://deepwoken.co/wiki/mantra/Rising%20Plasma",
+      "state": "mechanic corroborated; numerical ceiling unknown",
+      "priority": "high"
+    }
+  ],
+  "fresh_reference_checks": [
+    {
+      "name": "Ceaseless Slashes",
+      "id": "ceaseless",
+      "builder_L5_base": 290,
+      "old_dataset_total_base": 310.05,
+      "builder_source": "https://deepwoken.co/builder?id=gOxvxvnY",
+      "status": "conflicting bases; old total not current certified"
+    },
+    {
+      "name": "Tornado",
+      "id": "tornado",
+      "builder_L5_base": 186.48,
+      "old_dataset_total_base": 177.6,
+      "builder_source": "https://deepwoken.co/wiki/mantra/Tornado",
+      "status": "current builder differs from 2026-11-14 dataset; independently confirm exact tick architecture"
+    },
+    {
+      "name": "Shadow Meteor",
+      "id": "shadow_meteor",
+      "builder_L5_base": null,
+      "old_dataset_total_base": 105,
+      "patch_source": "https://deepwoken.fandom.com/wiki/Version_History/2026",
+      "status": "damage nerfed in May patch; old base untrusted until refresh"
+    }
+  ],
+  "confidence_terms": {
+    "verified": "exists in recent builder or 2026 wiki changelog",
+    "secondary": "unofficial article without direct primary patch transcript",
+    "unknown": "requires in-game numerical measurement",
+    "not_ranked": "no computed HP damage; never implicitly set unknown base=0"
+  }
+}
