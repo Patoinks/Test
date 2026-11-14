@@ -2,6 +2,7 @@
 """Deepwoken PvP mantra theoretical full-hit model.
 
 This script reports community-wiki-based single-cast calculations.
+Songchant mantra scaling is 7.5% per point (not 6.5%, which is Proficiency).
 It is NOT a proof of in-game achievable damage or of a global maximum.
 Requires Python 3.10+, standard library only.
 """
@@ -74,8 +75,15 @@ def damage(mantra: dict, attribute: float = 100, songchant: float = 6,
     if extra_final_multiplier < 0:
         raise ValueError("Extra multiplier must not be negative")
     b, _ = base_damage(mantra)
-    return (b * scaling_multiplier(attribute, songchant, mantra["scaling"])
-            * pvp_damage_modifier(raw_bonus) * (1 - target_resistance)
+    # Oath/Monster mantras gain a separate 2% per Songchant. Ordinary
+    # Ceaseless Slashes and Tornado do not. Set "oath_or_monster": true
+    # only after confirming the mantra's actual classification.
+    oath_factor = (1 + 0.02 * songchant) if mantra.get("oath_or_monster", False) else 1.0
+    # A mantra's base-damage modifier is a *different* channel from
+    # the pool affected by pvp_damage_modifier (e.g. Arcwarder Enhance).
+    base_factor = mantra.get("base_damage_multiplier", 1.0)
+    return (b * base_factor * scaling_multiplier(attribute, songchant, mantra["scaling"])
+            * oath_factor * pvp_damage_modifier(raw_bonus) * (1 - target_resistance)
             * extra_final_multiplier)
 
 
@@ -90,11 +98,13 @@ def main():
     parser.add_argument("--extra-final-multiplier", type=float, default=1.0,
                         help="Experimental separate-channel multiplier. DEFAULT 1.0.")
     parser.add_argument("--show-buffs", action="store_true")
+    parser.add_argument("--compare", action="store_true",
+                        help="Show damage with NO common buffs alongside damage at selected cap pool")
     args = parser.parse_args()
     data = json.loads(DATA.read_text(encoding="utf-8"))
     if args.show_buffs:
         print("Enchant food: 5% mantra; Ring of Casters: 5% mantra")
-        print(f"Strengthening potion (5 x 2%, 100 INT, Apothecary): {potion_damage_buff()*100:.2f}%")
+        print(f"Strengthening potion RECIPE MODEL: {potion_damage_buff()*100:.2f}% (2025 damage-potion nerf; live value unverified)")
         print("Perfect Flash: 25% near target only >95% HP (cap channel requires testing)")
         print("Taunt target: +20%, explicitly subject to damage modifier cap")
         print("Tough Love: +5% mantras; Reinforce & Overflowing Dam: NOT for mantras")
@@ -104,13 +114,21 @@ def main():
         b, hits = base_damage(m)
         d = damage(m, args.attribute, args.songchant, args.raw_bonus / 100,
                    args.net_resistance / 100, args.extra_final_multiplier)
-        rows.append((d, m["name"], hits, b, m["status"]))
+        raw = damage(m, args.attribute, args.songchant, 0,
+                     args.net_resistance / 100, args.extra_final_multiplier)
+        rows.append((d, raw, m["name"], hits, b, m["status"]))
     print("MODEL: PvP single-cast all-hit potential; NOT a proven absolute ceiling")
     print(f"Attribute={args.attribute:g} Songchant={args.songchant:g} raw_bonus={args.raw_bonus:g}% "
           f"effective_common_x{pvp_damage_modifier(args.raw_bonus/100):.3f}")
-    print(f"{'DAMAGE':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
-    for d, name, hits, b, status in sorted(rows, reverse=True):
-        print(f"{d:10.2f}  {hits:4d}  {b:8.2f}  {name:<42}  {status}")
+    if args.compare:
+        print(f"{'NO BUFFS':>10}  {'WITH BUFFS':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
+    else:
+        print(f"{'DAMAGE':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
+    for d, raw, name, hits, b, status in sorted(rows, reverse=True):
+        if args.compare:
+            print(f"{raw:10.2f}  {d:10.2f}  {hits:4d}  {b:8.2f}  {name:<42}  {status}")
+        else:
+            print(f"{d:10.2f}  {hits:4d}  {b:8.2f}  {name:<42}  {status}")
     print("\nWARNINGS: all hits assumed to land, pre-resistance default, procs excluded.")
     print("Incompatible >95% HP Perfect Flash with <=40% HP Shadow Assault Blast.")
     print("Scarlet Cyclone triple projectiles same-target overlap is UNPROVEN.")
