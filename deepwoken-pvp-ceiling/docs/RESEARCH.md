@@ -1,3 +1,5 @@
+> **Nota de auditoria (14/11/2026):** Songchant é **+7,5% por ponto**, NÃO 6,5% (que pertence a Proficiency). Fórmula confirmada em [Traits](https://deepwoken.fandom.com/wiki/Traits) e [Mantras](https://deepwoken.fandom.com/wiki/Mantras). Tabela «sem buffs / com cap»: [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md). **27,5% de poção é apenas receita teórica: nerf de eficácia de poções de dano em 2025, efeito líquido não comprovado.**
+
 # Investigação — metodologia e todas as fontes de dano relevantes
 
 Versão documental: **2026-11-14**. O jogo não expõe nesta investigação uma fórmula de servidor verificável por código-fonte; há números da Wiki e uma calculadora comunitária, sujeitos a patches.
@@ -46,7 +48,7 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 | Strengthening potion | Até +27.5% condicional | Geral, a confirmar prática | 3 Plumfruit + 2 Browncap; 100 INT + Apothecary **no fabricante** |
 | Tough Love | +5% mantra em Charmed | Sim | +10% para outras formas de dano; requer Charm |
 | Flame Within | +10% geral | Potencialmente | Dá self-burn; testar compatibilidade com Perfect Flash |
-| Inhale | até +10% no próximo Gale | Só Gale | Cancelar mantra prévio; verificar ordem e cap |
+| Inhale / Fan the Flames | até +10% no próximo Gale **ou Flamecharm se tiver Fan the Flames** | Gale ou Fire condicional | Requer armazenar mantra Gale (nível 5 para +10%); verificar cap |
 | Last Resort | +5% abaixo de 25% HP | Condicional | **Incompatível** com Perfect Flash >95% HP |
 | Reinforce | +5% ou +2.5% weapon | **Não** | Wiki declara weapon attacks only |
 | Overflowing Dam | até +10% basic | **Não** | Wiki declara basic attacks only |
@@ -55,12 +57,12 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 
 Possíveis talentos/sinergias que exigem verificação de canal, condições ou patch: Charged Return, Lose Your Mind, Nullifying Clarity, Matador, Rush Hour, Spinning Swordsman, After Cut, Galebreathe Inhale, Charismatic Cast, Inspiration, status elemental, PEN específico, Flame Within. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
 
-### Poções (método completo)
+### Poções (método completo; **modelo de receita, eficácia após o patch NÃO CONFIRMADA**)
 - Uma única poção ativa por jogador; outra substitui. Buff dura 15s por defeito.
 - Limite habitual: até 5 ingredientes totais, até 3 do mesmo.
 - Browncap +2% damage; Plumfruit +2% damage.
 - 3 Plumfruit + 2 Browncap ⇒ 5×2% = 10% inicial.
-- Brewer 100 Intelligence ⇒ +50% potency.
+- Brewer 100 Intelligence ⇒ +50% potency; nota: o [patch de 2025](https://deepwoken.fandom.com/wiki/Version_History/2025) reduziu a eficiência das poções de aumento/redução de dano em 50%. Sem testar não sabemos se a tabela dos ingredientes já está atualizada.
 - Apothecary ⇒ +125% potency extra (soma à base, NÃO multiplica o resultado anterior): `10% × (1 + 0.5 + 1.25) = 27.5%`.
 - **Browncap também dá dano instantâneo ao utilizador**, e Plumfruit reduz regeneração. Se baixarem o HP do caster abaixo do threshold do Perfect Flash, não valem os dois simultaneamente sem cura/mitigação; avaliar Biotic Salts e calendário de aplicação.
 - Ingredientes podem ser preparados por um personagem diferente; validar se tipo específico de poção preparável por outra personagem pode ser recebido e usado no modo PvP escolhido.
@@ -88,6 +90,13 @@ Possíveis talentos/sinergias que exigem verificação de canal, condições ou 
 Para Scarlet Cyclone + Multiplying Spark cada projétil passa a **5,2** de base por tick em vez de 13. Mesmo se TODOS acertarem, 3×10×5,2=156; não são 3× o dano da versão normal (390).
 
 O mantra Ceaseless Slashes pode superar 5 cortes quando se recupera Ether durante a execução/timing, segundo a Wiki, mas não há comprovação de um máximo finito ou de que se repita com um jogador a aguentar sem escapar. Isto impede afirmar um recorde absoluto.
+
+## 4B. Efeitos de dano base que ultrapassam o cap
+
+- **Arcwarder Enhance, com Arc Suit ativo:** **Arc Wave +25% base** e **Arc Beam +50% base**, exclusivamente. Dano base entra ANTES de scaling e modifiers, não se reduz no soft/hard cap comum. [Oath: Arcwarder](https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder)
+- **Shock Trooper Specialist:** com **TODAS as peças equipadas**, +15% base em **Grand Javelin, Thunder Kick, Electro Carve, Astral Wind, Champion's Whirlthrow, Gale Lunge**. O capacete isolado não dá o bónus de base; o set também pode causar Stormcall Strikes quando atinge limiar. [Hybrid Abilities](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
+- **Oath/Monster Songchant** +2% por ponto, *além* da fórmula de scaling apropriada. **Ceaseless Slashes e Tornado NÃO são mantras Oath.** [Mantras](https://deepwoken.fandom.com/wiki/Mantras)
+- **Fan the Flames:** Inhale (Mantra Wind armazenado) potencia **Flamecharm** com +(nível×2)% até 10%, além de transferir modificadores do mantra inalado. [Hybrid Abilities](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
 
 ## 5. Estados/exclusões e incompatibilidades
 - **Perfect Flash >95% HP** e **Last Resort <25% HP** não coexistem no mesmo instante.
