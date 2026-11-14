@@ -4,6 +4,8 @@
 
 > **ATUALIZAÇÃO DE META / PATCHES 14/11/2026:** [Ler auditoria de patches e nova meta](docs/PATCH_AUDIT_2026-11-14.md). Novos híbridos de Bloodrend/Flamecharm e Bloodrend/Ironsing já aparecem no Builder. O Builder consultado em novembro indica **Tornado L5 = 186,48** (não 177,60) e **Ceaseless L5 = 290** (não 310,05). O dataset histórico preserva números antigos para comparação, **não como leaderboard atual**. A Fandom de patches acessível só chega a maio; detalhes de hotfixes de novembro não estão todos certificados. [Entradas pendentes](data/patch_candidates_2026_11.json).
 
+> **COBERTURA INCOMPLETA JUN–NOV (nova investigação):** há relatos datados de patches em julho/agosto/setembro/outubro/novembro que a Fandom não inclui. Agosto 22 é particularmente relevante: **Sightless Beam 3s→2s, dano máximo -⅓, cooldown 16→24s** (fonte secundária, ainda sem transcript oficial). Ver [mapa mês a mês](docs/PATCH_COVERAGE_JUN_NOV_2026.md).
+
 ## Âmbito
 Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs e buffs possíveis legalmente. Distinguir dano bruto (sem resistência), dano efetivo contra jogador, burst de rotação, Chime e Overworld. A wiki consultada pode estar desatualizada.
 
