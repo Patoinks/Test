@@ -35,3 +35,13 @@
 - A wiki menciona que Ceaseless pode exceder cinco cortes mas não declara o limite absoluto por cast.
 - Efeitos pós-cap, efeitos de alvo e procs só podem ser combinados depois de verificar a ordem de aplicação.
 - A publicação deste projeto não constitui validação em ambiente de jogo em tempo real.
+
+## Auditoria 2026-11-14
+- [Traits — distinção exata Proficiency 6.5% vs Songchant 7.5%](https://deepwoken.fandom.com/wiki/Traits)
+- [Mantras — fórmula oficial documentada, Songchant 0.075 e exceção Oath](https://deepwoken.fandom.com/wiki/Mantras)
+- [Version History 2023 — redução de metade acima do soft cap e exclusão de base/scaling](https://deepwoken.fandom.com/wiki/Version_History/2023)
+- [Version History 2025 — caps PvP 1.25/1.50 e nerf de 50% na eficácia das poções de dano](https://deepwoken.fandom.com/wiki/Version_History/2025)
+- [Oath Arcwarder — Enhance +50% Arc Beam base, +25% Arc Wave base](https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder)
+- [Hybrid Abilities — Fan the Flames e Shock Trooper Specialist full set](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
+- [Specialist Plate — lista exata de seis mantras com +15% base](https://deepwoken.fandom.com/wiki/Specialist_Plate)
+- [Status Effects — Inhale estende-se a Flamecharm com Fan the Flames](https://deepwoken.fandom.com/wiki/Status_Effects)
