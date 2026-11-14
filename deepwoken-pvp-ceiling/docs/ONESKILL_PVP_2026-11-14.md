@@ -1,3 +1,11 @@
+## Ether Barrage — comparação acrescentada
+
+- O [Builder](https://deepwoken.co/wiki/mantra/Ether%20Barrage) indica **48 de base ao nível 5**, Intelligence scaling **1,65**, 30 INT de requisito. A [Fandom Attunement-less](https://deepwoken.fandom.com/wiki/Attunement-less) discrimina **6 instâncias × 8 base** e descreve **quatro orbes**: não se deve multiplicar quatro orbes por seis hits cada.
+- O modelo supõe todos os seis hits a acertarem no mesmo adversário. Com 100 INT e 6 Songchant: **59,484 sem buffs**, **74,355** no soft cap de +25%, **89,226** no hard cap de +50%, antes de resistências.
+- Comparação: **Eclipse Kick 160,856 / 241,284**, mais de **2,7×** o Ether Barrage no mesmo estado de buffs e sem resistências.
+- Tem windup **0,65 s**, cooldown **10 s**, **0 posture**, e os orbes podem fazer auto-track próximo do adversário. Crystal/Perfect Lens alarga o alcance do targeting; esta é uma vantagem de **consistência de acerto**, não um multiplicador de dano base.
+- **Não é um único impacto:** é um cast com vários eventos de dano. A contagem efetiva por jogador, em combate real, continua a exigir confirmação.
+
 # Deepwoken — auditoria de **ONE-SKILL PvP** (14/11/2026)
 
 **Objetivo do utilizador:** maximizar dano num único cast, idealmente **um impacto de one-tap**, sem Ceaseless, combinações de várias skills ou preparação agressiva no alvo. Não confundir 20 ticks/10s de canal com golpe instantâneo. Isto é um **modelo numérico**, não uma sessão real de PvP no Roblox.
