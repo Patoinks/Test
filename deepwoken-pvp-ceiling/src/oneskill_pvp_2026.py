@@ -19,6 +19,7 @@ class Candidate:
     caveat: str = ""
 
 CANDIDATES = [
+    Candidate("Ether Barrage",48,1.65,6,"short_multi","https://deepwoken.co/wiki/mantra/Ether%20Barrage","Four orbs, six cumulative damage instances; all must land to reach 48 total base; autotrack close range"),
     Candidate("Eclipse Kick",115,2.75,1,"single_hit","https://deepwoken.co/wiki/mantra/Eclipse%20Kick","Reduced damage if target already stunned"),
     Candidate("Skyshatter Kick",120,1.65,2,"short_multi","https://deepwoken.co/wiki/mantra/Skyshatter%20Kick","Two consecutive kicks, both must connect"),
     Candidate("Flame Ballista",96,2.75,1,"single_hit","https://deepwoken.co/wiki/mantra/Flame%20Ballista","Full charge; Isshin requires close quarters"),
