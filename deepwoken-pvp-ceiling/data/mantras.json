@@ -1,0 +1,152 @@
+{
+  "as_of": "2026-11-14",
+  "description": "Mantra Lv5 single-cast FULL HIT theoretical data. Values are community wiki estimates; candidate list NOT exhaustive. All segments summed assuming same target hit. No target resist, no proc damage.",
+  "mantras": [
+    {
+      "id": "ceaseless",
+      "name": "Ceaseless Slashes",
+      "type": "Light Weapon",
+      "scaling": 1.65,
+      "segments": [
+        {
+          "damages": [
+            20,
+            25,
+            30,
+            35,
+            40
+          ],
+          "label": "first 5 main slashes"
+        },
+        {
+          "count": 15,
+          "damage": 10.67,
+          "label": "3 secondary ticks per slash"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Attunement-less",
+      "status": "documented baseline",
+      "warning": "Additional slashes possible with ether/timing; not proven max. Slash damage type."
+    },
+    {
+      "id": "tornado",
+      "name": "Tornado",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 12,
+          "damage": 14.8
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "documented baseline",
+      "warning": "Innate After Cut procs potentially +5%; omitted from the main damage calculation."
+    },
+    {
+      "id": "tornado_kick",
+      "name": "Tornado Kick",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 4,
+          "damage": 28
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "conditional full-hit",
+      "warning": "Subsequent projectiles require opener to hit."
+    },
+    {
+      "id": "metal_rain",
+      "name": "Metal Rain",
+      "type": "Ironsing",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 23,
+          "damage": 4.8
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing",
+      "status": "approximate",
+      "warning": "~23 hits, exact ticks may vary; innate Bleed omitted. Duration mods need testing."
+    },
+    {
+      "id": "shadow_meteor",
+      "name": "Shadow Meteor",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 3,
+          "damage": 35
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "conditional full-hit",
+      "warning": "3 meteors must hit same target."
+    },
+    {
+      "id": "scarlet_cyclone",
+      "name": "Scarlet Cyclone",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 10,
+          "damage": 13
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "documented baseline",
+      "warning": "Base one-cyclone form."
+    },
+    {
+      "id": "scarlet_cyclone_triple",
+      "name": "Scarlet Cyclone + Multiplying Spark",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 30,
+          "damage": 5.2
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "unproven per-target hypothesis",
+      "warning": "Three cyclones×10 ticks, each ONLY 5.2 base: MUST TEST whether all three can hit same player."
+    },
+    {
+      "id": "scarlet_cannon",
+      "name": "Scarlet Cannon",
+      "type": "Bloodrend",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 17,
+          "damage": 3
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
+      "status": "documented baseline",
+      "warning": "A locked-on beam; separate secondary effects omitted."
+    },
+    {
+      "id": "shadow_assault_blast",
+      "name": "Shadow Assault (Blast Spark)",
+      "type": "Shadowcast",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 20,
+          "damage": 3.14
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
+      "status": "conditional full-hit",
+      "warning": "ONLY at <=40% HP; cannot combine with Perfect Flash (>95% HP)."
+    }
+  ]
+}
