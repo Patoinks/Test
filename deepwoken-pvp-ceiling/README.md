@@ -2,9 +2,9 @@
 
 **Status:** auditoria reprodutível, NÃO uma prova de recorde global. Atualizado em 2026-11-14.
 
-> **ATUALIZAÇÃO DE META / PATCHES 14/11/2026:** [Ler auditoria de patches e nova meta](docs/PATCH_AUDIT_2026-11-14.md). Novos híbridos de Bloodrend/Flamecharm e Bloodrend/Ironsing já aparecem no Builder. O Builder consultado em novembro indica **Tornado L5 = 186,48** (não 177,60) e **Ceaseless L5 = 290** (não 310,05). O dataset histórico preserva números antigos para comparação, **não como leaderboard atual**. A Fandom de patches acessível só chega a maio; detalhes de hotfixes de novembro não estão todos certificados. [Entradas pendentes](data/patch_candidates_2026_11.json).
+> **ATUALIZAÇÃO DE META / PATCHES 14/11/2026:** [Ler auditoria de patches e nova meta](docs/PATCH_AUDIT_2026-11-14.md). Ao contrário da vista colapsada `Version_History/2026` (que pára em maio), [`Version_History/Uncollapsed`](https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed) + `Hallowtide 2026` cobrem **junho a 31/10/2026** (`3.2.14a`..`3.2.23a`, All Oaths `+5% PEN`, Songchant PEN `5%→3%` a 31/05, Sightless Beam cancel/16–24s CD, Gale Trap `10→18s`). Novos híbridos de `Exotherm: Sanguine Blaze` e `Alloyblood` já aparecem na Fandom e no Builder. O Builder indica **Tornado L5 = 186,48** (vs 177,60), **Ceaseless L5 = 290** (vs 310,05) e **Crimson Rain = 46,5** single-cycle (vs 93 throw+recall); o dataset histórico preserva números antigos para comparação, **não como leaderboard atual**. Faltam ainda notas descritivas dos hotfixes de **novembro (02, 06 e 09/11)**. [Entradas pendentes](data/patch_candidates_2026_11.json).
 
-> **COBERTURA INCOMPLETA JUN–NOV (nova investigação):** há relatos datados de patches em julho/agosto/setembro/outubro/novembro que a Fandom não inclui. Agosto 22 é particularmente relevante: **Sightless Beam 3s→2s, dano máximo -⅓, cooldown 16→24s** (fonte secundária, ainda sem transcript oficial). Ver [mapa mês a mês](docs/PATCH_COVERAGE_JUN_NOV_2026.md).
+> **COBERTURA MÊS A MÊS JUN–NOV:** ver [mapa de cobertura Jun–Nov 2026](docs/PATCH_COVERAGE_JUN_NOV_2026.md) para a separação entre entradas primárias Fandom (`Uncollapsed`), métricas secundárias (ex.: Sightless Beam `3s→2s`, dano máximo `-⅓` em fonte secundária), timestamps Roblox de novembro e dados por medir in-game.
 
 ## Âmbito
 Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs e buffs possíveis legalmente. Distinguir dano bruto (sem resistência), dano efetivo contra jogador, burst de rotação, Chime e Overworld. A wiki consultada pode estar desatualizada.
@@ -62,8 +62,10 @@ python -m unittest discover -s deepwoken-pvp-ceiling/tests -v
 - `docs/RESEARCH.md`: evidências, nuances e restrições.
 - `docs/RELIABLE_PVP.md`: cenários defensáveis e comparativo de single-hits.
 - `docs/TEST_PLAN.md`: ensaios in-game que faltam.
+- `docs/PATCH_AUDIT_2026-11-14.md` e `docs/PATCH_COVERAGE_JUN_NOV_2026.md`: auditoria de patches maio–31/out (`Uncollapsed`), lacunas de novembro e impactos na meta.
+- `data/patch_candidates_2026_11.json`: timeline estruturada (`2025`–`2026-11`), candidatos Hallowtide (`Exotherm`/`Alloyblood`) e conflitos com o Builder.
 - `SOURCES.md`: fontes diretas.
 
-**Limitação:** não foi feita auditoria exaustiva dos mantras e patches de novembro de 2026; um valor de calculadora não prova maximum matematicamente alcançável.
+**Limitação:** faltam hotfixes de novembro de 2026 posteriores a 31/10 (Discord) e valores Lv5 medidos em jogo dos mantras híbridos Hallowtide e de `Shadow Meteor` pós-nerf; um valor de calculadora não prova maximum matematicamente alcançável.
 
 Este projeto não tem afiliação oficial com Deepwoken.

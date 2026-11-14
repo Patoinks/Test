@@ -35,7 +35,10 @@
 - [Bloodrend — Scarlet Cyclone normal vs Multiplying (13→5.2 por tick), Scarlet Cannon 17, Crimson Rain 6×2×7.75](https://deepwoken.fandom.com/wiki/Bloodrend)
 - [Shadowcast — Eclipse Kick 92, Shadow Meteor, Shadow Assault Blast HP<=40%, Shade Devour buff weapon only](https://deepwoken.fandom.com/wiki/Shadowcast)
 - [Resonances — Yun'Shul Wind-Up Lv10 ativa em Mantras](https://deepwoken.fandom.com/wiki/Resonance)
-- [Deepwoken 2026 Version History — alterações contínuas, até onde indexado](https://deepwoken.fandom.com/wiki/Version_History/2026)
+- [Version History/Uncollapsed — cronologia primária maio–31/out/2026 (`3.2.14a`..`3.2.23a`, Hallowtide 2026, Songchant PEN `5%→3%`, All Oaths `+5% PEN`, Sightless Beam/Gale Trap)](https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed)
+- [Hallowtide 2026 — Exotherm: Sanguine Blaze (`40/40`), Composite Path: Alloyblood (`50/50`) e armas conjuradas](https://deepwoken.fandom.com/wiki/Hallowtide_2026)
+- [Justicar Origin — origem de maio de 2026](https://deepwoken.fandom.com/wiki/Justicar)
+- [Deepwoken 2026 Version History — vista colapsada (snapshot público pára a 31 de maio)](https://deepwoken.fandom.com/wiki/Version_History/2026)
 
 ## Alertas contra fontes enganosas
 - Nem todos os itens no menu «Damage Modifiers» da calculadora se aplicam a mantras: wiki restringe Reinforce, Overflowing Dam, Shade Devour, Nullifying Clarity e Charged Return a arma/M1/critical.
@@ -48,7 +51,7 @@
 - [Traits — distinção exata Proficiency 6.5% vs Songchant 7.5%](https://deepwoken.fandom.com/wiki/Traits)
 - [Mantras — fórmula oficial documentada, Songchant 0.075 e exceção Oath](https://deepwoken.fandom.com/wiki/Mantras)
 - [Version History 2023 — redução de metade acima do soft cap e exclusão de base/scaling](https://deepwoken.fandom.com/wiki/Version_History/2023)
-- [Version History 2025 — caps PvP 1.25/1.50 e nerf de 50% na eficácia das poções de dano](https://deepwoken.fandom.com/wiki/Version_History/2025)
+- [Version History 2025 — caps PvP 1.25/1.50, Bleed DoT `30%→15%` (15/11/2025) e nerf de 50% na eficácia das poções de dano](https://deepwoken.fandom.com/wiki/Version_History/2025)
 - [Oath Arcwarder — Enhance +50% Arc Beam base, +25% Arc Wave base](https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder)
 - [Hybrid Abilities — Fan the Flames e Shock Trooper Specialist full set](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
 - [Specialist Plate — lista exata de seis mantras com +15% base](https://deepwoken.fandom.com/wiki/Specialist_Plate)

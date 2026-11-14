@@ -60,10 +60,10 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 | Nocturnal Gem | +10 damage fixo, ou +15 com Brain food | Proc separado | NÃO afetado por damage modifiers normais, tem counterplay |
 
 **Mantra PEN e mecânicas ainda fora da fórmula de dano bruto:**
-- **Fontes de PEN:** `6 Songchant` (+15% Mantra PEN), `Prophet's Cloak` (+20% Mantra PEN), `Ironsing` (+30% PEN inata), `Piercing Will` (+15% PEN, via Heretic's Sutra). A PEN base tem cap de **50%**, só removível por talentos como `Ether Overdrive` (90 INT) / `Million Ton Piercer`.
+- **Fontes de PEN:** `All Oaths` (**+5% PEN** em todas as fontes de dano, substituindo Thresher Claws PEN em Oaths), `6 Songchant` (**+15% PEN** em `Traits` a `2,5%/pt` vs **`3%/pt → +18%`** segundo `Version_History/Uncollapsed` de 31/05/2026 — divergência por validar), `Prophet's Cloak` (+20% Mantra PEN), `Ironsing` (+30% PEN inata), `Piercing Will` (+15% PEN, via Heretic's Sutra). A PEN base tem cap de **50%**, só removível por talentos como `Ether Overdrive` (90 INT) / `Million Ton Piercer`.
 - **Drowned / Yun'Shul Wind-Up Resonance (Bell):** a versão base só aplica em ataques físicos, mas a versão upgraded via Yun'Shul sobe até nível 10 e **passa a ativar em mantras** (percentagem exata sem número fixo documentado na Wiki).
 
-Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: `After Cut` (5% em mantras Gale), `Matador`, `Rush Hour`, `Spinning Swordsman`, `Blast Furnace`, `Crystallization`, `Emperor Flame`, `Blood Loss` PvP vs PvE. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
+Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: `After Cut` (5% em mantras Gale), `Matador`, `Rush Hour`, `Spinning Swordsman`, `Blast Furnace`, `Crystallization`, `Emperor Flame`, `Bleed` (`30%→15%` DoT em armas no patch de 15/11/2025) / `Blood Loss` PvP vs PvE. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
 
 ### Poções (método completo; **modelo de receita, eficácia após o patch NÃO CONFIRMADA**)
 - Uma única poção ativa por jogador; outra substitui. Buff dura 15s por defeito.
@@ -87,15 +87,15 @@ Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: 
 |---|---:|---:|---:|---|
 | Ceaseless Slashes (Fandom) | 20 | 310,05 | **576,34** | **DISPUTADO** vs 290 no Builder; 5+ cortes não auditados |
 | Ceaseless Slashes (Builder) | ? | 290,00 | **539,07** | Base agregada no Deepwoken Builder pós-nerf 2025 |
-| Tornado | 12 | 177,60 | **372,63** | 12 ticks documentados; After Cut não incluído |
+| Tornado | 12 | 177,60 | **372,63** | **DIVERGENTE** vs **186,48** (`391,26`) no Builder (`×1,05`); After Cut omitido |
 | Scarlet Cyclone + Multiplying | 30? | 156,00 | **327,31** | **NÃO CONFIRMADO** 3 projéteis atingirem o MESMO alvo |
-| Scarlet Cyclone padrão | 10 | 130,00 | **272,76** | Contagem documentada |
+| Scarlet Cyclone padrão | 10 | 130,00 | **272,76** | Contagem documentada (2-star no patch 2026) |
 | Tornado Kick | 4 | 112,00 | **234,99** | Abertura tem de acertar |
 | Metal Rain | ~23 | 110,40 | **231,63** | Estimativa, Bleed adicional não incluído |
 | Ice Flock | 8 | 105,60 | **221,56** | Documentado; Everchanging Aegis corta hits seguintes |
-| Shadow Meteor | 3 | 105,00 | **220,30** | Acertar os três |
+| Shadow Meteor | 3 | 105,00 | **220,30** | **POTENCIALMENTE DESATUALIZADO:** nerf de dano em maio 2026 + cancel por Death from Above / Crit |
 | Flame Ballista (Full Charge) | 1 | 96,00 | **201,42** | Requer carga máxima; single hit (Burn omitido) |
-| Crimson Rain (Initial + Recall) | 12 | 93,00 | **195,13** | 6 adagas na ida + 6 no recall |
+| Crimson Rain (Initial + Recall) | 12 | 93,00 | **195,13** | 6 ida + 6 recall (**46,5** single-cycle no Builder) |
 | Eclipse Kick | 1 | 92,00 | **193,03** | Single hit (50 SHD + 30 STR; elegível a Dark Hours) |
 | Shadow Assault Blast | 20 | 62,80 | **131,76** | Somente <=40% HP, NÃO com Perfect Flash |
 | Table Flip | 1 | 60,00 | **111,53** | Exemplo Strength de referência |
@@ -127,7 +127,7 @@ O mantra Ceaseless Slashes pode superar 5 cortes quando se recupera Ether durant
 - O alvo pode ter Everchanging Aegis (multi-hit elemental sofre uma redução enorme nos hits posteriores), armaduras, PEN reduction, immunities, dano por parry; baseline usa **0 resistência**.
 
 ## 6. Pendências prioritárias
-1. Confrontar wiki vs changelogs posteriores a julho de 2026, sobretudo Ceaseless e variantes adicionadas.
+1. Recolher hotfixes de **novembro de 2026** (pós-31/10 — `Version_History/Uncollapsed` já cobre junho–31/10, ver [PATCH_COVERAGE_JUN_NOV_2026.md](PATCH_COVERAGE_JUN_NOV_2026.md) e [PATCH_AUDIT_2026-11-14.md](PATCH_AUDIT_2026-11-14.md)) e medir Lv5 de Exotherm / Alloyblood & Shadow Meteor pós-nerf.
 2. Validar cap do Perfect Flash por testes com e sem Taunt/food/potion.
 3. Confirmar compatibilidade de food, poções e pre-buffs em Chime e Overworld.
 4. Medir se Ceaseless com Ether regen consegue >5 cortes quantas vezes; limites internos de casts.

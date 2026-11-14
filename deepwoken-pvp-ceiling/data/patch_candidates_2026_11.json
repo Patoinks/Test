@@ -2,46 +2,151 @@
   "date": "2026-11-14",
   "purpose": "Data snapshots for autumn-2026 PvP mantra ceiling research; not merged into tested baseline until hit/collision/scaling verified",
   "patches": {
-    "2026-05-wiki-verified": {
-      "source": "https://deepwoken.fandom.com/wiki/Version_History/2026",
-      "level": "wiki changelog, crawled before autumn",
+    "2025-11-15-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/2025",
+      "confidence": "verified",
+      "level": "wiki changelog (pre-2026 combat & alchemy baseline)",
       "effects": [
-        "All Oaths now grant +5% penetration to all damage; Thresher Claws penetration moved to Oaths",
+        "Nov 15, 2025: Bleed weapon DoT nerfed from 30% to 15% of scaled damage",
+        "2025 PvP damage modifier caps tightened: 1.75x->1.50x (category) and 1.50x->1.25x (soft cap)",
+        "Verbatim Wiki note: 'Damage potion increase/decrease efficiency nerfed by 50%'"
+      ]
+    },
+    "2026-05-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "confidence": "verified",
+      "level": "wiki changelog (May 2026 entries including pv_MAY_31_23:53a)",
+      "effects": [
+        "All Oaths now grant +5% penetration to all damage; Thresher Claws PEN moved to Oaths (Thresher Claws remains generic Power 13 Weapon PEN talent)",
+        "May 15, 2026: 4 base attunements unlocked by default + Justicar Origin introduced",
+        "May 31, 2026 (pv_MAY_31_23:53a): Songchant Mantra PEN reduced 5% -> 3% per point (discrepancy vs Traits wiki 2.5%/pt -> 15%)",
+        "May 31, 2026: Sheltering Grasp merged into Crimson Fountain",
         "Gourmet boon extends food buff duration by +50%",
-        "Shadow Meteor damage reduced (new numeric value not supplied)",
+        "Shadow Meteor damage reduced (new numeric value not supplied) and cancelled by Death from Above / weapon Critical",
+        "Ceaseless Slashes base damage & windup slightly reduced with consecutive-hit tick ramp + movement bug fixed",
         "Scarlet Cyclone changed to 2-star mantra",
         "Ring stacking exploit fixed",
         "Arcwarder general suit damage buff removed; still affects Arcwarder mantras",
         "Rending Impact was erroneously applying to mantras; fixed",
-        "Songchant scaling slightly increased, detailed current trait formula separately sourced",
-        "Ceaseless Slashes movement bug fixed",
+        "Songchant investment scaling slightly increased (Traits/Mantras confirm +7.5%/pt)",
         "Equipment enchants: unenchantable equipment uses enchant slots, relevant for Specialist full set"
       ]
     },
-    "2026-10-31-secondary": {
-      "source": "https://deepwokengame.wiki/updates/hallowtide-2026/",
-      "level": "secondary report; Oct31 release date uncorroborated by accessible official patch notes",
+    "2026-06-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "confidence": "verified",
+      "build_ids": [
+        "pv_JUN_15_12:31a",
+        "3.2.14a (pv_JUN_17_02:06a)",
+        "3.2.14b (pv_JUN_18_22:54a)",
+        "pv_JUN_21_14:26a"
+      ],
+      "level": "primary Fandom Version_History/Uncollapsed changelog",
       "effects": [
-        "Sanguine Blaze (Bloodrend + Flamecharm) black-blood detonation path and 3 hybrid mantras",
-        "Alloyblood (Bloodrend + Ironsing) plasma path and 3 hybrid mantras",
-        "New seasonal weapons/equipment; exact PvP damage impact not quantified"
+        "June 15: Cold Front and Frost Buster no longer require Cryonis",
+        "June 15: All 5 Hero Blades upscaled for range alignment; Impel moved to modern projectile system + Enchained fix",
+        "June 15: Klaris dialogue relaxed (Power 10 or Oath); harvesting changed to fixed timer",
+        "June 20/21: Grounding Bolt reworked; jump momentum reduction reduced (roll-jump fix)",
+        "June 20/21 cycle: Paralysis recovery hyperarmor reduced 3s->2s and grants 2s Knockdown Immunity; Choice of Chance Echo unlock"
+      ]
+    },
+    "2026-07-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "confidence": "verified",
+      "build_ids": [
+        "pv_JUL_08_10:30a",
+        "3.2.16a (pv_JUL_08_15:35a)",
+        "3.2.16b (pv_JUL_09_00:10a)",
+        "3.2.16c (pv_JUL_10_22:18a)",
+        "pv_JUL_27_01:33a",
+        "3.2.17a (pv_JUL_27_20:38a)",
+        "3.2.17b (pv_JUL_29_01:27a)"
+      ],
+      "level": "primary Fandom Version_History/Uncollapsed changelog + July community lead",
+      "effects": [
+        "July 7/8 cycle: Performance pass ahead of Across the Boundary; Saramaed Summit collapse/rework",
+        "July 26-29 cycle: Venting breaks Frozen status (with dodge/jump input); Teleportation resonance clears Unconscious/Ragdoll",
+        "July 26-29 cycle: Fast Blade given small cooldown to stop multi-hit stacking; active PvP animation throttling disabled",
+        "Fandom Uncollapsed trap note: Gale Trap / Wind Gun no longer auto-apply Suffocate; Gale Trap cooldown increased 10s -> 18s",
+        "Unconfirmed Reddit Aug 1 lead: reports late-July nerfs to Gale Trap, Hailbreaker, Captain's Call, SH Periapt, Gale Pale"
+      ]
+    },
+    "2026-08-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "secondary_source": "https://earnaldo.com/blog/deepwoken-vs-arcane-odyssey",
+      "confidence": "verified",
+      "build_ids": [
+        "pv_AUG_13_04:19a",
+        "3.2.18a (pv_AUG_13_05:18a / AUG_14_03:08a)",
+        "3.2.18b (pv_AUG_16_12:47a)",
+        "3.2.18c (pv_AUG_16_16:01a)",
+        "pv_AUG_22_17:49a",
+        "3.2.19a (pv_AUG_23_02:04a)",
+        "3.2.19b (pv_AUG_23_20:46a)"
+      ],
+      "level": "primary Fandom Version_History/Uncollapsed + tagged secondary weapon/Sightless numeric claims",
+      "effects": [
+        "Aug 13 (pv_AUG_13_04:19a): Steelscale Dusters + Swiftscales weapon talent (3.2.18c), Sclerosteosis (FTD), Elemental Mentalist (CHA/INT), Chime 2s/3s spectate UI",
+        "Aug 16 (3.2.18b/c): Combat-tag hit counter cooldown added; Mantle of Enmity physics toned down; Chime boundary anti-cheat",
+        "Aug 22 (pv_AUG_22_17:49a) & 3.2.19a/b: Palace Tachi (MED), 5 Guard Turret types, Silenthearts blocked from Fondant Splitter; Poser's Ring true-damage armor-break bug fixed",
+        "Primary Fandom Sightless Beam entry: Sightless Beam now cancellable mid-channel; cooldown (16s-24s) and sanity cost scale with beam duration",
+        "Secondary earnaldo.com claims (NOT in Fandom transcript): Sightless Beam 3s->2s and max dmg -1/3; Bloodedge posture scaling halved / 7->6 / +0.1s endlag; Ghost blocks lock-on"
+      ]
+    },
+    "2026-09-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "confidence": "verified",
+      "build_ids": [
+        "pv_SEP_09_00:32a",
+        "3.2.20a (pv_SEP_10_03:44a)",
+        "3.2.20b (pv_SEP_10_04:17a)",
+        "pv_SEP_28_01:33a",
+        "3.2.21a (pv_OCT_01_22:00a)"
+      ],
+      "level": "primary Fandom Version_History/Uncollapsed changelog",
+      "effects": [
+        "Sept 9 (pv_SEP_09_00:32a): Weapon talents (Frenzied Slash, Hunter's Chase, Overwhelming Stability, etc.)",
+        "Sept 10 (3.2.20a/b): Downgradable weapons auto-downgraded inside Chime; Red Death, Fractine crit, Alloyed Longspear tweaks",
+        "Sept 28 (pv_SEP_28_01:33a): Fixed mantra trainer double-upgrade exploit allowing Lv6 mantras above stat caps; Shrine of Mastery stat-cap auto-correction",
+        "Sept 28: Whirling Blade animation matched duration modifiers; patched gun critical priority/animation hiding exploits; Guilt Trip (CHA) talent",
+        "Oct 1 (3.2.21a): Backpack subcategories and substring item search"
+      ]
+    },
+    "2026-10-wiki-verified": {
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "secondary_source": "https://deepwokengame.wiki/updates/hallowtide-2026/",
+      "confidence": "verified",
+      "build_ids": [
+        "pv_OCT_20_01:11a",
+        "3.2.23a (pv_OCT_23_12:21a)",
+        "Hallowtide 2026 (Oct 31, pv_XXX_XX_XX:XXa placeholder)"
+      ],
+      "level": "primary Fandom Version_History/Uncollapsed + Hallowtide_2026 wiki page",
+      "effects": [
+        "Oct 19 (pv_OCT_20_01:11a): Shrine of Mastery + Shrine of Conceit merged into Shrine of Ego; Ardour Scream stacking cooldown; dual-wield trail fix",
+        "Oct 23 (3.2.23a): Haircut sharing codes + Arc Suit, Arc Beam ground variant, and Arc Wave animation updates",
+        "Oct 31 (Hallowtide 2026 confirmed on Fandom): Exotherm: Sanguine Blaze (40 BLD + 40 FLM, exclusive w/ Azure Flames / Lava Serpent / Twisted Puppets)",
+        "Oct 31 (Hallowtide 2026 confirmed on Fandom): Alloyblood / Composite Path (50 BLD + 50 MTL, also referenced visually as Iron Veins) + 3 conjurable plasma weapons",
+        "Exact Lv5 mantra cast damage numbers & Black Blood / Plasma detonation math still unquantified numerically"
       ]
     },
     "2026-11-roblox-publish": {
       "source": "https://bloxstatus.com/games/deepwoken/updates/",
+      "confidence": "unknown",
       "level": "platform publish timestamps only; NOT patch notes",
       "published_utc": [
         "2026-11-02T00:17:00Z",
         "2026-11-06T12:46:00Z",
         "2026-11-09T13:17:00Z"
       ],
-      "note": "Tracker begins Nov 1 and may lag; do not infer patch content from dates"
+      "note": "Tracker begins Nov 1 and Fandom Uncollapsed stops at Oct 31; do not infer patch content from publish timestamps and discard r/deepwoken joke tags (e.g. pv_NOV)"
     }
   },
   "candidate_mantras": [
     {
       "id": "cauterize",
       "name": "Cauterize",
+      "path": "Exotherm: Sanguine Blaze (40 BLD + 40 FLM; exclusive w/ Azure Flames / Lava Serpent / Twisted Puppets)",
       "attunements": [
         "Bloodrend",
         "Flamecharm"
@@ -51,12 +156,14 @@
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "confidence": "unknown",
       "state": "mechanic corroborated; numerical ceiling unknown",
       "priority": "high"
     },
     {
       "id": "combustion_tide",
       "name": "Combustion Tide",
+      "path": "Exotherm: Sanguine Blaze (40 BLD + 40 FLM)",
       "attunements": [
         "Bloodrend",
         "Flamecharm"
@@ -66,12 +173,14 @@
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "confidence": "unknown",
       "state": "mechanic corroborated; numerical ceiling unknown",
       "priority": "high"
     },
     {
       "id": "flashfusion",
-      "name": "Flashfusion",
+      "name": "Flashfusion (also referenced as Flashpoint in wiki updates)",
+      "path": "Exotherm: Sanguine Blaze (40 BLD + 40 FLM)",
       "attunements": [
         "Bloodrend",
         "Flamecharm"
@@ -81,52 +190,62 @@
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=OFOy9VMS",
+      "confidence": "unknown",
       "state": "listed in builder; numerical behavior unknown",
       "priority": "high"
     },
     {
       "id": "infused_slash",
       "name": "Infused Slash",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons two composite plasma daggers to slash opponent",
+      "conjured_weapon_fandom_stats": "Alloyblood Daggers: 14.5 base / 15% PEN / 1.2x (weapon stats, NOT Lv5 mantra cast ceiling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=Go6hOJma",
-      "state": "mechanic corroborated; numerical ceiling unknown",
+      "confidence": "unknown",
+      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
       "priority": "high"
     },
     {
       "id": "spinning_serum",
       "name": "Spinning Serum",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons plasma spear and spins; potential multi-hit",
+      "conjured_weapon_fandom_stats": "Alloyblood Spear: 18 base / 25% PEN / 10% chip / 35.6 + 5.3 Bleed (weapon stats, NOT Lv5 mantra cast ceiling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/wiki/mantra/Spinning%20Serum",
-      "state": "mechanic corroborated; numerical ceiling unknown",
+      "confidence": "unknown",
+      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
       "priority": "high"
     },
     {
       "id": "rising_plasma",
       "name": "Rising Plasma",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons plasma greataxe upward slash",
+      "conjured_weapon_fandom_stats": "Alloyblood Axe: 24 base / 20% PEN / 20% chip / 0.87x (weapon stats, NOT Lv5 mantra cast ceiling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/wiki/mantra/Rising%20Plasma",
-      "state": "mechanic corroborated; numerical ceiling unknown",
+      "confidence": "unknown",
+      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
       "priority": "high"
     }
   ],
@@ -152,8 +271,16 @@
       "id": "shadow_meteor",
       "builder_L5_base": null,
       "old_dataset_total_base": 105,
-      "patch_source": "https://deepwoken.fandom.com/wiki/Version_History/2026",
-      "status": "damage nerfed in May patch; old base untrusted until refresh"
+      "patch_source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "status": "damage nerfed in May patch + cancelled by Death from Above / Critical; old base untrusted until refresh"
+    },
+    {
+      "name": "Crimson Rain",
+      "id": "crimson_rain",
+      "builder_L5_base": 46.5,
+      "old_dataset_total_base": 93,
+      "builder_source": "https://deepwoken.co/wiki/mantra/Crimson%20Rain",
+      "status": "builder reports single throw/recall cycle (6x7.75=46.5) vs Fandom 12x7.75=93 throw+recall sum"
     }
   ],
   "confidence_terms": {

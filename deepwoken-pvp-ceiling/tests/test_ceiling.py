@@ -130,6 +130,27 @@ class TestPvPCeiling(unittest.TestCase):
         with self.assertRaises(ValueError):
             module.damage(MANTRAS["ceaseless"], target_resistance=1.01)
 
+    def test_patch_candidates_and_mantra_warnings_integrity(self):
+        patch_data = json.loads((ROOT / "data" / "patch_candidates_2026_11.json").read_text(encoding="utf-8"))
+        terms = set(patch_data["confidence_terms"].keys())
+        self.assertGreaterEqual(len(patch_data["patches"]), 8)
+        for key, patch in patch_data["patches"].items():
+            self.assertIn("source", patch, key)
+            self.assertIn(patch.get("confidence"), terms, key)
+        for cand in patch_data["candidate_mantras"]:
+            self.assertIn("source", cand, cand["id"])
+            self.assertIn(cand.get("confidence"), terms, cand["id"])
+            self.assertIsNone(cand["base_damage_level5"], cand["id"])
+
+        checks = {row["id"]: row for row in patch_data["fresh_reference_checks"]}
+        for mid in ("ceaseless", "tornado", "shadow_meteor", "crimson_rain"):
+            self.assertIn(mid, checks)
+            self.assertIn("caveat", MANTRAS[mid])
+            self.assertIn("other_current_source_base_level_5", MANTRAS[mid])
+        self.assertEqual(checks["crimson_rain"]["builder_L5_base"], 46.5)
+        self.assertEqual(checks["tornado"]["builder_L5_base"], 186.48)
+        self.assertIsNone(checks["shadow_meteor"]["builder_L5_base"])
+
 
 if __name__ == "__main__":
     unittest.main()

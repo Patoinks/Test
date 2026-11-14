@@ -62,9 +62,12 @@
         }
       ],
       "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
-      "status": "documented baseline",
-      "warning": "Innate After Cut procs potentially +5%; omitted from the main damage calculation.",
-      "oath_or_monster": false
+      "status": "divergent baseline (177.6 Fandom vs 186.48 Builder)",
+      "warning": "CONFLICTING SOURCE: Fandom documents 12x14.8=177.6 base (After Cut +5% omitted); Deepwoken Builder reports 186.48 Lv5 base (=177.6x1.05).",
+      "oath_or_monster": false,
+      "other_current_source_base_level_5": 186.48,
+      "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
+      "caveat": "Builder 186.48 matches 177.6x1.05 (15.54/tick or After Cut baked in), not independently confirmed in Fandom Version History."
     },
     {
       "id": "tornado_kick",
@@ -110,9 +113,12 @@
         }
       ],
       "source": "https://deepwoken.fandom.com/wiki/Shadowcast",
-      "status": "conditional full-hit",
-      "warning": "3 meteors must hit same target.",
-      "oath_or_monster": false
+      "status": "potentially stale (May 2026 nerf reported)",
+      "warning": "3 meteors must hit same target. Builder/audit flags May-2026 damage nerf vs legacy 3x35=105 and Version_History notes cancel on Death from Above / Critical; new Lv5 numeric unverified.",
+      "oath_or_monster": false,
+      "other_current_source_base_level_5": null,
+      "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
+      "caveat": "Exact post-nerf Lv5 damage value not exposed numerically on Builder or Fandom patch table."
     },
     {
       "id": "scarlet_cyclone",
@@ -223,9 +229,12 @@
         }
       ],
       "source": "https://deepwoken.fandom.com/wiki/Bloodrend",
-      "status": "conditional full-hit",
-      "warning": "Requires all 6 daggers to land both on throw and recall; Blood Loss omitted.",
-      "oath_or_monster": false
+      "status": "conditional full-hit (93 throw+recall vs 46.5 Builder single-cycle)",
+      "warning": "Requires all 6 daggers to land both on throw and recall (46.5 single-cycle in Builder vs 93 throw+recall on Fandom); Blood Loss omitted.",
+      "oath_or_monster": false,
+      "other_current_source_base_level_5": 46.5,
+      "other_current_source": "https://deepwoken.co/builder?id=j6Ot2RWw",
+      "caveat": "Builder displays 46.5 (6x7.75 single cycle), whereas Fandom sums 12x7.75=93 across throw + recall."
     },
     {
       "id": "eclipse_kick",

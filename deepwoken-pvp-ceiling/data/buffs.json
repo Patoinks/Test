@@ -291,10 +291,10 @@
   ],
   "not_yet_modelled": [
     "Drowned / Yun'Shul-upgraded Wind-Up Resonance (Bell) up to level 10 on mantras",
-    "Mantra PEN stack (Prophet's Cloak +20%, Songchant +15%, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive uncapped PEN vs 50% cap)",
+    "Mantra PEN stack (Prophet's Cloak +20%, All Oaths +5% PEN, Songchant +15% on Traits vs +18% at 3%/pt on Uncollapsed May 31 2026, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive uncapped PEN vs 50% cap)",
     "Everchanging Aegis (-20% damage on hits 2..N of the same elemental mantra)",
-    "Specific mantra talent procs (After Cut, Ironsing Bleed, Burn, Heretic's Sutra timing)",
-    "Gear/ring duplicate restrictions and Chime vs Overworld consumable rules",
+    "Specific mantra talent procs (After Cut, Ironsing/Bleed post-Nov 15 2025 15% DoT rebalance, Burn, Heretic's Sutra timing)",
+    "Gear/ring duplicate restrictions (ring stacking exploit patched May 2026) and Chime vs Overworld consumable rules",
     "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt)",
     "Mantra Spark & Stone interactions on per-hit base damage and tick counts"
   ]
