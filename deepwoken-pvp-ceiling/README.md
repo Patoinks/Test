@@ -8,6 +8,14 @@ Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs 
 
 > **ALERTA DE FONTES:** o Deepwoken Builder apresenta Ceaseless Slashes L5 com **290 de base**, enquanto a decomposição antiga por ticks da Fandom usada aqui dá **310,05**. Logo, **576,34 NÃO está confirmado na versão atual**. Ver [cenários PvP fiáveis](docs/RELIABLE_PVP.md) para valores mais defensáveis e o plano de verificação.
 
+> **AUDITORIA DE 14/11/2026 — [ler antes de usar os números](docs/AUDIT_2026-11-14.md):** o valor **0,075 por Songchant é correto** (+7,5% por ponto). O valor **0,065 (+6,5%)** aplica-se a **Proficiency** das armas. A [wiki de Mantras](https://deepwoken.fandom.com/wiki/Mantras) confirma a fórmula. Valores da tabela são cenários de *todos os hits*, não dano PvP garantido.
+>
+> **Poções:** os 27,5% são apenas resultado do modelo de receita da wiki. Um [patch em novembro de 2025](https://deepwoken.fandom.com/wiki/Version_History/2025) reduziu a eficácia de poções de dano em 50%; desconhece-se se a tabela atual já incorpora a redução. Dano real de poção requer teste.
+>
+> **Damage sources fora do cap:** [Arcwarder Enhance](https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder) altera o *dano base* de Arc Beam (+50%) e Arc Wave (+25%). [Shock Trooper Specialist](https://deepwoken.fandom.com/wiki/Hybrid_Abilities) dá +15% de base a seis mantras específicos apenas com o **conjunto completo**. [Fan the Flames](https://deepwoken.fandom.com/wiki/Hybrid_Abilities) permite aplicar Inhale a Flamecharm.
+>
+> Comparação [**sem buffs vs pool comum saturado ×1,50**](docs/AUDIT_2026-11-14.md).
+
 ## Resultados documentados
 - Hard cap PvP para a categoria dos damage modifiers: **1,50×**; soft cap **1,25×**. Segundo a calculadora Deepwoken Builder, o excesso após +25% conta a metade até +50%. Assim, +75% nominal basta para saturar essa categoria (fontes: Version History 2025; deepwoken.co/builder).
 - **Comida Enchant:** Candied Fruit/Fish Omelette, **+5% dano de mantras**. Buffs alimentares de tipos diferentes substituem-se, não somar Enchant e Brain.
