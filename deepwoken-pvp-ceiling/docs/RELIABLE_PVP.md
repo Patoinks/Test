@@ -1,3 +1,5 @@
+> **Auditoria adicional:** ver [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md). Songchant **7,5%** por ponto (Proficiency é 6,5%). O soft cap/hard cap PvP está no patch de 2025; a redução acima do soft cap foi documentada em 2023. As estimativas de resistência deste documento são ilustrativas, não médias confirmadas.
+
 # Dano PvP **fiável**: hard cap vs aplicação real
 
 > **Atualização: 2026-11-14.** Estes são cenários demonstrativos segundo o modelo de caps comum, **não recordes máximos de HP damage**. Um cast pode ser parried, blocked, dodged ou parcialmente evitado.
