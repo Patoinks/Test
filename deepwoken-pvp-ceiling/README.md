@@ -14,7 +14,7 @@ Investigar máximo de dano PvP num único mantra, todos os hits por cast, procs 
 
 > **ALERTA DE FONTES:** o Deepwoken Builder apresenta Ceaseless Slashes L5 com **290 de base**, enquanto a decomposição antiga por ticks da Fandom usada aqui dá **310,05**. Logo, **576,34 NÃO está confirmado na versão atual**. Ver [cenários PvP fiáveis](docs/RELIABLE_PVP.md) para valores mais defensáveis e o plano de verificação.
 
-> **AUDITORIA DE 14/11/2026 — [ler antes de usar os números](docs/AUDIT_2026-11-14.md):** o valor **0,075 por Songchant é correto** (+7,5% por ponto). O valor **0,065 (+6,5%)** aplica-se a **Proficiency** das armas. A [wiki de Mantras](https://deepwoken.fandom.com/wiki/Mantras) confirma a fórmula. Valores da tabela são cenários de *todos os hits*, não dano PvP garantido.
+> **AUDITORIA DE 14/11/2026 — [ler antes de usar os números](docs/AUDIT_2026-11-14.md):** a página atual de [`Traits`](https://deepwoken.fandom.com/wiki/Traits) lista **Songchant a +7,5%/pt (máx. +45%)** e **Proficiency a +6,5%/pt (máx. +39%)**, coerente com o buff posterior a fevereiro de 2026 no `Version_History`, enquanto os exemplos antigos na página [`Mantras`](https://deepwoken.fandom.com/wiki/Mantras) (`70,63` e `25,19`) ainda usam **0,065** (`--songchant-rate 0.065` incluído na CLI para reconciliação). Valores da tabela são cenários de *todos os hits* + teoria máxima de itens PvP (`--item-theory`), não dano PvP garantido.
 >
 > **Poções:** os 27,5% são apenas resultado do modelo de receita da wiki. Um [patch em novembro de 2025](https://deepwoken.fandom.com/wiki/Version_History/2025) reduziu a eficácia de poções de dano em 50%; desconhece-se se a tabela atual já incorpora a redução. Dano real de poção requer teste.
 >
@@ -51,16 +51,19 @@ A soma acima é **hipótese de categoria comum e de sobreposição temporal**, n
 
 ## Executar
 ```bash
-python deepwoken-pvp-ceiling/src/ceiling.py --show-buffs
+python deepwoken-pvp-ceiling/src/ceiling.py --show-buffs --compare --item-theory
+python deepwoken-pvp-ceiling/src/item_theory.py --target-armor 35
+python deepwoken-pvp-ceiling/src/ceiling.py --songchant-rate 0.065 --compare
 python deepwoken-pvp-ceiling/src/buff_scenarios.py
 python -m unittest discover -s deepwoken-pvp-ceiling/tests -v
 ```
 *(Em Linux/macOS pode ser `python3`.)*
 
 ## Ficheiros
-- `src/ceiling.py`: fórmulas, tabelas e candidatos (`data/mantras.json` com 18 entradas).
+- `src/ceiling.py`: fórmulas, tabelas (`--songchant-rate` 0.075 atual vs 0.065 legado), PEN/Armor e candidatos (`data/mantras.json` com 20 entradas).
+- `src/item_theory.py` e `data/items.json`: teoria máxima de itens PvP (Prophet's Cloak, Specialist Set +15% base, Ring of Casters + Isshin's Ring, Nocturnal Gem, Grim debuff, PEN contra armadura real e quarentena de Vow of Iron / PvE).
 - `src/buff_scenarios.py`: auditoria combinatória de buffs lida diretamente de `data/buffs.json`, com filtros de HP, elemento e orçamento de 330 pontos.
-- `tests/test_ceiling.py`: testes regressivos e validação das regras de `buff_scenarios.py`.
+- `tests/test_ceiling.py`: testes regressivos, exemplos resolvidos da Wiki (`70,63` / `25,19` a `0.065` e `0.075`), validação de `buff_scenarios.py` e `item_theory.py`.
 - `docs/RESEARCH.md`: evidências, nuances e restrições.
 - `docs/RELIABLE_PVP.md`: cenários defensáveis e comparativo de single-hits.
 - `docs/TEST_PLAN.md`: ensaios in-game que faltam.

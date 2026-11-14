@@ -18,6 +18,10 @@ SCENARIOS_SPEC = importlib.util.spec_from_file_location("buff_scenarios", ROOT /
 buff_scenarios = importlib.util.module_from_spec(SCENARIOS_SPEC)
 SCENARIOS_SPEC.loader.exec_module(buff_scenarios)
 
+ITEMS_SPEC = importlib.util.spec_from_file_location("item_theory", ROOT / "src" / "item_theory.py")
+item_theory = importlib.util.module_from_spec(ITEMS_SPEC)
+ITEMS_SPEC.loader.exec_module(item_theory)
+
 MANTRAS = {m["id"]: m for m in json.loads((ROOT / "data" / "mantras.json").read_text(encoding="utf-8"))["mantras"]}
 RAW_BUFFS = json.loads((ROOT / "data" / "buffs.json").read_text(encoding="utf-8"))["buffs"]
 
@@ -150,6 +154,49 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertEqual(checks["crimson_rain"]["builder_L5_base"], 46.5)
         self.assertEqual(checks["tornado"]["builder_L5_base"], 186.48)
         self.assertIsNone(checks["shadow_meteor"]["builder_L5_base"])
+
+    def test_legacy_065_songchant_and_wiki_worked_examples(self):
+        # Legacy Mantras wiki worked examples (pre-May-2026 0.065 vs current Traits 0.075)
+        strong_left = {"segments": [{"count": 1, "damage": 60}], "scaling": 1.65, "oath_or_monster": False}
+        celestial = {"segments": [{"count": 1, "damage": 20}], "scaling": 1.65, "oath_or_monster": True}
+
+        self.assertEqual(round(module.damage(strong_left, 95, 2, raw_bonus=0.0, songchant_rate=0.065), 2), 70.63)
+        self.assertEqual(round(module.damage(strong_left, 95, 2, raw_bonus=0.0, songchant_rate=0.075), 2), 70.82)
+        self.assertEqual(round(module.damage(celestial, 80, 4, raw_bonus=0.0, songchant_rate=0.065), 2), 25.19)
+        self.assertEqual(round(module.damage(celestial, 80, 4, raw_bonus=0.0, songchant_rate=0.075), 2), 25.31)
+        self.assertEqual(round(module.damage(MANTRAS["ceaseless"], songchant_rate=0.065), 2), 571.74)
+        self.assertEqual(round(module.damage(MANTRAS["tornado"], songchant_rate=0.065), 2), 368.23)
+
+    def test_pvp_item_theory_and_pen_math(self):
+        items = item_theory.load_items()
+        excluded = {e["id"]: e for e in items["excluded_or_zero_pvp_mantra_damage"]}
+        self.assertFalse(excluded["divine_cast_ring"]["legal_standard_pvp"])
+        self.assertAlmostEqual(item_theory.passive_item_common_bonus(items, include_food=True), 0.25)
+
+        capped_pen, raw_pen_no_eo, uncapped_no_eo = item_theory.max_pen_fraction(
+            items, mantra_type="Galebreathe", include_ether_overdrive=False,
+        )
+        self.assertFalse(uncapped_no_eo)
+        self.assertAlmostEqual(raw_pen_no_eo, 0.55)
+        self.assertAlmostEqual(capped_pen, 0.50)
+
+        uncapped_pen, _, uncapped_eo = item_theory.max_pen_fraction(
+            items, mantra_type="Galebreathe", include_ether_overdrive=True,
+        )
+        self.assertTrue(uncapped_eo)
+        self.assertAlmostEqual(uncapped_pen, 0.60)
+
+        ironsing_pen, _, _ = item_theory.max_pen_fraction(
+            items, mantra_type="Ironsing", include_ether_overdrive=True,
+        )
+        self.assertAlmostEqual(ironsing_pen, 0.90)
+
+        electro_res = item_theory.evaluate_mantra_with_items(MANTRAS["electro_carve"], items, target_armor=0.35)
+        ceaseless_res = item_theory.evaluate_mantra_with_items(MANTRAS["ceaseless"], items, target_armor=0.35)
+        self.assertAlmostEqual(electro_res["specialist_mult"], 1.15)
+        self.assertAlmostEqual(ceaseless_res["specialist_mult"], 1.0)
+        self.assertAlmostEqual(electro_res["passive_item_gross"], 70.0 * 1.15 * 1.39875 * 1.25)
+        self.assertAlmostEqual(ceaseless_res["full_cap_plus_nocturnal_gross"], 576.34419375 + 10.0)
 
 
 if __name__ == "__main__":

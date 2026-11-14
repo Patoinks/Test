@@ -298,7 +298,45 @@
       "source": "https://deepwoken.fandom.com/wiki/Thundercall",
       "status": "documented single-hit",
       "warning": "Long-range single hit; Shock Trooper Specialist Full Set grants 1.15x base_damage_multiplier.",
-      "oath_or_monster": false
+      "oath_or_monster": false,
+      "specialist_eligible": true
+    },
+    {
+      "id": "electro_carve",
+      "name": "Electro Carve",
+      "type": "Thundercall",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "count": 7,
+          "damage": 10
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Thundercall",
+      "status": "documented baseline (Specialist-eligible)",
+      "warning": "7 hits (10 Lv5 base each, unsparked Wiki baseline; Oct 31 patch adjusted Electro Carve Blast Spark & Magnet Variant); eligible for +15% base bypass with Shock Trooper Specialist Full Set.",
+      "oath_or_monster": false,
+      "specialist_eligible": true
+    },
+    {
+      "id": "champions_whirlthrow",
+      "name": "Champion's Whirlthrow",
+      "type": "Galebreathe",
+      "scaling": 2.75,
+      "segments": [
+        {
+          "damages": [
+            46,
+            15
+          ],
+          "label": "Lv5 initial hit (46) + flat follow-up (15)"
+        }
+      ],
+      "source": "https://deepwoken.fandom.com/wiki/Galebreathe",
+      "status": "conditional full-hit (Specialist-eligible)",
+      "warning": "Requires initial grab + 15 flat second hit to connect; eligible for +15% base bypass with Shock Trooper Specialist Full Set.",
+      "oath_or_monster": false,
+      "specialist_eligible": true
     },
     {
       "id": "fire_forge",

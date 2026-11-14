@@ -157,7 +157,7 @@
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=OFOy9VMS",
       "confidence": "unknown",
-      "state": "mechanic corroborated; numerical ceiling unknown",
+      "state": "nerfed Nov 1 (scaling and damage reduced per PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md); do not use launch numbers; Lv5 ceiling unknown",
       "priority": "high"
     },
     {
@@ -178,74 +178,91 @@
       "priority": "high"
     },
     {
-      "id": "flashfusion",
-      "name": "Flashfusion (also referenced as Flashpoint in wiki updates)",
+      "id": "flashpoint",
+      "name": "Flashpoint",
       "path": "Exotherm: Sanguine Blaze (40 BLD + 40 FLM)",
       "attunements": [
         "Bloodrend",
         "Flamecharm"
       ],
-      "effect": "Hybrid Bloodrend/Flamecharm. Needs live trigger/detonation audit.",
+      "effect": "Oct 31 in-game release note entry for Exotherm. Kept distinct from Nov 1 'Flashfusion' per PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md until confirmed identical.",
+      "full_hit_count": null,
+      "base_damage_level5": null,
+      "proc_damage": null,
+      "source": "docs/PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md",
+      "confidence": "unknown",
+      "state": "Oct 31 primary note entry; numerical behavior unknown",
+      "priority": "high"
+    },
+    {
+      "id": "flashfusion",
+      "name": "Flashfusion",
+      "path": "Exotherm: Sanguine Blaze (40 BLD + 40 FLM)",
+      "attunements": [
+        "Bloodrend",
+        "Flamecharm"
+      ],
+      "effect": "Nov 1 hotchange increased windup speed; kept distinct from Oct 31 'Flashpoint' until identity/rename vs separate mantra is confirmed in-game.",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=OFOy9VMS",
       "confidence": "unknown",
-      "state": "listed in builder; numerical behavior unknown",
+      "state": "Nov 1 windup buff logged in PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md; numerical behavior unknown",
       "priority": "high"
     },
     {
       "id": "infused_slash",
       "name": "Infused Slash",
-      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL; old Alloyblood renamed Iron Veins)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons two composite plasma daggers to slash opponent",
-      "conjured_weapon_fandom_stats": "Alloyblood Daggers: 14.5 base / 15% PEN / 1.2x (weapon stats, NOT Lv5 mantra cast ceiling)",
+      "conjured_weapon_fandom_stats": "Alloyblood Daggers: 14.5 base / 15% PEN / 1.2x (weapon stats, NOT Lv5 mantra cast ceiling; Nov 1 nerfed Alloyblood mantra base dmg & scaling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/builder?id=Go6hOJma",
       "confidence": "unknown",
-      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
+      "state": "Nov 1 nerfed Alloyblood mantra base damage AND scaling (PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md); post-nerf Lv5 cast ceiling unknown",
       "priority": "high"
     },
     {
       "id": "spinning_serum",
       "name": "Spinning Serum",
-      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL; old Alloyblood renamed Iron Veins)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons plasma spear and spins; potential multi-hit",
-      "conjured_weapon_fandom_stats": "Alloyblood Spear: 18 base / 25% PEN / 10% chip / 35.6 + 5.3 Bleed (weapon stats, NOT Lv5 mantra cast ceiling)",
+      "conjured_weapon_fandom_stats": "Alloyblood Spear: 18 base / 25% PEN / 10% chip / 35.6 + 5.3 Bleed (weapon stats, NOT Lv5 mantra cast ceiling; Nov 1 nerfed Alloyblood mantra base dmg & scaling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/wiki/mantra/Spinning%20Serum",
       "confidence": "unknown",
-      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
+      "state": "Nov 1 nerfed Alloyblood mantra base damage AND scaling (PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md); post-nerf Lv5 cast ceiling unknown",
       "priority": "high"
     },
     {
       "id": "rising_plasma",
       "name": "Rising Plasma",
-      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL)",
+      "path": "Composite Path: Alloyblood (50 BLD + 50 MTL; old Alloyblood renamed Iron Veins)",
       "attunements": [
         "Bloodrend",
         "Ironsing"
       ],
       "effect": "Summons plasma greataxe upward slash",
-      "conjured_weapon_fandom_stats": "Alloyblood Axe: 24 base / 20% PEN / 20% chip / 0.87x (weapon stats, NOT Lv5 mantra cast ceiling)",
+      "conjured_weapon_fandom_stats": "Alloyblood Axe: 24 base / 20% PEN / 20% chip / 0.87x (weapon stats, NOT Lv5 mantra cast ceiling; Nov 1 nerfed Alloyblood mantra base dmg & scaling)",
       "full_hit_count": null,
       "base_damage_level5": null,
       "proc_damage": null,
       "source": "https://deepwoken.co/wiki/mantra/Rising%20Plasma",
       "confidence": "unknown",
-      "state": "mechanic & conjured-weapon stats corroborated; mantra cast numerical ceiling unknown",
+      "state": "Nov 1 nerfed Alloyblood mantra base damage AND scaling (PRIMARY_PATCH_LOG_OCT19_NOV1_2026.md); post-nerf Lv5 cast ceiling unknown",
       "priority": "high"
     }
   ],

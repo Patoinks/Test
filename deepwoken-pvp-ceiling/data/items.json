@@ -1,0 +1,217 @@
+{
+  "as_of": "2026-11-14",
+  "purpose": "Wiki-sourced inventory of PvP items, outfits, equipment sets, rings, weapon/armor enchants, Deep Gems, consumables, and PEN stack sources affecting Mantra Damage Ceiling.",
+  "notes": [
+    "Standard PvP means Overworld or Chime of Conflict; Vow of Iron exclusive relics (e.g. Divine Cast Ring) are explicitly quarantined as legal_standard_pvp=false.",
+    "Prophet's Cloak uses the Master Outfit slot, whereas Shock Trooper Specialist uses Head/Arms/Legs slots — both can be equipped simultaneously.",
+    "Duplicate Ring stacking exploits and unenchantable-slot bypasses were patched in May 2026."
+  ],
+  "equipment_and_items": [
+    {
+      "id": "prophets_cloak",
+      "name": "Prophet's Cloak (Crippling Darkness)",
+      "slot": "master_outfit",
+      "channel": "pen",
+      "pen_fraction": 0.20,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Prophet%27s_Cloak",
+      "notes": "Grants +20% Mantra & non-basic-attack PEN via Crippling Darkness. Compatible with Specialist Head/Arms/Legs."
+    },
+    {
+      "id": "specialist_full_set",
+      "name": "Shock Trooper Specialist Full Set",
+      "slot": "head_arms_legs_set",
+      "channel": "base_damage_multiplier",
+      "base_damage_multiplier": 1.15,
+      "eligible_mantras": [
+        "Grand Javelin",
+        "Thunder Kick",
+        "Electro Carve",
+        "Astral Wind",
+        "Champion's Whirlthrow",
+        "Gale Lunge"
+      ],
+      "extra_proc_damage": 15,
+      "extra_proc_note": "Conjures Storm Strike (15 Gale/Thunder) once 600..400 cumulative attunement-scaled mantra damage threshold is reached.",
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Hybrid_Abilities",
+      "notes": "Requires Helmet + Plate + Boots; Helmet alone gives Volt Draft/Inhale only. Pieces are unenchantable and consume armor enchant slots (May 2026 patch)."
+    },
+    {
+      "id": "ring_of_casters",
+      "name": "Ring of Casters",
+      "slot": "ring_1",
+      "channel": "common_pool",
+      "percent": 5.0,
+      "penalty": "-5% melee damage",
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Ring_of_Casters",
+      "notes": "Stable passive +5% mantra damage. Duplicate ring stacking assumed blocked (May 2026 patch)."
+    },
+    {
+      "id": "isshins_ring",
+      "name": "Isshin's Ring",
+      "slot": "ring_2",
+      "channel": "common_pool",
+      "percent": 15.0,
+      "penalty": "+20% incoming damage taken",
+      "legal_standard_pvp": true,
+      "chime_note": "Patch history notes balance/bugfixes for Chime downside consistency; subject to PvP damage modifier caps.",
+      "source": "https://deepwoken.fandom.com/wiki/Isshin%27s_Ring",
+      "notes": "Wiki explicitly states Isshin's Ring stacks with Ring of Casters (+20% combined from rings alone) and is subject to damage modifier cap mechanics."
+    },
+    {
+      "id": "enchant_food",
+      "name": "Enchant Reinforced Hunger (Candied Fruit / Fish Omelette)",
+      "slot": "food",
+      "exclusive_group": "food",
+      "channel": "common_pool",
+      "percent": 5.0,
+      "legal_standard_pvp": true,
+      "overworld_uptime": "Gourmet boon extends duration +50% (May 2026 patch)",
+      "source": "https://deepwoken.fandom.com/wiki/Food",
+      "notes": "Carnivore builds must use Fish Omelette. Exclusive with Brain food."
+    },
+    {
+      "id": "brain_food",
+      "name": "Brain Reinforced Hunger (Grilled Parasol Brain)",
+      "slot": "food",
+      "exclusive_group": "food",
+      "channel": "proc_upgrade",
+      "nocturnal_flat_override": 15.0,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Food",
+      "notes": "Boosts Nocturnal Gem proc from 10 to 15 (+5 flat per proc), but replaces Enchant food (+5% mantra)."
+    },
+    {
+      "id": "strengthening_potion",
+      "name": "Strengthening Potion (3 Plumfruit + 2 Browncap, 100 INT + Apothecary)",
+      "slot": "potion",
+      "channel": "common_pool",
+      "percent_recipe_model": 27.5,
+      "percent_halved_2025_nerf": 13.75,
+      "legal_standard_pvp": true,
+      "chime_note": "Overworld standard; Chime consumable restrictions must be checked in-game.",
+      "source": "https://deepwoken.fandom.com/wiki/Alchemy",
+      "notes": "Nov 2025 Version History states damage potion efficiency nerfed by 50%. Self-damage from Browncap threatens >95% HP Perfect Flash without heal."
+    },
+    {
+      "id": "nocturnal_gem",
+      "name": "Nocturnal Gem (Slotted Deep Gem)",
+      "slot": "deep_gem",
+      "channel": "separate_flat_proc",
+      "flat_damage": 10.0,
+      "flat_damage_with_brain": 15.0,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Nocturnal_Gem",
+      "notes": "Deals fixed 10 slash damage (15 with Brain food) after 1s delay, ignoring damage modifiers. Conservative single-cast model counts 1 guaranteed trigger."
+    },
+    {
+      "id": "insignia_gem",
+      "name": "Insignia Gem (Slotted Deep Gem)",
+      "slot": "deep_gem_alternative",
+      "channel": "windup_utility",
+      "windup_reduction_percent": 15.0,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Mantra_Modifiers",
+      "notes": "Reduces next mantra windup by 15% for 3s (5s CD); improves combo confirmation/DPS rather than direct single-cast damage."
+    },
+    {
+      "id": "grim_weapon_enchant",
+      "name": "Grim (Weapon Enchant Debuff)",
+      "slot": "weapon_enchant",
+      "channel": "unverified_vulnerability_vs_common_pool",
+      "percent": 25.0,
+      "duration_seconds": 6.0,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Enchants",
+      "notes": "Requires M1s/crit setup to apply +25% incoming damage (+50% posture) for ~6s; unverified whether server treats Grim inside common cap or separate target vulnerability."
+    }
+  ],
+  "pen_sources": {
+    "base_cap_without_ether_overdrive": 0.50,
+    "all_oaths_pen": {
+      "pen_fraction": 0.05,
+      "applies_to": "all damage sources when Oath is obtained",
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed"
+    },
+    "prophets_cloak": {
+      "pen_fraction": 0.20,
+      "applies_to": "mantras / non-basic attacks",
+      "source": "https://deepwoken.fandom.com/wiki/Prophet%27s_Cloak"
+    },
+    "songchant_6_traits_wiki": {
+      "pen_fraction": 0.15,
+      "per_point": 0.025,
+      "source": "https://deepwoken.fandom.com/wiki/Traits"
+    },
+    "songchant_6_uncollapsed_may31": {
+      "pen_fraction": 0.18,
+      "per_point": 0.03,
+      "source": "https://deepwoken.fandom.com/wiki/Version_History/Uncollapsed",
+      "notes": "May 31, 2026 patch note states Songchant Mantra PEN reduced 5% -> 3% per point (18% at 6 vs 15% still shown on Traits page)."
+    },
+    "piercing_will": {
+      "pen_fraction": 0.15,
+      "requirements": "80 Willpower (Heretic's Sutra)",
+      "source": "https://deepwoken.fandom.com/wiki/Heretic%27s_Sutra"
+    },
+    "ether_overdrive": {
+      "pen_fraction": 0.05,
+      "removes_pen_cap": true,
+      "requirements": "90 Intelligence + 20 Attunement",
+      "source": "https://deepwoken.fandom.com/wiki/Intelligence"
+    },
+    "ironsing_innate": {
+      "pen_fraction": 0.30,
+      "applies_to": "Ironsing mantras",
+      "source": "https://deepwoken.fandom.com/wiki/Ironsing"
+    }
+  },
+  "excluded_or_zero_pvp_mantra_damage": [
+    {
+      "id": "divine_cast_ring",
+      "name": "Divine Cast Ring",
+      "effect": "3x mantra damage (drains full Ether bar)",
+      "legal_standard_pvp": false,
+      "reason": "Exclusive Relic inside Vow of Iron gamemode; NOT legal/accessible in standard Overworld or Chime PvP.",
+      "source": "https://deepwoken.fandom.com/wiki/Divine_Cast_Ring"
+    },
+    {
+      "id": "drowned_armor_enchant",
+      "name": "Drowned (Equipment Enchant)",
+      "effect": "+10 HP, +10 Ether, +5% Damage Vs. Monsters, +5% Monster Armor",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": 0,
+      "reason": "Damage boost applies vs Monsters (PvE) only.",
+      "source": "https://deepwoken.fandom.com/wiki/Enchants"
+    },
+    {
+      "id": "armor_pips_and_defensive_enchants",
+      "name": "Equipment Pips & Enchants (Ferocity, Viscosity, Entanglement, Multiplicity)",
+      "effect": "Defensive/mobility/resource stats (HP, Ether, Posture, Armor, Speed, DR, hunger restore)",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": 0,
+      "reason": "No PvP Mantra Damage% or Mantra PEN% rolls exist on generic Armor Pips or Armor Enchants.",
+      "source": "https://deepwoken.fandom.com/wiki/Equipment"
+    },
+    {
+      "id": "scaling_rings",
+      "name": "Scaling Rings (Maestro's, Akira's, Dawnfist's, Prophet's, Rosen's)",
+      "effect": "+1.2 Weapon scaling for corresponding attribute",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": 0,
+      "reason": "Modifies weapon scaling, not mantra scaling.",
+      "source": "https://deepwoken.fandom.com/wiki/Rings"
+    },
+    {
+      "id": "yunshul_wind_up_bell",
+      "name": "Yun'Shul-Upgraded Wind-Up Resonance (Lv10)",
+      "effect": "Activates on Mantras up to level 10 after Yun'Shul upgrade",
+      "legal_standard_pvp": true,
+      "mantra_pvp_bonus": null,
+      "reason": "Exact PvP mantra percentage is undocumented on Fandom Wiki; flagged as unquantified ceiling lead.",
+      "source": "https://deepwoken.fandom.com/wiki/Resonance"
+    }
+  ]
+}

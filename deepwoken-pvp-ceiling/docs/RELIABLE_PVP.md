@@ -1,4 +1,4 @@
-> **Auditoria adicional:** ver [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md). Songchant **7,5%** por ponto (Proficiency é 6,5%). O soft cap/hard cap PvP está no patch de 2025; a redução acima do soft cap foi documentada em 2023. As estimativas de resistência deste documento são ilustrativas, não médias confirmadas.
+> **Auditoria adicional:** ver [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md). Songchant atual é **`7,5%` por ponto** em [Traits](https://deepwoken.fandom.com/wiki/Traits) (exemplos resolvidos antigos em `Mantras` usam **`6,5%`** pré-Maio/2026; `--songchant-rate 0.065` disponível para comparação). O soft cap/hard cap PvP está no patch de 2025; a redução acima do soft cap foi documentada em 2023. As estimativas de resistência deste documento são ilustrativas, não médias confirmadas.
 
 # Dano PvP **fiável**: hard cap vs aplicação real
 
@@ -6,7 +6,7 @@
 
 ## A distinção essencial
 - **Cap legal do pool de damage modifiers em PvP**: ×1.50 (+50% efetivo).
-- **Buffs estáveis de baixo custo**: Ring of Casters (+5%) + Enchant food (+5%) = +10% nominal, **×1.10** enquanto a comida está ativa.
+- **Buffs estáveis sem condição de HP**: Ring of Casters (+5%) + Enchant food (+5%) = +10% nominal (**×1.10**); adicionando **`Isshin's Ring` (+15%, +20% dano sofrido)** sobe para **+25% nominal → `×1.25` integral na soft cap** sem depender de >95% HP, Taunt ou Poção. Ver [`src/item_theory.py`](../src/item_theory.py).
 - **Opener dependente de estado**: acrescentar Perfect Flash perto do alvo com mais de 95% HP (+25%): +35% bruto ⇒ depois da soft cap +25% ⇒ +30% efetivo, **×1.30**.
 - **Opener com Taunt aplicado**: soma +20% bruto (alvo afetado): +55% nominal ⇒ +40% efetivo, **×1.40**.
 - **Hard cap** exige pelo menos **+75% de modifiers brutos da categoria** para chegar a ×1.50: depende de mais buffs de estado (poção, Taunt, talentos, etc.), nem sempre disponíveis numa luta comum.

@@ -232,11 +232,12 @@
     {
       "id": "after_cut",
       "name": "After Cut",
-      "percent": 5,
-      "applies_to": "extra proc on applicable Galebreathe mantras (10% on wind/physical M1s)",
+      "percent": 2.5,
+      "percent_legacy_galebreathe_wiki": 5,
+      "applies_to": "secondary Galebreathe hit outside damage modifier cap on applicable wind/physical mantras (2.5% per Talents wiki; legacy 5% mantra note on Galebreathe wiki)",
       "model_in_common_pool": false,
-      "provenance": "documented conditional proc; excluded from common core",
-      "source": "https://deepwoken.fandom.com/wiki/Galebreathe"
+      "provenance": "documented conditional secondary hit; excluded from common pool (2.5% vs 5% wiki discrepancy)",
+      "source": "https://deepwoken.fandom.com/wiki/Talents"
     },
     {
       "id": "fan_the_flames",
@@ -290,12 +291,13 @@
     }
   ],
   "not_yet_modelled": [
-    "Drowned / Yun'Shul-upgraded Wind-Up Resonance (Bell) up to level 10 on mantras",
-    "Mantra PEN stack (Prophet's Cloak +20%, All Oaths +5% PEN, Songchant +15% on Traits vs +18% at 3%/pt on Uncollapsed May 31 2026, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive uncapped PEN vs 50% cap)",
+    "Drowned / Yun'Shul-upgraded Wind-Up Resonance (Bell) up to level 10 on mantras (exact % unverified on Wiki)",
+    "Mantra PEN stack (Prophet's Cloak +20%, All Oaths +5% PEN, Songchant +15% on Traits vs +18% at 3%/pt on Uncollapsed May 31 2026, Ironsing innate +30%, Piercing Will +15%, Ether Overdrive +5% & uncapped PEN vs 50% cap) — see data/items.json & src/item_theory.py",
+    "Equipment / Ring / Enchant / Deep Gem theory (Isshin's Ring +15%, Grim +25% debuff, Specialist Full Set +15% base) — modelled separately in src/item_theory.py",
     "Everchanging Aegis (-20% damage on hits 2..N of the same elemental mantra)",
-    "Specific mantra talent procs (After Cut, Ironsing/Bleed post-Nov 15 2025 15% DoT rebalance, Burn, Heretic's Sutra timing)",
+    "Specific mantra talent procs (After Cut 2.5%/5%, Ironsing/Bleed post-Nov 15 2025 15% DoT rebalance, Burn, Heretic's Sutra timing)",
     "Gear/ring duplicate restrictions (ring stacking exploit patched May 2026) and Chime vs Overworld consumable rules",
-    "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt)",
+    "Target damage-taken vulnerability separation vs attacker modifier cap (Perfect Flash / Taunt / Grim)",
     "Mantra Spark & Stone interactions on per-hit base damage and tick counts"
   ]
 }

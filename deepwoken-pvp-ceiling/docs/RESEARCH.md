@@ -1,4 +1,4 @@
-> **Nota de auditoria (14/11/2026):** Songchant é **+7,5% por ponto**, NÃO 6,5% (que pertence a Proficiency). Fórmula confirmada em [Traits](https://deepwoken.fandom.com/wiki/Traits) e [Mantras](https://deepwoken.fandom.com/wiki/Mantras). Tabela «sem buffs / com cap»: [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md). **27,5% de poção é apenas receita teórica: nerf de eficácia de poções de dano em 2025, efeito líquido não comprovado.**
+> **Nota de auditoria (14/11/2026):** Songchant é **+7,5% por ponto (`0,075`, máx. +45%)** segundo [Traits](https://deepwoken.fandom.com/wiki/Traits) e `Version_History` 2026 (Proficiency = 6,5% / +39%); **exemplos resolvidos antigos em `Mantras` (`70,63`, `25,19`) usam o coeficiente pré-patch `0,065`**, suportado em `ceiling.py` via `--songchant-rate 0.065` (`576,34` vs `571,74` em Ceaseless). Ver [AUDIT_2026-11-14.md](AUDIT_2026-11-14.md) e [item_theory.py](../src/item_theory.py). **27,5% de poção é apenas receita teórica: nerf de 50% na eficácia das poções em 15/11/2025.**
 
 # Investigação — metodologia e todas as fontes de dano relevantes
 
@@ -43,6 +43,9 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 | Power food | +5% M1 | **Não** | Outro tipo de comida |
 | Brain food | Nocturnal proc 10→15 | Apenas proc da gema | Substitui Enchant, não simultâneo |
 | Ring of Casters | +5% mantra / -5% melee | Sim | Não presumir stack de vários anéis iguais |
+| Isshin's Ring | +15% geral / +20% dano sofrido | Sim | Acumula com `Ring of Casters` (`+20%` bruto só em anéis); sujeito ao cap PvP |
+| Grim (Weapon Enchant) | +25% dano sofrido no alvo (~6s) | Condicional (debuff M1) | Canal vs cap comum por confirmar; modela-se em `item_theory.py` |
+| Divine Cast Ring | 3× dano (zera Ether) | **ILEGAL em PvP padrão** | Exclusivo de **Vow of Iron** Relic (quarentenado fora do teto Overworld/Chime) |
 | Perfect Flash | +25% mantra perto e acima de 95% HP | Sim | 25 INT; confirmar canal do cap e distância |
 | Taunt | Alvo recebe +20% | Sim | 25 CHA; explicitamente sujeito ao cap, alvo revida +10% |
 | Strengthening potion | Até +27.5% modelo receita (**não confirmado pós-nerf 2025**) | Geral, a confirmar prática | 3 Plumfruit + 2 Browncap; 100 INT + Apothecary **no fabricante**; Browncap dá dano ao beber |
@@ -63,7 +66,7 @@ Coeficiente típico: **1,65** para mantras sem elemento / Weapon e **2,75** para
 - **Fontes de PEN:** `All Oaths` (**+5% PEN** em todas as fontes de dano, substituindo Thresher Claws PEN em Oaths), `6 Songchant` (**+15% PEN** em `Traits` a `2,5%/pt` vs **`3%/pt → +18%`** segundo `Version_History/Uncollapsed` de 31/05/2026 — divergência por validar), `Prophet's Cloak` (+20% Mantra PEN), `Ironsing` (+30% PEN inata), `Piercing Will` (+15% PEN, via Heretic's Sutra). A PEN base tem cap de **50%**, só removível por talentos como `Ether Overdrive` (90 INT) / `Million Ton Piercer`.
 - **Drowned / Yun'Shul Wind-Up Resonance (Bell):** a versão base só aplica em ataques físicos, mas a versão upgraded via Yun'Shul sobe até nível 10 e **passa a ativar em mantras** (percentagem exata sem número fixo documentado na Wiki).
 
-Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: `After Cut` (5% em mantras Gale), `Matador`, `Rush Hour`, `Spinning Swordsman`, `Blast Furnace`, `Crystallization`, `Emperor Flame`, `Bleed` (`30%→15%` DoT em armas no patch de 15/11/2025) / `Blood Loss` PvP vs PvE. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
+Talentos/sinergias adicionais que ainda exigem verificação de canal ou patch: `After Cut` (**2,5%** em mantras segundo `Talents` / **5%** em M1s — menção legada `5%` em Galebreathe — atuando como **hit secundário fora do cap**), `Matador`, `Rush Hour`, `Spinning Swordsman`, `Blast Furnace`, `Crystallization`, `Emperor Flame`, `Bleed` (`30%→15%` DoT em armas no patch de 15/11/2025) / `Blood Loss` PvP vs PvE. O site Deepwoken Builder lista várias destas fontes, mas **não garante** que todas atuem em mantras. Não adicionamos valores de uma categoria de armas à de mantras.
 
 ### Poções (método completo; **modelo de receita, eficácia após o patch NÃO CONFIRMADA**)
 - Uma única poção ativa por jogador; outra substitui. Buff dura 15s por defeito.
@@ -114,6 +117,16 @@ O mantra Ceaseless Slashes pode superar 5 cortes quando se recupera Ether durant
 - **Shock Trooper Specialist:** com **TODAS as peças equipadas**, +15% base em **Grand Javelin, Thunder Kick, Electro Carve, Astral Wind, Champion's Whirlthrow, Gale Lunge**. O capacete isolado não dá o bónus de base; o set também pode causar Stormcall Strikes quando atinge limiar. [Hybrid Abilities](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
 - **Oath/Monster Songchant** +2% por ponto, *além* da fórmula de scaling apropriada. **Ceaseless Slashes e Tornado NÃO são mantras Oath.** [Mantras](https://deepwoken.fandom.com/wiki/Mantras)
 - **Fan the Flames:** Inhale (Mantra Wind armazenado) potencia **Flamecharm** com +(nível×2)% até 10%, além de transferir modificadores do mantra inalado. [Hybrid Abilities](https://deepwoken.fandom.com/wiki/Hybrid_Abilities)
+
+## 4C. Teoria máxima de itens para PvP (`data/items.json` / `src/item_theory.py`)
+
+No PvP padrão (Overworld / Chime), a combinação teórica máxima de equipamento que afeta mantras é:
+- **Outfit (`Prophet's Cloak`):** `+20% Mantra PEN` via *Crippling Darkness*. Não conflita com Head/Arms/Legs.
+- **Set de armadura (quando aplicável):** `Shock Trooper Specialist Full Set` (**+15% dano base fora do cap** nos 6 mantras Thundercall/Galebreathe elegíveis — ex.: `Electro Carve` `70 → 80,5` base, `Champion's Whirlthrow` `61 → 70,15`, `Grand Javelin` `44,2 → 50,83`). Peças são unenchantable e consomem slots de enchant; **Pips e Enchants de armadura comuns (`Ferocity`, `Viscosity`, `Entanglement`, `Multiplicity`, `Drowned`) dão `0%` de dano PvP de mantra** (`Drowned` é PvE-only).
+- **Anéis:** `Ring of Casters` (`+5%`) + `Isshin's Ring` (`+15%`) = **`+20%` passivo**; somado a `Enchant Food` (`+5%`) atinge **`+25%` → `1,250×` sem perda por soft cap nem condição de HP/Taunt/Poção**. (`Scaling Rings` só afetam scaling de arma.)
+- **Deep Gem:** `Nocturnal Gem` (`+10` slash fixo fora do cap por trigger, ou `+15` com `Brain Food` trocando `+5%` Enchant). `Insignia Gem` reduz windup `-15%`.
+- **PEN máximo contra oponente equipado:** `Prophet's Cloak (20%) + All Oaths (5%) + 6 Songchant (15% Traits / 18% Uncollapsed) + Piercing Will (15%) + Ether Overdrive (5% + remove cap 50%) = 60%–63% PEN` (e **`90%–93%` em Ironsing** com `+30%` inato). Contra alvo com `35%` armadura, isto vale mais dano líquido do que exceder o soft cap comum.
+- **Canais separados/incertos:** weapon enchant `Grim` (`+25%` incoming dmg por 6s via M1s — mostrado como teto hipotético à parte em `item_theory.py`), Bell `Yun'Shul Wind-Up Lv10` (sem % fixa na Wiki). **`Divine Cast Ring` (`3×`) é exclusivo de *Vow of Iron* Relic e ilegal em PvP padrão.**
 
 ## 5. Estados/exclusões e incompatibilidades
 - **Perfect Flash >95% HP** e **Last Resort <25% HP** não coexistem no mesmo instante.

@@ -47,9 +47,14 @@
 - Efeitos pós-cap, efeitos de alvo e procs só podem ser combinados depois de verificar a ordem de aplicação.
 - A publicação deste projeto não constitui validação em ambiente de jogo em tempo real.
 
-## Auditoria 2026-11-14
-- [Traits — distinção exata Proficiency 6.5% vs Songchant 7.5%](https://deepwoken.fandom.com/wiki/Traits)
-- [Mantras — fórmula oficial documentada, Songchant 0.075 e exceção Oath](https://deepwoken.fandom.com/wiki/Mantras)
+## Auditoria 2026-11-14 & Teoria de Itens PvP
+- [Traits — Songchant 7,5%/pt (45% máx.) vs Proficiency 6,5%/pt (39% máx.)](https://deepwoken.fandom.com/wiki/Traits)
+- [Mantras — fórmula oficial documentada, exceção Oath +0.02×Songchant e exemplos resolvidos legados (`0.065`: `70,63`, `25,19`)](https://deepwoken.fandom.com/wiki/Mantras)
+- [Isshin's Ring — +15% dano geral / +20% dano sofrido (sujeito a cap PvP, acumula com Ring of Casters)](https://deepwoken.fandom.com/wiki/Isshin%27s_Ring)
+- [Divine Cast Ring — 3× mantra damage (EXCLUSIVO Vow of Iron Relic, ilegal em PvP padrão)](https://deepwoken.fandom.com/wiki/Divine_Cast_Ring)
+- [Enchants — Grim (+25% dmg taken ~6s), Armor Enchants Drowned (PvE-only) / Ferocity / Viscosity / Entanglement / Multiplicity](https://deepwoken.fandom.com/wiki/Enchants)
+- [Talents — After Cut (`2,5%` em mantras / `5%` em físicos como hit secundário fora do cap)](https://deepwoken.fandom.com/wiki/Talents)
+- [Resonance — Yun'Shul Wind-Up Lv10 ativa em Mantras (sem % fixa documentada na Wiki)](https://deepwoken.fandom.com/wiki/Resonance)
 - [Version History 2023 — redução de metade acima do soft cap e exclusão de base/scaling](https://deepwoken.fandom.com/wiki/Version_History/2023)
 - [Version History 2025 — caps PvP 1.25/1.50, Bleed DoT `30%→15%` (15/11/2025) e nerf de 50% na eficácia das poções de dano](https://deepwoken.fandom.com/wiki/Version_History/2025)
 - [Oath Arcwarder — Enhance +50% Arc Beam base, +25% Arc Wave base](https://deepwoken.fandom.com/wiki/Oath%3A_Arcwarder)
