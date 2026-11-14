@@ -1,3 +1,5 @@
+> **COBERTURA INCOMPLETA JUN–NOV (nova investigação):** há relatos datados de patches em julho/agosto/setembro/outubro/novembro que a Fandom não inclui. Agosto 22 é particularmente relevante: **Sightless Beam 3s→2s, dano máximo -⅓, cooldown 16→24s** (fonte secundária, ainda sem transcript oficial). Ver [mapa mês a mês](PATCH_COVERAGE_JUN_NOV_2026.md).
+
 # Deepwoken: auditoria de patches e meta de dano PvP — 14/11/2026
 
 > **Escopo:** ênfase em mantras, dano máximo por cast, burst, buffs, resistências e confiabilidade em PvP. Este relatório NÃO é uma leitura completa das mensagens do Discord oficial: o arquivo de `Version History/2026` publicamente indexado só chega a **31/05/2026**. Não foi possível autenticar, linha por linha, todos os hotfixes de junho–novembro. O Builder mais atual (consultado em 14/11) confirma novas skills; fontes secundárias relatam release de 31/10 mas não substituem patch oficial.
