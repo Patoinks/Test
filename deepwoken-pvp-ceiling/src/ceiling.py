@@ -18,6 +18,26 @@ DATA = Path(__file__).resolve().parent.parent / "data" / "mantras.json"
 SONGCHANT_SCALING_RATE = 0.075
 LEGACY_SONGCHANT_SCALING_RATE = 0.065
 DEFAULT_PEN_CAP = 0.50
+CEASELESS_IDS = ("ceaseless", "ceaseless_builder")
+
+
+def filter_mantras(
+    mantras: list[dict],
+    *,
+    attunement: str | None = None,
+    exclude_ids: tuple[str, ...] | list[str] | set[str] = (),
+) -> list[dict]:
+    """Filter mantras by case-insensitive attunement/type substring and excluded IDs."""
+    excluded = {eid.strip().lower() for eid in exclude_ids if eid and eid.strip()}
+    att_query = attunement.strip().lower() if attunement else None
+    out = []
+    for m in mantras:
+        if m["id"].lower() in excluded:
+            continue
+        if att_query and att_query not in m["type"].lower():
+            continue
+        out.append(m)
+    return out
 
 
 def scaling_multiplier(attribute: float, songchant: float, scaling: float,
@@ -131,10 +151,22 @@ def main():
     parser.add_argument("--show-buffs", action="store_true")
     parser.add_argument("--compare", action="store_true",
                         help="Show damage with NO common buffs alongside damage at selected cap pool")
+    parser.add_argument("--attunement", type=str, default=None,
+                        help="Filter mantras by attunement/type substring (e.g. Galebreathe, Ironsing, Bloodrend)")
+    parser.add_argument("--exclude", type=str, default="",
+                        help="Comma-separated mantra IDs to exclude (e.g. ceaseless,ceaseless_builder)")
+    parser.add_argument("--no-ceaseless", action="store_true",
+                        help="Exclude Ceaseless Slashes entries from output")
+    parser.add_argument("--by-attunement", action="store_true",
+                        help="When --item-theory is set, show best-per-attunement summary and grouped breakdown")
     parser.add_argument("--item-theory", action="store_true",
                         help="Print maximum PvP item + PEN + mantra ceiling breakdown (see src/item_theory.py)")
     args = parser.parse_args()
     data = json.loads(DATA.read_text(encoding="utf-8"))
+    exclude_ids = [x.strip() for x in args.exclude.split(",") if x.strip()]
+    if args.no_ceaseless:
+        exclude_ids.extend(CEASELESS_IDS)
+    filtered = filter_mantras(data["mantras"], attunement=args.attunement, exclude_ids=exclude_ids)
     if args.show_buffs:
         print("Enchant food: +5% mantra (Carnivore must use Fish Omelette); Ring of Casters: +5% mantra; Isshin's Ring: +15% general")
         print(f"Strengthening potion RECIPE MODEL: +{potion_damage_buff()*100:.2f}% (Nov-2025 50% potion nerf unverified; Browncap hurts caster)")
@@ -149,7 +181,7 @@ def main():
     if args.target_armor is not None:
         net_res = net_armor_resistance(args.target_armor / 100.0, args.pen / 100.0)
     rows = []
-    for m in data["mantras"]:
+    for m in filtered:
         b, hits = base_damage(m)
         d = damage(m, args.attribute, args.songchant, args.raw_bonus / 100,
                    net_res, args.extra_final_multiplier,
@@ -158,24 +190,26 @@ def main():
                      net_res, args.extra_final_multiplier,
                      songchant_rate=args.songchant_rate)
         hits_str = "?" if m.get("unverified_ticks") else str(hits)
-        rows.append((d, raw, m["name"], hits_str, b, m["status"]))
+        rows.append((d, raw, m["name"], m["type"], hits_str, b, m["status"]))
     print("MODEL: PvP single-cast all-hit potential; NOT a proven absolute ceiling")
     print(f"Attribute={args.attribute:g} Songchant={args.songchant:g} (rate={args.songchant_rate:.3f}) "
           f"raw_bonus={args.raw_bonus:g}% effective_common_x{pvp_damage_modifier(args.raw_bonus/100):.3f} "
           f"net_res={net_res*100:.1f}%")
     if args.compare:
-        print(f"{'NO BUFFS':>10}  {'WITH BUFFS':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
+        print(f"{'NO BUFFS':>10}  {'WITH BUFFS':>10}  {'HITS':>4}  {'BASE':>8}  {'ATTUNEMENT':<26}  {'MANTRA':<42}  STATUS")
     else:
-        print(f"{'DAMAGE':>10}  {'HITS':>4}  {'BASE':>8}  {'MANTRA':<42}  STATUS")
-    for d, raw, name, hits_str, b, status in sorted(rows, reverse=True):
+        print(f"{'DAMAGE':>10}  {'HITS':>4}  {'BASE':>8}  {'ATTUNEMENT':<26}  {'MANTRA':<42}  STATUS")
+    for d, raw, name, mtype, hits_str, b, status in sorted(rows, reverse=True):
         if args.compare:
-            print(f"{raw:10.2f}  {d:10.2f}  {hits_str:>4}  {b:8.2f}  {name:<42}  {status}")
+            print(f"{raw:10.2f}  {d:10.2f}  {hits_str:>4}  {b:8.2f}  {mtype:<26}  {name:<42}  {status}")
         else:
-            print(f"{d:10.2f}  {hits_str:>4}  {b:8.2f}  {name:<42}  {status}")
+            print(f"{d:10.2f}  {hits_str:>4}  {b:8.2f}  {mtype:<26}  {name:<42}  {status}")
     print("\nWARNINGS: all hits assumed to land, pre-resistance default, procs/Everchanging Aegis excluded.")
-    print("DISPUTED CEASELESS: 310.05 Fandom ticks (576.34 @ 0.075 / 571.74 @ 0.065) vs 290 Deepwoken Builder Lv5 (539.07); verify on current patch.")
+    if any(m["id"] in CEASELESS_IDS for m in filtered):
+        print("DISPUTED CEASELESS: 310.05 Fandom ticks (576.34 @ 0.075 / 571.74 @ 0.065) vs 290 Deepwoken Builder Lv5 (539.07); verify on current patch.")
     print("Incompatible >95% HP Perfect Flash with <=40% HP Shadow Assault Blast.")
-    print("Scarlet Cyclone triple projectiles same-target overlap is UNPROVEN.")
+    if any(m["id"] == "scarlet_cyclone_triple" for m in filtered):
+        print("Scarlet Cyclone triple projectiles same-target overlap is UNPROVEN.")
     if args.item_theory:
         import item_theory
         print("\n" + item_theory.format_report(
@@ -183,6 +217,9 @@ def main():
             attribute=args.attribute,
             songchant=args.songchant,
             songchant_rate=args.songchant_rate,
+            attunement=args.attunement,
+            exclude_ids=exclude_ids,
+            by_attunement=args.by_attunement,
         ))
 
 

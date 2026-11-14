@@ -16,10 +16,12 @@ import json
 from pathlib import Path
 
 from ceiling import (
+    CEASELESS_IDS,
     DATA as MANTRAS_PATH,
     SONGCHANT_SCALING_RATE,
     damage,
     effective_pen,
+    filter_mantras,
     net_armor_resistance,
 )
 
@@ -172,6 +174,8 @@ def evaluate_mantra_with_items(
     return {
         "id": mantra["id"],
         "name": mantra["name"],
+        "type": mantra["type"],
+        "status": mantra.get("status", ""),
         "specialist_mult": specialist_mult,
         "passive_raw_bonus": passive_raw,
         "effective_pen": max_gear_pen,
@@ -186,6 +190,16 @@ def evaluate_mantra_with_items(
     }
 
 
+def _format_row(r: dict) -> str:
+    tag = f"{r['name']} [*1.15]" if r["specialist_mult"] > 1.0 else r["name"]
+    vs_pair = f"{r['unbuffed_vs_armor']:6.1f} -> {r['max_item_vs_armor']:6.1f}"
+    return (
+        f"{tag:<43} {r['type']:<26} {r['unbuffed_gross']:8.2f} {r['passive_item_gross']:8.2f} "
+        f"{r['full_cap_plus_nocturnal_gross']:8.2f} {vs_pair:>17} "
+        f"{r['effective_pen']*100:4.0f}% {r['hypothetical_grim_sep_gross']:8.2f}"
+    )
+
+
 def format_report(
     *,
     target_armor: float = 0.35,
@@ -193,25 +207,43 @@ def format_report(
     songchant: float = 6,
     songchant_rate: float = SONGCHANT_SCALING_RATE,
     songchant_pen_mode: str = "traits_wiki",
+    attunement: str | None = None,
+    exclude_ids: tuple[str, ...] | list[str] | set[str] = (),
+    by_attunement: bool = False,
+    showcase_only: bool = False,
 ) -> str:
     """Format a complete human-readable report of PvP item theory + mantra ceiling."""
     items = load_items()
-    mantras_by_id = {
-        m["id"]: m for m in json.loads(MANTRAS_PATH.read_text(encoding="utf-8"))["mantras"]
-    }
+    all_mantras = json.loads(MANTRAS_PATH.read_text(encoding="utf-8"))["mantras"]
+    if showcase_only:
+        mantras_by_id = {m["id"]: m for m in all_mantras}
+        selected = [mantras_by_id[mid] for mid in SHOWCASE_MANTRA_IDS if mid in mantras_by_id]
+    else:
+        selected = all_mantras
+    selected = filter_mantras(selected, attunement=attunement, exclude_ids=exclude_ids)
+
     passive_pct = passive_item_common_bonus(items, include_food=True) * 100.0
+    header = (
+        f"{'MANTRA':<43} {'ATTUNEMENT':<26} {'NO-ITEM':>8} {'PASSIVE':>8} "
+        f"{'MAX+NOC':>8} {'VS ARMOR(0->MAX)':>17} {'PEN':>5} {'GRIM?':>8}"
+    )
     lines = [
         "=== MAX PVP ITEM THEORY + MANTRA CEILING ===",
         f"Loadout (Legal Standard PvP): Prophet's Cloak (+20% PEN Outfit)"
         f" + Ring of Casters (+5%) + Isshin's Ring (+15%) + Enchant Food (+5%) = +{passive_pct:.0f}% passive (exact 1.25x soft cap!)",
         "Optional Gear Bypass: Shock Trooper Specialist Full Set (Head/Arms/Legs -> +15% base on 6 Thundercall/Gale mantras; coexists w/ Prophet's Cloak)",
         "Capped + Gem Max: Full Cap Pool x1.50 (via items + Perfect Flash/Taunt/Potion) + Nocturnal Gem (+10 fixed slash proc, 1-proc conservative) + Armor PEN stack (Oath +5%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap)",
-        f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}), Target Pre-PEN Armor={target_armor*100:.0f}%\n",
-        f"{'MANTRA':<43} {'NO-ITEM':>8} {'PASSIVE':>8} {'MAX+NOC':>8} {'VS ARMOR(0->MAX)':>17} {'PEN':>5} {'GRIM?':>8}",
+        f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}), Target Pre-PEN Armor={target_armor*100:.0f}%",
     ]
+    if attunement or exclude_ids:
+        lines.append(
+            f"Filters: attunement={attunement or 'ALL'}, excluded={','.join(exclude_ids) or 'none'}"
+        )
+    lines.append("")
+
     rows = [
         evaluate_mantra_with_items(
-            mantras_by_id[mid],
+            m,
             items,
             target_armor=target_armor,
             attribute=attribute,
@@ -219,18 +251,29 @@ def format_report(
             songchant_rate=songchant_rate,
             songchant_pen_mode=songchant_pen_mode,
         )
-        for mid in SHOWCASE_MANTRA_IDS
-        if mid in mantras_by_id
+        for m in selected
     ]
     rows.sort(key=lambda r: r["full_cap_plus_nocturnal_gross"], reverse=True)
-    for r in rows:
-        tag = f"{r['name']} [*1.15]" if r["specialist_mult"] > 1.0 else r["name"]
-        vs_pair = f"{r['unbuffed_vs_armor']:6.1f} -> {r['max_item_vs_armor']:6.1f}"
-        lines.append(
-            f"{tag:<43} {r['unbuffed_gross']:8.2f} {r['passive_item_gross']:8.2f} "
-            f"{r['full_cap_plus_nocturnal_gross']:8.2f} {vs_pair:>17} "
-            f"{r['effective_pen']*100:4.0f}% {r['hypothetical_grim_sep_gross']:8.2f}"
-        )
+
+    if by_attunement:
+        grouped: dict[str, list[dict]] = {}
+        for r in rows:
+            grouped.setdefault(r["type"], []).append(r)
+
+        best_rows = [grp[0] for grp in grouped.values()]
+        best_rows.sort(key=lambda r: r["full_cap_plus_nocturnal_gross"], reverse=True)
+        lines.append("BEST PER ATTUNEMENT (highest listed mantra in each single attunement):")
+        lines.append(header)
+        lines.extend(_format_row(r) for r in best_rows)
+        lines.append("")
+        lines.append("BREAKDOWN BY ATTUNEMENT:")
+        for att_name, grp in sorted(grouped.items(), key=lambda kv: kv[1][0]["full_cap_plus_nocturnal_gross"], reverse=True):
+            lines.append(f"\n[{att_name}]")
+            lines.append(header)
+            lines.extend(_format_row(r) for r in grp)
+    else:
+        lines.append(header)
+        lines.extend(_format_row(r) for r in rows)
 
     lines.extend([
         "",
@@ -253,13 +296,30 @@ def main() -> None:
     parser.add_argument("--songchant-rate", type=float, default=SONGCHANT_SCALING_RATE)
     parser.add_argument("--songchant-pen-mode", choices=("traits_wiki", "uncollapsed_may31"),
                         default="traits_wiki")
+    parser.add_argument("--attunement", type=str, default=None,
+                        help="Filter mantras by attunement/type substring (e.g. Galebreathe, Ironsing, Bloodrend)")
+    parser.add_argument("--exclude", type=str, default="",
+                        help="Comma-separated mantra IDs to exclude (e.g. ceaseless,ceaseless_builder)")
+    parser.add_argument("--no-ceaseless", action="store_true",
+                        help="Exclude Ceaseless Slashes entries from output")
+    parser.add_argument("--by-attunement", action="store_true",
+                        help="Show best-per-attunement summary plus grouped tables")
+    parser.add_argument("--showcase", action="store_true",
+                        help="Restrict output to original 9 showcase mantras")
     args = parser.parse_args()
+    exclude_ids = [x.strip() for x in args.exclude.split(",") if x.strip()]
+    if args.no_ceaseless:
+        exclude_ids.extend(CEASELESS_IDS)
     print(format_report(
         target_armor=args.target_armor / 100.0,
         attribute=args.attribute,
         songchant=args.songchant,
         songchant_rate=args.songchant_rate,
         songchant_pen_mode=args.songchant_pen_mode,
+        attunement=args.attunement,
+        exclude_ids=exclude_ids,
+        by_attunement=args.by_attunement,
+        showcase_only=args.showcase,
     ))
 
 

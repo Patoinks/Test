@@ -52,7 +52,7 @@ A soma acima é **hipótese de categoria comum e de sobreposição temporal**, n
 ## Executar
 ```bash
 python deepwoken-pvp-ceiling/src/ceiling.py --show-buffs --compare --item-theory
-python deepwoken-pvp-ceiling/src/item_theory.py --target-armor 35
+python deepwoken-pvp-ceiling/src/item_theory.py --no-ceaseless --by-attunement --target-armor 35
 python deepwoken-pvp-ceiling/src/ceiling.py --songchant-rate 0.065 --compare
 python deepwoken-pvp-ceiling/src/buff_scenarios.py
 python -m unittest discover -s deepwoken-pvp-ceiling/tests -v

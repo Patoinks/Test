@@ -198,6 +198,21 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertAlmostEqual(electro_res["passive_item_gross"], 70.0 * 1.15 * 1.39875 * 1.25)
         self.assertAlmostEqual(ceaseless_res["full_cap_plus_nocturnal_gross"], 576.34419375 + 10.0)
 
+    def test_attunement_filter_and_exclude_ceaseless(self):
+        all_mantras = list(MANTRAS.values())
+        no_ceaseless = module.filter_mantras(all_mantras, exclude_ids=module.CEASELESS_IDS)
+        self.assertTrue(all(m["id"] not in module.CEASELESS_IDS for m in no_ceaseless))
+
+        gale_only = module.filter_mantras(all_mantras, attunement="galebreathe", exclude_ids=module.CEASELESS_IDS)
+        self.assertEqual({m["id"] for m in gale_only}, {"tornado", "tornado_kick", "champions_whirlthrow"})
+
+        report = item_theory.format_report(exclude_ids=module.CEASELESS_IDS, by_attunement=True)
+        self.assertNotIn("Ceaseless Slashes", report)
+        self.assertIn("BEST PER ATTUNEMENT", report)
+        self.assertIn("Scarlet Cyclone", report)
+        self.assertIn("Ice Flock", report)
+        self.assertIn("Tornado Kick", report)
+
 
 if __name__ == "__main__":
     unittest.main()
