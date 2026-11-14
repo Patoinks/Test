@@ -113,7 +113,9 @@ def evaluate_mantra_with_items(
     )
     passive_raw = passive_item_common_bonus(items, include_food=True)
     nocturnal_enchant_flat = by_id["nocturnal_gem"]["flat_damage"]
+    nocturnal_brain_flat = by_id["nocturnal_gem"]["flat_damage_with_brain"]
     grim_mult = 1.0 + by_id["grim_weapon_enchant"]["percent"] / 100.0
+    sear_cauterize_pen = by_id["sear_weapon_enchant"]["cauterize_max_pen_fraction"]
 
     # Baseline without Prophet's Cloak or PvP items (only innate Ironsing PEN if any).
     no_gear_pen, _, _ = max_pen_fraction(
@@ -136,6 +138,11 @@ def evaluate_mantra_with_items(
         include_piercing_will=True,
         include_ether_overdrive=True,
     )
+    sear_pen_effective = effective_pen(
+        max_raw_pen + sear_cauterize_pen,
+        uncapped=uncapped,
+        base_cap=items["pen_sources"]["base_cap_without_ether_overdrive"],
+    )
 
     unbuffed_gross = damage(
         mantra, attribute, songchant, raw_bonus=0.0, target_resistance=0.0,
@@ -145,13 +152,16 @@ def evaluate_mantra_with_items(
         mantra, attribute, songchant, raw_bonus=passive_raw, target_resistance=0.0,
         songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
     )
-    full_cap_gross = damage(
+    full_cap_cast = damage(
         mantra, attribute, songchant, raw_bonus=0.75, target_resistance=0.0,
         songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
-    ) + nocturnal_enchant_flat
+    )
+    full_cap_gross = full_cap_cast + nocturnal_enchant_flat
+    brain_max_gross = full_cap_cast + nocturnal_brain_flat
 
     unbuffed_res = net_armor_resistance(target_armor, no_gear_pen)
     max_item_res = net_armor_resistance(target_armor, max_gear_pen)
+    sear_res = net_armor_resistance(target_armor, sear_pen_effective)
 
     unbuffed_vs_armor = unbuffed_gross * (1.0 - unbuffed_res)
     # Uses uniform post-PEN target armor resistance across both cast and Nocturnal slash proc.
@@ -162,6 +172,13 @@ def evaluate_mantra_with_items(
         )
         + nocturnal_enchant_flat * (1.0 - max_item_res)
     )
+    sear_brain_vs_armor = (
+        damage(
+            mantra, attribute, songchant, raw_bonus=0.75, target_resistance=sear_res,
+            songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
+        )
+        + nocturnal_brain_flat * (1.0 - sear_res)
+    )
     hypothetical_grim_sep_gross = (
         damage(
             mantra, attribute, songchant, raw_bonus=0.75, target_resistance=0.0,
@@ -169,6 +186,14 @@ def evaluate_mantra_with_items(
             songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
         )
         + nocturnal_enchant_flat
+    )
+    hypothetical_grim_brain_vs_armor = (
+        damage(
+            mantra, attribute, songchant, raw_bonus=0.75, target_resistance=max_item_res,
+            extra_final_multiplier=grim_mult,
+            songchant_rate=songchant_rate, base_multiplier_override=specialist_mult,
+        )
+        + nocturnal_brain_flat * (1.0 - max_item_res)
     )
 
     return {
@@ -179,14 +204,18 @@ def evaluate_mantra_with_items(
         "specialist_mult": specialist_mult,
         "passive_raw_bonus": passive_raw,
         "effective_pen": max_gear_pen,
+        "sear_effective_pen": sear_pen_effective,
         "raw_pen": max_raw_pen,
         "pen_uncapped": uncapped,
         "unbuffed_gross": unbuffed_gross,
         "passive_item_gross": passive_item_gross,
         "full_cap_plus_nocturnal_gross": full_cap_gross,
+        "brain_max_gross": brain_max_gross,
         "unbuffed_vs_armor": unbuffed_vs_armor,
         "max_item_vs_armor": max_item_vs_armor,
+        "sear_brain_vs_armor": sear_brain_vs_armor,
         "hypothetical_grim_sep_gross": hypothetical_grim_sep_gross,
+        "hypothetical_grim_brain_vs_armor": hypothetical_grim_brain_vs_armor,
     }
 
 
@@ -195,8 +224,8 @@ def _format_row(r: dict) -> str:
     vs_pair = f"{r['unbuffed_vs_armor']:6.1f} -> {r['max_item_vs_armor']:6.1f}"
     return (
         f"{tag:<43} {r['type']:<26} {r['unbuffed_gross']:8.2f} {r['passive_item_gross']:8.2f} "
-        f"{r['full_cap_plus_nocturnal_gross']:8.2f} {vs_pair:>17} "
-        f"{r['effective_pen']*100:4.0f}% {r['hypothetical_grim_sep_gross']:8.2f}"
+        f"{r['full_cap_plus_nocturnal_gross']:8.2f} {r['brain_max_gross']:8.2f} {vs_pair:>17} "
+        f"{r['effective_pen']*100:4.0f}% {r['sear_brain_vs_armor']:9.2f} {r['hypothetical_grim_brain_vs_armor']:11.2f}"
     )
 
 
@@ -225,14 +254,15 @@ def format_report(
     passive_pct = passive_item_common_bonus(items, include_food=True) * 100.0
     header = (
         f"{'MANTRA':<43} {'ATTUNEMENT':<26} {'NO-ITEM':>8} {'PASSIVE':>8} "
-        f"{'MAX+NOC':>8} {'VS ARMOR(0->MAX)':>17} {'PEN':>5} {'GRIM?':>8}"
+        f"{'MAX+NOC':>8} {'+BRAIN':>8} {'VS ARMOR(0->MAX)':>17} {'PEN':>5} {'SEAR100%':>9} {'GRIM?ARMOR':>11}"
     )
     lines = [
         "=== MAX PVP ITEM THEORY + MANTRA CEILING ===",
         f"Loadout (Legal Standard PvP): Prophet's Cloak (+20% PEN Outfit)"
         f" + Ring of Casters (+5%) + Isshin's Ring (+15%) + Enchant Food (+5%) = +{passive_pct:.0f}% passive (exact 1.25x soft cap!)",
+        "Everything-Goes Cap Saturation (x1.50): Perfect Flash (+25%) + Taunt (+20%) + Strengthening Potion (+27.5%/13.75%) + Isshin's (+15%) + Casters (+5%) + Lose Your Mind (+15%) [+ Vow Fight +20% / Inhale +10% / Dark Hours +15%] -> all cap at x1.50; swap Enchant Food for Brain Food (+15 Nocturnal Gem!).",
         "Optional Gear Bypass: Shock Trooper Specialist Full Set (Head/Arms/Legs -> +15% base on 6 Thundercall/Gale mantras; coexists w/ Prophet's Cloak)",
-        "Capped + Gem Max: Full Cap Pool x1.50 (via items + Perfect Flash/Taunt/Potion) + Nocturnal Gem (+10 fixed slash proc, 1-proc conservative) + Armor PEN stack (Oath +5%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap)",
+        "PEN Ceiling vs Target Armor: Passive (60%, Ironsing 90% via Oath +5%, Prophet +20%, Songchant +15%, Piercing Will +15%, Ether Overdrive +5% & uncap) vs Sear Cauterize (+40% -> 100% PEN = SEAR100%!) vs Grim? (+25% uncapped hypothesis).",
         f"Params: Attr={attribute:g}, Songchant={songchant:g} (scaling rate={songchant_rate:.3f}, PEN mode={songchant_pen_mode}), Target Pre-PEN Armor={target_armor*100:.0f}%",
     ]
     if attunement or exclude_ids:
@@ -279,10 +309,12 @@ def format_report(
         "",
         "NOTES & EXCLUSIONS:",
         "- [*1.15] marks Shock Trooper Specialist Full Set +15% base bypass (cannot use 3 Armor Enchants, which already give 0 PvP mantra dmg).",
-        "- GRIM? shows *hypothetical* upper bound if Grim weapon enchant (+25% dmg taken, 6s) sits outside the x1.50 cap; if inside, it adds +0% above saturated cap.",
-        "- NO PvP Mantra Damage comes from Equipment Pips, Armor Enchants (Drowned is PvE-only), or Scaling Rings (weapon scaling only).",
+        "- +BRAIN swaps redundant Enchant Food (+5% already saturated by Potion+Flash+Taunt+Rings) for Brain Food (+15 Nocturnal Gem instead of +10).",
+        "- SEAR100% = +BRAIN with Sear Cauterize (+40% incoming PEN via M1 stacks + Ether Overdrive = 100% PEN, bypassing 100% of target armor).",
+        "- GRIM?ARMOR shows *hypothetical* upper bound vs target armor if Grim (+25% dmg taken, 6s) sits outside the x1.50 cap; if inside, SEAR100% wins on every armored target.",
+        "- NO PvP Mantra Damage comes from Equipment Pips, Armor Enchants (Drowned is PvE-only), Scaling Rings, Chain of Perfection (PvE), or Ardour (M1 posture/guardbreak).",
         "- QUARANTINED: Divine Cast Ring (3x mantra) is Vow of Iron Relic ONLY (illegal in standard PvP).",
-        "- UNQUANTIFIED: Yun'Shul Wind-Up Lv10 Bell (exact % unknown on Wiki) and Brain Food (+5 per Nocturnal proc vs Enchant +5% mantra).",
+        "- EXTRAS / UNQUANTIFIED: Galebreathe After Cut (+2.5% Talents / +5% legacy secondary hit) sits outside cap; Vow of Mastery 'Fight' (+20%) saturates the same x1.50 cap; Yun'Shul Wind-Up Lv10 Bell % is undocumented on Wiki.",
     ])
     return "\n".join(lines)
 

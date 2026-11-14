@@ -120,12 +120,26 @@
       "id": "grim_weapon_enchant",
       "name": "Grim (Weapon Enchant Debuff)",
       "slot": "weapon_enchant",
+      "exclusive_group": "weapon_enchant",
       "channel": "unverified_vulnerability_vs_common_pool",
       "percent": 25.0,
       "duration_seconds": 6.0,
       "legal_standard_pvp": true,
       "source": "https://deepwoken.fandom.com/wiki/Enchants",
       "notes": "Requires M1s/crit setup to apply +25% incoming damage (+50% posture) for ~6s; unverified whether server treats Grim inside common cap or separate target vulnerability."
+    },
+    {
+      "id": "sear_weapon_enchant",
+      "name": "Sear (Weapon Enchant — Cauterize PEN)",
+      "slot": "weapon_enchant",
+      "exclusive_group": "weapon_enchant",
+      "channel": "pen_target_debuff",
+      "innate_weapon_pen_fraction": 0.05,
+      "cauterize_max_pen_fraction": 0.40,
+      "duration_seconds": 15.0,
+      "legal_standard_pvp": true,
+      "source": "https://deepwoken.fandom.com/wiki/Enchants",
+      "notes": "Cauterize stacks via M1s (+5.45%/hit LHT, +8%/hit MED, +10%/hit HVY up to +40% incoming PEN for 15s) apply to ALL damage sources including Mantras; still respects 50% PEN cap unless uncapped by Ether Overdrive or Million Ton Piercer. Exclusive with Grim weapon enchant."
     }
   ],
   "pen_sources": {

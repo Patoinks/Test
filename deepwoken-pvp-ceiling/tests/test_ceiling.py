@@ -197,6 +197,9 @@ class TestPvPCeiling(unittest.TestCase):
         self.assertAlmostEqual(ceaseless_res["specialist_mult"], 1.0)
         self.assertAlmostEqual(electro_res["passive_item_gross"], 70.0 * 1.15 * 1.39875 * 1.25)
         self.assertAlmostEqual(ceaseless_res["full_cap_plus_nocturnal_gross"], 576.34419375 + 10.0)
+        self.assertAlmostEqual(ceaseless_res["brain_max_gross"], 576.34419375 + 15.0)
+        self.assertAlmostEqual(ceaseless_res["sear_effective_pen"], 1.0)
+        self.assertAlmostEqual(ceaseless_res["sear_brain_vs_armor"], 576.34419375 + 15.0)
 
     def test_attunement_filter_and_exclude_ceaseless(self):
         all_mantras = list(MANTRAS.values())
