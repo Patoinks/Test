@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-15 17:48 UTC
+**Updated:** 2026-11-15 22:55 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -65,7 +65,7 @@
 | 7 | Marvell Technology, Inc. | `MRVL-USDT-SWAP` | **77** | **WATCH** | 14.9 | 14.7 | 16.8% | 21.3 | 63.9% | 1.7% |
 | 8 | Dell Technologies Inc. | `DELL-USDT-SWAP` | **75** | **CORE** | 1.4 | 1.6 | 9.9% | 11.3 | 20.2% | 2.8% |
 | 9 | Applied Materials, Inc. | `AMAT-USDT-SWAP` | **75** | **WATCH** | 8.5 | 8.4 | 32.9% | 15.0 | 20.9% | 0.9% |
-| 10 | Broadcom Inc. | `AVGO-USDT-SWAP` | **75** | **WATCH** | 18.6 | 19.0 | 48.8% | 17.9 | 65.1% | 1.8% |
+| 10 | Broadcom Inc. | `AVGO-USDT-SWAP` | **75** | **WATCH** | 18.6 | 19.0 | 48.8% | 17.8 | 65.1% | 1.8% |
 | 11 | Credo Technology Group Holding  | `CRDO-USDT-SWAP` | **75** | **WATCH** | 15.5 | 15.1 | 31.7% | 13.5 | 55.0% | 1.0% |
 | 12 | Micron Technology, Inc. | `MU-USDT-SWAP` | **75** | **CORE** | 6.6 | 6.3 | 74.6% | 3.7 | 16.0% | 3.3% |
 | 13 | NVIDIA Corporation | `NVDA-USDT-SWAP` | **75** | **WATCH** | 13.0 | 12.9 | 65.2% | 10.3 | 67.2% | 1.1% |
@@ -108,12 +108,12 @@
 | 2 | Marvell Technology, Inc. | `MRVL` | 51.6 | 21.3 | -58.6% | 74.2% | 63.9% | accelerating | **100** | **CORE** |
 | 3 | AXT Inc | `AXT` | 85.4 | 16.4 | -80.8% | 116.3% | 115.9% | decelerating | **100** | **CORE** |
 | 4 | Credo Technology Group Holding  | `CRDO` | 46.6 | 13.5 | -71.0% | 53.9% | 55.0% | decelerating | **100** | **CORE** |
-| 5 | Broadcom Inc. | `AVGO` | 44.3 | 17.9 | -59.7% | 66.4% | 65.1% | decelerating | **100** | **CORE** |
+| 5 | Broadcom Inc. | `AVGO` | 44.3 | 17.8 | -59.8% | 66.4% | 65.1% | decelerating | **100** | **CORE** |
 | 6 | Advanced Micro Devices, Inc. | `AMD` | 114.1 | 30.2 | -73.5% | 118.8% | 83.6% | accelerating | **100** | **CORE** |
 | 7 | Coherent Corp. | `COHR` | 45.2 | 13.8 | -69.4% | 51.7% | 39.4% | decelerating | **100** | **CORE** |
 | 8 | Oracle Corporation | `ORCL` | 19.6 | 11.3 | -42.3% | 35.7% | 45.7% | accelerating | **95** | **CORE** |
 | 9 | Arm Holdings plc | `ARM` | 219.0 | 62.0 | -71.7% | 35.6% | 37.3% | accelerating | **95** | **CORE** |
-| 10 | Bloom Energy Corporation | `BE` | 116.4 | 36.1 | -69.0% | 62.7% | 56.4% | decelerating | **92** | **CORE** |
+| 10 | Bloom Energy Corporation | `BE` | 122.3 | 36.1 | -70.5% | 62.7% | 56.4% | decelerating | **92** | **CORE** |
 
 ## P/E Expansion + Weakening — SHORT
 
@@ -173,7 +173,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | NVIDIA Corporation | `NVDA` | 13.0 | 12.9 | 65.2% | 10.3 | 70.0% | 67.2% | 1.1% | **75 WATCH** | **18** |
 | AXT Inc | `AXT` | 16.1 | 13.7 | 19.6% | 16.4 | 116.3% | 115.9% | 0.7% | **75 WATCH** | **28** |
 | Credo Technology Group Holding  | `CRDO` | 15.5 | 15.1 | 31.7% | 13.5 | 53.9% | 55.0% | 1.0% | **75 WATCH** | **28** |
-| Broadcom Inc. | `AVGO` | 18.6 | 19.0 | 48.8% | 17.9 | 66.4% | 65.1% | 1.8% | **75 WATCH** | **28** |
+| Broadcom Inc. | `AVGO` | 18.6 | 19.0 | 48.8% | 17.8 | 66.4% | 65.1% | 1.8% | **75 WATCH** | **28** |
 | Micron Technology, Inc. | `MU` | 6.6 | 6.3 | 74.6% | 3.7 | 17.7% | 16.0% | 3.3% | **75 CORE** | **30** |
 | Dell Technologies Inc. | `DELL` | 1.4 | 1.6 | 9.9% | 11.3 | 17.9% | 20.2% | 2.8% | **75 CORE** | **30** |
 | Western Digital Corporation | `WDC` | 7.6 | 7.6 | 40.9% | 7.3 | 63.4% | 40.5% | 2.5% | **75 WATCH** | **18** |
@@ -192,7 +192,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Coca-Cola Company (The) | `KO` | 8.4 | 8.9 | 32.2% | 28.1 | 5.7% | -3.1% | 1.0% | **0** | **58** |
 | Meta Platforms, Inc. | `META` | 6.8 | 6.9 | 37.8% | 18.0 | 16.8% | 21.7% | 1.0% | **57 WATCH** | **38** |
 | Netflix, Inc. | `NFLX` | 5.1 | 5.3 | 31.3% | 16.5 | 5.1% | 10.7% | 10.0% | **35** | **50** |
-| Palantir Technologies Inc. | `PLTR` | 55.5 | 54.1 | 45.6% | 66.2 | 49.2% | 53.5% | 0.7% | **45** | **48** |
+| Palantir Technologies Inc. | `PLTR` | 55.5 | 54.1 | 45.6% | 66.3 | 49.2% | 53.5% | 0.7% | **45** | **48** |
 | Bloom Energy Corporation | `BE` | 14.8 | 14.9 | 14.3% | 36.1 | 62.7% | 56.4% | -0.0% | **45** | **35** |
 | SamsungElec | `SAMSUNG` | 2.3 | 1.9 | 46.1% | 2.7 | 62.3% | 40.9% | 6.2% | **45** | **10** |
 | Super Micro Computer, Inc. | `SMCI` | 0.3 | 0.4 | 8.3% | 3.9 | 6.5% | 11.3% | -46.3% | **35** | **45** |
