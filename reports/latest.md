@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-14 23:07 UTC
+**Updated:** 2026-11-15 02:46 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -207,8 +207,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Amazon.com, Inc. | `AMZN` | 3.6 | 3.9 | 13.1% | 24.4 | -16.6% | 15.7% | -1.2% | **0** | **30** |
 | Intel Corporation | `INTC` | 5.3 | 5.5 | 10.3% | 33.3 | 20.4% | 12.0% | 0.3% | **5** | **28** |
 | Fluence Energy, Inc. | `FLNC` | 0.3 | 0.3 | -4.2% | -8.8 | 59.3% | 25.4% | 0.3% | **5** | **28** |
-| Strategy Inc | `MSTR` | 95.4 | 123.4 | -1100.1% | 6.5 | 417.1% | 3.1% | -6.9% | **25** | **25** |
 | BitMine Immersion Technologies, | `BMNR` | 88.2 | 86.1 | -216.3% | 18.7 | 110.6% | 87.2% | -0.9% | **25** | **25** |
+| Strategy Inc | `MSTR` | 95.4 | 123.4 | -1100.1% | 6.5 | 417.1% | 3.1% | -6.9% | **25** | **25** |
 | Applied Optoelectronics, Inc. | `AAOI` | 6.1 | 5.7 | -6.8% | 13.3 | 439.3% | 135.1% | -28.9% | **10** | **25** |
 | Hyperliquid Strategies Inc | `PURR` | 111.5 | 99.3 | 6252.0% | 42.4 | -79.8% | 22.8% | — | **0** | **25 WATCH** |
 
