@@ -1,6 +1,6 @@
 # BTC ↔ Hong Kong Correlation Scanner
 
-**Updated:** 2026-11-17 22:57 UTC
+**Updated:** 2026-11-18 04:30 UTC
 
 Purpose: test whether Bitcoin weakness is associated with Hong Kong market weakness,
 without mixing ordinary intraday co-movement with the overnight period when HKEX is closed.
@@ -9,9 +9,9 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 
 | Asset | Same 5m corr | Best BTC lead | Best corr | BTC -0.25%/5m events | HK down hit-rate | Avg HK return on BTC drop | Overnight corr | BTC-down -> negative open | Avg opening gap when BTC down |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Hang Seng Index | +0.18 | 0m | +0.18 | 49 | 63% | -0.02% | +0.32 | 58% | -0.22% |
-| Hang Seng TECH | +0.20 | 0m | +0.20 | 49 | 67% | -0.07% | +0.46 | 67% | -0.40% |
-| Xiaomi | +0.09 | 0m | +0.09 | 46 | 54% | -0.03% | +0.11 | 38% | +0.21% |
+| Hang Seng Index | +0.18 | 0m | +0.18 | 49 | 63% | -0.02% | +0.32 | 60% | -0.22% |
+| Hang Seng TECH | +0.20 | 0m | +0.20 | 49 | 67% | -0.07% | +0.46 | 68% | -0.39% |
+| Xiaomi | +0.09 | 0m | +0.09 | 46 | 54% | -0.03% | +0.11 | 36% | +0.23% |
 
 ## BTC lead / lag detail
 
@@ -19,21 +19,21 @@ without mixing ordinary intraday co-movement with the overnight period when HKEX
 
 | Asset | BTC lead | Correlation | Samples |
 |---|---:|---:|---:|
-| Hang Seng Index | 0m | +0.18 | 2720 |
-| Hang Seng Index | 5m | +0.03 | 2720 |
-| Hang Seng Index | 15m | +0.01 | 2720 |
-| Hang Seng Index | 30m | +0.03 | 2720 |
-| Hang Seng Index | 60m | -0.01 | 2720 |
-| Hang Seng TECH | 0m | +0.20 | 2720 |
-| Hang Seng TECH | 5m | +0.02 | 2720 |
-| Hang Seng TECH | 15m | +0.03 | 2720 |
-| Hang Seng TECH | 30m | +0.03 | 2720 |
-| Hang Seng TECH | 60m | -0.02 | 2720 |
-| Xiaomi | 0m | +0.09 | 2557 |
-| Xiaomi | 5m | +0.00 | 2557 |
-| Xiaomi | 15m | +0.02 | 2557 |
-| Xiaomi | 30m | +0.03 | 2557 |
-| Xiaomi | 60m | -0.01 | 2557 |
+| Hang Seng Index | 0m | +0.18 | 2751 |
+| Hang Seng Index | 5m | +0.03 | 2751 |
+| Hang Seng Index | 15m | +0.01 | 2751 |
+| Hang Seng Index | 30m | +0.03 | 2751 |
+| Hang Seng Index | 60m | -0.01 | 2751 |
+| Hang Seng TECH | 0m | +0.20 | 2751 |
+| Hang Seng TECH | 5m | +0.02 | 2751 |
+| Hang Seng TECH | 15m | +0.03 | 2751 |
+| Hang Seng TECH | 30m | +0.03 | 2751 |
+| Hang Seng TECH | 60m | -0.02 | 2751 |
+| Xiaomi | 0m | +0.09 | 2586 |
+| Xiaomi | 5m | -0.00 | 2586 |
+| Xiaomi | 15m | +0.02 | 2586 |
+| Xiaomi | 30m | +0.03 | 2586 |
+| Xiaomi | 60m | -0.01 | 2586 |
 
 ## Method
 
