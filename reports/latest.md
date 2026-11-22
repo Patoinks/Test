@@ -1,6 +1,6 @@
 # OKX Long / Short Fundamental Scanner
 
-**Updated:** 2026-11-22 08:05 UTC
+**Updated:** 2026-11-22 16:22 UTC
 **OKX stock/RWA perps discovered:** 72
 **Public companies with usable fundamentals:** 55
 
@@ -43,7 +43,7 @@
 | 2 | Moderna, Inc. | `MRNA-USDT-SWAP` | **94** | **WATCH** | 31.2 | 30.9 | -80.8% | -46.6 | 11.3% | -0.7% |
 | 3 | USA Rare Earth, Inc. | `USAR-USDT-SWAP` | **86** | **CORE** | 145.6 | 119.6 | -984.3% | 26.7 | 1039.1% | -10.9% |
 | 4 | Okta, Inc. | `OKTA-USDT-SWAP` | **80** | **CORE** | 10.9 | 10.2 | 7.7% | 43.7 | 10.1% | 3.1% |
-| 5 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 65.3 | 61.3 | -393.3% | -14.9 | 252.7% | -20.3% |
+| 5 | AST SpaceMobile, Inc. | `ASTS-USDT-SWAP` | **80** | **WATCH** | 65.3 | 61.3 | -393.3% | -17.1 | 252.7% | -20.3% |
 | 6 | IonQ, Inc. | `IONQ-USDT-SWAP` | **67** | **WATCH** | 25.2 | 21.2 | -306.3% | -14.6 | 71.2% | -1.3% |
 
 ## Top LONG candidates — fundamentals only
@@ -101,7 +101,7 @@
 | 2 | AXT Inc | `AXT` | 62.4 | 12.0 | -80.8% | 116.3% | 111.5% | decelerating | **100** | **CORE** |
 | 3 | Advanced Micro Devices, Inc. | `AMD` | 90.7 | 24.1 | -73.5% | 118.2% | 83.6% | accelerating | **100** | **CORE** |
 | 4 | Credo Technology Group Holding  | `CRDO` | 35.4 | 10.3 | -71.0% | 53.9% | 55.0% | decelerating | **100** | **CORE** |
-| 5 | Broadcom Inc. | `AVGO` | 38.9 | 15.7 | -59.6% | 66.1% | 65.0% | decelerating | **100** | **CORE** |
+| 5 | Broadcom Inc. | `AVGO` | 38.9 | 15.7 | -59.7% | 66.1% | 65.0% | decelerating | **100** | **CORE** |
 | 6 | Coherent Corp. | `COHR` | 38.8 | 11.9 | -69.4% | 52.1% | 39.1% | decelerating | **100** | **CORE** |
 | 7 | Arm Holdings plc | `ARM` | 174.9 | 49.3 | -71.8% | 36.2% | 37.2% | accelerating | **97** | **CORE** |
 | 8 | Bloom Energy Corporation | `BE` | 86.3 | 26.7 | -69.0% | 62.4% | 56.4% | decelerating | **96** | **CORE** |
@@ -161,7 +161,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Applovin Corporation | `APP` | 15.2 | 15.2 | 77.8% | 16.7 | 27.4% | 25.5% | 3.2% | **83 CORE** | **10** |
 | Micron Technology, Inc. | `MU` | 5.1 | 4.8 | 74.6% | 2.8 | 18.2% | 16.2% | 4.3% | **82 CORE** | **30** |
 | Okta, Inc. | `OKTA` | 10.9 | 10.2 | 7.7% | 43.7 | 11.5% | 10.1% | 3.1% | **8** | **80 CORE** |
-| AST SpaceMobile, Inc. | `ASTS` | 65.3 | 61.3 | -393.3% | -14.9 | 28.1% | 252.7% | -20.3% | **0** | **80 WATCH** |
+| AST SpaceMobile, Inc. | `ASTS` | 65.3 | 61.3 | -393.3% | -17.1 | 28.1% | 252.7% | -20.3% | **0** | **80 WATCH** |
 | Tesla, Inc. | `TSLA` | 13.2 | 12.9 | 3.0% | 160.2 | 25.2% | 13.5% | 0.4% | **20** | **78** |
 | Advanced Micro Devices, Inc. | `AMD` | 15.5 | 15.2 | 17.8% | 24.1 | 118.2% | 83.6% | 1.0% | **77 WATCH** | **13** |
 | Corning Incorporated | `GLW` | 4.6 | 5.0 | 16.8% | 20.7 | 34.8% | 21.2% | 1.1% | **77 WATCH** | **3** |
@@ -171,7 +171,7 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Applied Materials, Inc. | `AMAT` | 7.0 | 6.9 | 32.9% | 12.3 | 27.6% | 20.7% | 1.0% | **75 WATCH** | **18** |
 | Dell Technologies Inc. | `DELL` | 1.2 | 1.3 | 9.9% | 9.1 | 17.9% | 19.7% | 3.4% | **75 CORE** | **30** |
 | Oracle Corporation | `ORCL` | 4.4 | 6.2 | 34.3% | 9.2 | 35.7% | 45.7% | -14.5% | **70 WATCH** | **10** |
-| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.7% | 18.9 | 38.8% | 19.0% | -1.2% | **70 WATCH** | **10** |
+| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 4.7% | 19.0 | 38.8% | 19.0% | -1.2% | **70 WATCH** | **10** |
 | Microsoft Corporation | `MSFT` | 10.4 | 10.6 | 47.1% | 20.0 | 20.9% | 20.7% | 0.1% | **69 WATCH** | **3** |
 | Meta Platforms, Inc. | `META` | 5.9 | 6.1 | 37.8% | 15.7 | 16.6% | 21.8% | 1.2% | **67 WATCH** | **38** |
 | IonQ, Inc. | `IONQ` | 25.2 | 21.2 | -306.3% | -14.6 | -41.0% | 71.2% | -1.3% | **0** | **67 WATCH** |
@@ -199,8 +199,8 @@ Price/target is from Yahoo Finance, in the underlying share quote currency; not 
 | Nebius Group N.V. | `NBIS` | 10.9 | 14.8 | -18.7% | -26.7 | -1706.3% | 290.9% | -85.6% | **0** | **30** |
 | Intel Corporation | `INTC` | 4.6 | 4.8 | 10.3% | 28.6 | 20.4% | 12.0% | 0.3% | **12** | **28** |
 | Fluence Energy, Inc. | `FLNC` | 0.3 | 0.2 | -4.2% | -6.5 | 59.3% | 25.4% | 0.4% | **5** | **28** |
-| BitMine Immersion Technologies, | `BMNR` | 65.1 | 63.0 | -216.3% | 13.8 | 105.7% | 197.6% | -1.2% | **25** | **25** |
 | Strategy Inc | `MSTR` | 66.5 | 94.5 | -1100.1% | 4.5 | 417.1% | 3.1% | -9.8% | **25** | **25** |
+| BitMine Immersion Technologies, | `BMNR` | 65.1 | 63.0 | -216.3% | 13.8 | 105.7% | 197.6% | -1.2% | **25** | **25** |
 | Applied Optoelectronics, Inc. | `AAOI` | 4.0 | 3.7 | -6.8% | 9.8 | 383.4% | 135.1% | -43.8% | **10** | **25** |
 | Hyperliquid Strategies Inc | `PURR` | 95.9 | 83.7 | 6252.0% | 36.5 | -79.8% | 22.8% | — | **0** | **25** |
 
