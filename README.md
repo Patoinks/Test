@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-11-21 19:25 UTC  
+**Last scan:** 2026-11-22 00:24 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
