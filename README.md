@@ -2,7 +2,7 @@
 
 Hourly scanner restricted to public companies exposed by the **OKX EEA TradFi / Stock Perpetual API universe**.
 
-**Last scan:** 2026-11-26 20:13 UTC  
+**Last scan:** 2026-11-27 02:57 UTC  
 **Availability scope:** user-confirmed OKX EEA Stock Futures / X-Perp  
 **OKX stock/ETF markets in configured universe:** 72  
 **Public companies analysed:** 55  
@@ -146,15 +146,15 @@ Weighted score: **70% fundamental + 30% P/E trend**.
 |---:|---|---|---:|---:|---:|---:|---|
 | 1 | Applied Optoelectronics, Inc. | `AAOI` | 37.02 | 109.00 | **194.4%** | 5 | USD |
 | 2 | Strategy Inc | `MSTR` | 79.96 | 233.27 | **191.7%** | 15 | USD |
-| 3 | SK hynix | `SKHYNIX` | 1053000.00 | 2977665.20 | **182.8%** | 39 | KRW |
+| 3 | SK hynix | `SKHYNIX` | 1080000.00 | 2977665.20 | **175.7%** | 39 | KRW |
 | 4 | Nebius Group N.V. | `NBIS` | 84.99 | 231.60 | **172.5%** | 20 | USD |
 | 5 | CoreWeave, Inc. | `CRWV` | 42.57 | 114.45 | **168.8%** | 38 | USD |
-| 6 | SamsungElec | `SAMSUNG` | 171300.00 | 455166.66 | **165.7%** | 36 | KRW |
-| 7 | AXT Inc | `AXT` | 31.98 | 82.77 | **158.8%** | 7 | USD |
+| 6 | AXT Inc | `AXT` | 31.98 | 82.77 | **158.8%** | 7 | USD |
+| 7 | SamsungElec | `SAMSUNG` | 176400.00 | 455166.66 | **158.0%** | 36 | KRW |
 | 8 | Micron Technology, Inc. | `MU` | 601.25 | 1529.69 | **154.4%** | 45 | USD |
 | 9 | Credo Technology Group Holding  | `CRDO` | 106.80 | 269.05 | **151.9%** | 19 | USD |
 | 10 | AST SpaceMobile, Inc. | `ASTS` | 26.02 | 63.35 | **143.5%** | 12 | USD |
-| 11 | SOFTBANK GROUP CORP | `SOFTBANK` | 2894.00 | 6850.69 | **136.7%** | 18 | JPY |
+| 11 | SOFTBANK GROUP CORP | `SOFTBANK` | 2911.00 | 6850.69 | **135.3%** | 18 | JPY |
 | 12 | Cerebras Systems Inc. | `CBRS` | 89.68 | 210.18 | **134.4%** | 11 | USD |
 | 13 | IonQ, Inc. | `IONQ` | 23.54 | 54.27 | **130.6%** | 14 | USD |
 | 14 | Marvell Technology, Inc. | `MRVL` | 130.93 | 298.99 | **128.4%** | 39 | USD |
@@ -195,7 +195,7 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | AXT Inc | `AXT` | 12.3 | 10.0 | 19.6% | 12.5 | 116.3% | 111.5% | 0.9% | **75 WATCH** | **28** |
 | Applied Materials, Inc. | `AMAT` | 7.2 | 7.1 | 32.9% | 12.7 | 27.2% | 20.4% | 1.0% | **75 WATCH** | **18** |
 | Oracle Corporation | `ORCL` | 4.5 | 6.3 | 34.3% | 9.4 | 35.7% | 45.7% | -14.2% | **70 WATCH** | **10** |
-| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 3.3% | 18.2 | 39.3% | 15.8% | -5.3% | **70 WATCH** | **10** |
+| XIAOMI-W | `XIAOMI` | 1.6 | 1.4 | 3.3% | 18.5 | 39.3% | 15.8% | -5.2% | **70 WATCH** | **10** |
 | Microsoft Corporation | `MSFT` | 10.5 | 10.7 | 47.1% | 20.2 | 21.0% | 20.7% | 0.1% | **69 WATCH** | **3** |
 | Cerebras Systems Inc. | `CBRS` | 28.8 | 21.0 | -99.3% | 48.3 | 543.0% | 214.4% | — | **0** | **67 WATCH** |
 | IonQ, Inc. | `IONQ` | 28.6 | 24.4 | -306.3% | -16.6 | -41.0% | 71.2% | -1.1% | **0** | **67 WATCH** |
@@ -210,13 +210,13 @@ Price/target uses the underlying Yahoo Finance share quote, not the OKX derivati
 | Netflix, Inc. | `NFLX` | 4.9 | 5.1 | 31.3% | 15.8 | 5.4% | 10.7% | 10.4% | **35** | **50** |
 | Fluence Energy, Inc. | `FLNC` | 0.4 | 0.4 | -14.8% | -8.9 | 86.7% | 24.3% | -52.1% | **0** | **50** |
 | Palantir Technologies Inc. | `PLTR` | 54.1 | 52.7 | 45.6% | 64.4 | 49.2% | 53.7% | 0.7% | **45** | **48** |
-| SamsungElec | `SAMSUNG` | 1.9 | 1.6 | 46.1% | 2.2 | 62.5% | 40.7% | 10.6% | **45** | **10** |
+| SamsungElec | `SAMSUNG` | 1.9 | 1.6 | 46.1% | 2.3 | 62.5% | 40.7% | 10.3% | **45** | **10** |
 | Super Micro Computer, Inc. | `SMCI` | 0.3 | 0.4 | 8.3% | 3.4 | 6.5% | 11.3% | -53.3% | **35** | **45** |
 | Dell Technologies Inc. | `DELL` | 1.1 | 1.2 | 11.2% | 9.7 | 7.6% | 21.0% | -0.2% | **30** | **45** |
 | Circle Internet Group, Inc. | `CRCL` | 4.1 | 3.5 | 11.3% | 33.9 | 3.6% | 24.2% | 2.1% | **20** | **43** |
 | Nebius Group N.V. | `NBIS` | 11.4 | 15.3 | -18.7% | -27.9 | -1706.3% | 289.8% | -81.9% | **0** | **40** |
 | CoreWeave, Inc. | `CRWV` | 2.4 | 8.7 | -0.5% | -23.9 | 24.0% | 106.9% | -83.0% | **0** | **40** |
-| SOFTBANK GROUP CORP | `SOFTBANK` | 2.0 | 5.5 | -6.3% | 9.8 | 153.4% | 6.0% | -6.2% | **0** | **40** |
+| SOFTBANK GROUP CORP | `SOFTBANK` | 2.0 | 5.5 | -6.3% | 9.9 | 153.4% | 6.0% | -6.2% | **0** | **40** |
 | Coinbase Global, Inc. | `COIN` | 5.0 | 4.7 | 0.1% | 43.2 | 1001.9% | 25.2% | 13.4% | **35** | **25** |
 | SK hynix | `SKHYNIX` | 2.8 | 2.4 | 74.5% | 2.0 | 49.0% | 60.6% | — | **30** | **5** |
 | Lumentum Holdings Inc. | `LITE` | 11.5 | 11.4 | 23.4% | 11.9 | 60.4% | 58.5% | 0.3% | **30** | **23** |
